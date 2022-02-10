@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { YourObjectiveComponent } from './your-objective/your-objective.component';
-import { CreateComponent } from './create/create.component';
 import { CreateObjectiveComponent } from './create-objective/create-objective.component';
 
 @NgModule({
@@ -13,7 +12,6 @@ import { CreateObjectiveComponent } from './create-objective/create-objective.co
     AppComponent,
     NavComponent,
     YourObjectiveComponent,
-    CreateComponent,
     CreateObjectiveComponent
   ],
   imports: [

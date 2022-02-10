@@ -1,0 +1,19 @@
+.nav-1{
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+}
+.nav-link{
+    color: grey;
+    box-shadow: none;
+}
+.nav-links:hover{
+    text-decoration: none;
+    color: grey;
+}
+.side{
+    position: absolute;
+    right: 20px;
+}
+.active{
+    color: #0D8EBB;
+}
