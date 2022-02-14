@@ -1,0 +1,28 @@
+        .login-logo{
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+		.login-box{
+			/*border: 1px solid black;*/
+			margin-left: 30%;
+			margin-top: 10%;
+			width: 500px;
+			padding: 100px;
+            padding-top: 50px;
+		}		
+		.in{
+			width: 300px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			border:none;
+			border-bottom: 1px solid darkgray;
+			outline: none;
+		}
+		.lg-btn{
+			margin-left: 40%;
+		}
+		.quest{
+			margin-left: 25%;
+			margin-top: 10px;
+		}
