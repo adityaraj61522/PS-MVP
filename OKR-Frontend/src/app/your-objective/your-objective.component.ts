@@ -1,3 +1,4 @@
+import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -30,7 +31,18 @@ export class YourObjectiveComponent implements OnInit {
   }
   constructor() { }
 
-  ngOnInit(): void {
+  userdata={
+    token:"",
+    expires:"",
+    user:""
   }
-
+  userData:any;
+  ngOnInit(): void {
+    this.userdata.token=JSON.parse(JSON.stringify(sessionStorage.getItem("token")));
+    this.userdata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
+    this.userdata.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
+    console.log(this.userdata.user[0]);
+    this.userData=this.userdata.user[0]
+    console.log(this.userData.first_name);
+  }
 }
