@@ -51,11 +51,11 @@ export class LoginComponent implements OnInit {
     console.log(sessionStorage)
   }
   url={
-    link:""
+    org_url:""
   }
 
   ngOnInit(): void {
-    this.url.link=window.location.href;
+    this.url.org_url=window.location.href;
     console.log(this.url);
     this.http.post(`http://localhost:9001/organization-details`,this.url).subscribe((result)=>{
       console.log(result);
