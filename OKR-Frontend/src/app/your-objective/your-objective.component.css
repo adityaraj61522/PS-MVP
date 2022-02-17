@@ -93,3 +93,10 @@ label{
 input{
     border:1px solid lightgrey;
 }
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched{
+    border-bottom: 1px solid red;
+}
+span{
+    color: red;
+    font-size: 10px;;
+}
