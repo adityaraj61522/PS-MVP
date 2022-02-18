@@ -2,31 +2,49 @@
 <div class="container">
     <div class="Register-box shadow-lg">
         <h2 class="reg-logo">Register</h2>
-        <form>
+        <form  [formGroup]="registerForm">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <input type="text" name="firstname" placeholder="Enter Firstname..." class="r-in">
+                        <!-- <label for="exampleInputPassword1">First Name</label> -->
+                        <input type="text" formControlName="firstname" class="r-in form-control" id="exampleInputPassword1" placeholder="First Name">
+                        <span class="text-danger" *ngIf="registerForm.controls['firstname'].dirty && registerForm.hasError('required','firstname')">*First Name is required</span>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="lastname" placeholder="Enter Lastname..." class="r-in">
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="text" name="mobile" placeholder="Enter Mobile Number..." class="r-in">
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Enter Email..." class="r-in">
+                        <!-- <label for="exampleInputPassword1">Last Name</label> -->
+                        <input type="text" formControlName="lastname" class="r-in form-control" id="exampleInputPassword1" placeholder="Last Name">
+                        <span class="text-danger" *ngIf="registerForm.controls['lastname'].dirty && registerForm.hasError('required','lastname')">*Last Name is required</span>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="hometown" placeholder="Enter Hometown" class="r-in">
+                        <input type="text" formControlName="username" class="r-in form-control" id="exampleInputPassword1" placeholder="User Name">
+                        <span class="text-danger" *ngIf="registerForm.controls['username'].dirty && registerForm.hasError('required','username')">*User Name is required</span>
                     </div>
                     
                     <div class="form-group">
-                        <input type="password" name="password" placeholder="Enter Password" class="r-in">
+                        <!-- <label for="exampleInputPassword1">Mobile Number</label> -->
+                        <input type="text" formControlName="mobile" class="r-in form-control" id="exampleInputPassword1" placeholder="Mobile Number">
+                        <span class="text-danger" *ngIf="registerForm.controls['mobile'].dirty && registerForm.hasError('required','mobile')">*Mobile number is required</span>
+                        <span></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <!-- <label for="exampleInputEmail1">Email address</label> -->
+                        <input type="email" formControlName="username" class="r-in form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <span class="text-danger" *ngIf="registerForm.controls['username'].dirty && registerForm.hasError('required','username')">*Email address is required</span>
+                        <span class="text-danger" *ngIf="registerForm.hasError('email','username')">*Email is Invalid</span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" formControlName="city" class="r-in form-control" placeholder="City Name">
+                        <span class="text-danger" *ngIf="registerForm.controls['city'].dirty && registerForm.hasError('required','city')">*City is required</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <!-- <label for="exampleInputPassword1">Password</label> -->
+                        <input type="password" formControlName="password" class="r-in form-control" id="exampleInputPassword1" placeholder="Password">
+                        <span class="text-danger" *ngIf="registerForm.controls['password'].dirty && registerForm.hasError('required','password')">*Password is required</span>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -38,10 +56,12 @@
                             <option value="Informantion Technology">Informantion Technology</option>
                             <option value="Finance">Finance</option>
                         </select>
+                        <span class="text-danger" *ngIf="registerForm.controls['emp-dept'].dirty && registerForm.hasError('required','emp-dept')">*Emp-Dept is required</span>
                     </div>
                     
                     <div class="form-group">
-                        <input type="text" name="emp-id" placeholder="Enter Employee ID" class="r-in">
+                        <input type="text" name="emp_id" ngModel placeholder="Enter Employee ID" class="r-in form-control" #emp_id="ngModel" required emp_id>
+                        <span class="help-block" *ngIf="!emp_id.valid && emp_id.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                     </div>
                     
                     <div class="form-group">
@@ -52,25 +72,26 @@
                         <input type="text" name="l2-manager" placeholder="Enter L2 manager" class="r-in">
                     </div>
                     
-                    <div class="form-group radio">
+                    <div class="form-group radio" >
                         <label>Gender:  
-                            <input type="radio" name="gender" >Male
+                            <input type="radio" ngModel name="gender" value="Male" gender required>Male
 
-                            <input type="radio" name="gender" >Female
+                            <input type="radio" ngModel name="gender" value="Female" gender required>Female
                         </label>
+                        <!-- <span class="help-block" *ngIf="!gender.valid && gender.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="country" ngModel placeholder="Enter Country" class="r-in form-control" #country="ngModel" country required>
+                        <span class="help-block" *ngIf="!country.valid && country.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid address!!!</span>
                     </div>
                             
 
-                    <div class="form-group">
-                        <input type="passowrd" name="conf-password" placeholder="Confirm your Password" class="r-in">
-                    </div>
+
                 </div>
             </div>
-            
-            
-            
 
-            <button class="btn btn-success bt-reg">Register</button>
+            <button class="btn btn-success bt-reg" type="submit" [disabled]="!registerForm.valid">Register</button>
         </form>
     </div>
 </div>
