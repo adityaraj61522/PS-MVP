@@ -24,7 +24,7 @@ export class YourObjectiveComponent implements OnInit {
   }
 
   @ViewChild('ObjForm') ObjFormData!: NgForm;
-  addObjective(){
+  addObjective(){ 
     this.newObjective.goal_name=this.ObjFormData.value.goal_name;
     this.newObjective.goal_description=this.ObjFormData.value.goal_description;
     this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;

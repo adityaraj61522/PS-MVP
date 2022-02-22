@@ -2,14 +2,16 @@
 <section class="active-list">
     <div>
       <strong>Active(1)</strong>
+      <!-- <app-milestone></app-milestone> -->
       <ul class="nav side">
         <li class="nav-item">
           <div class="modal fade show" *ngIf="show"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
+
                 <form (ngSubmit)="addObjective()" #ObjForm="ngForm">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalToggleLabel">NEW OBJECTIVE: YOUR AREA OF FOCUS</h5>
+                  <h5 class="modal-title" id="exampleModalToggleLabel">NEW KEY RESULT: CREATE YOUR KEY RESULT</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -76,9 +78,11 @@
                   <button class="btn btn-primary" type="submit" [disabled]="!ObjForm.valid" data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Add Key Result</button>
                 </div>
               </form>
+
               </div>
             </div>
             </div>
+            
             <div class="modal fade show" style="display: block;" *ngIf="show2" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
@@ -300,7 +304,7 @@
           </div>
             </li>
           </ul>
-        </div>
+        </div> 
       </div>
     </div>
     

@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+// import { MilestoneModule } from './milestone/milestone.module';
+// import { MilestoneComponent } from './milestone/milestone.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import { HttpClientModule } from '@angular/common/http';
     NavComponent,
     YourObjectiveComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    // MilestoneComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    // MilestoneModule
     
   ],
   providers: [],
