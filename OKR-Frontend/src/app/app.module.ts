@@ -9,6 +9,7 @@ import { NavComponent } from './nav/nav.component';
 import { YourObjectiveComponent } from './your-objective/your-objective.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ObjectiveDetailsComponent } from './objective-details/objective-details.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RegisterComponent } from './register/register.component';
     NavComponent,
     YourObjectiveComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ObjectiveDetailsComponent,
   ],
   imports: [
     BrowserModule,
