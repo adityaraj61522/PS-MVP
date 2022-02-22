@@ -45,17 +45,10 @@ export class YourObjectiveComponent implements OnInit {
     
     this.http.post(`http://localhost:9001/api/v1/employee/test`,this.newObjective).subscribe((result)=>{
       console.log(result); 
-      // this.responseData=JSON.parse(JSON.stringify(result));
-      // sessionStorage.setItem("token" , this.responseData.token);
-      // sessionStorage.setItem("expires" , this.responseData.expires);
-      // sessionStorage.setItem("userData" , this.responseData.user);
-      // this.correctPassword=true;
-      // this.router.navigate(
-      //   ['/objectives']
-      // );
+      this.show=false;
+      this.show2=true;
     },(error)=>{
       console.error(error);
-      // this.correctPassword=false;
     });
 
     console.log(this.newObjective)
