@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -33,26 +33,7 @@ export class YourObjectiveComponent implements OnInit {
 
   @ViewChild('ObjForm') ObjFormData!: NgForm;
   @ViewChild('KeyForm') KeyResFormData!: NgForm;
-  addObjective(){
-    this.newObjective.goal_name=this.ObjFormData.value.goal_name;
-    this.newObjective.goal_description=this.ObjFormData.value.goal_description;
-    this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
-    this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
-    this.newObjective.goal_owner_name=this.ObjFormData.value.goal_owner_name;
-    this.newObjective.linked_org_goal_id=this.ObjFormData.value.linked_org_goal_id;
-    // this.show=false;
-    // this.show2=true;
-    
-    this.http.post(`http://localhost:9001/api/v1/employee/test`,this.newObjective).subscribe((result)=>{
-      console.log(result); 
-      this.show=false;
-      this.show2=true;
-    },(error)=>{
-      console.error(error);
-    });
-
-    console.log(this.newObjective)
-  }
+  
 
   addKey(){
     this.newKey.milestone_name=this.KeyResFormData.value.milestone_name;
@@ -91,5 +72,39 @@ export class YourObjectiveComponent implements OnInit {
     console.log(this.userdata.user[0]);
     this.userData=this.userdata.user[0]
     console.log(this.userData.first_name);
+    console.log(this.headers)
   }
+  head = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+    'x-key':'1',
+    'x-org':'1'
+  }
+  headers ={
+    head : new HttpHeaders(this.head)
+  }
+
+  addObjective(){
+    this.newObjective.goal_name=this.ObjFormData.value.goal_name;
+    this.newObjective.goal_description=this.ObjFormData.value.goal_description;
+    this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
+    this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
+    this.newObjective.goal_owner_name=this.ObjFormData.value.goal_owner_name;
+    this.newObjective.linked_org_goal_id=this.ObjFormData.value.linked_org_goal_id;
+    // this.show=false;
+    // this.show2=true;
+    
+    this.http.post(`http://localhost:9001/api/v1/employee/test`,this.newObjective).subscribe((result)=>{
+      console.log(result); 
+      this.show=false;
+      this.show2=true;
+    },(error)=>{
+      console.error(error);
+    });
+
+    console.log(this.newObjective)
+  }
+
 }
