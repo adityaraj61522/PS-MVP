@@ -9,6 +9,7 @@ import { NavComponent } from './nav/nav.component';
 import { YourObjectiveComponent } from './your-objective/your-objective.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { MilestoneComponent } from './milestone/milestone.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { RegisterComponent } from './register/register.component';
     YourObjectiveComponent,
     LoginComponent,
     RegisterComponent,
-    // MilestoneComponent
+    MilestoneComponent
   ],
   imports: [
     BrowserModule,

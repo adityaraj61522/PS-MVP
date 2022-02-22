@@ -1,80 +1,126 @@
 <p>milestone works!</p>
 
+
 <ul class="nav side">
-    <li class="nav-item">
-      <div class="modal fade show" *ngIf="show"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
+  <li class="nav-item">
+    <div class="modal fade show" *ngIf="show"   id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
-            <form > 
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalToggleLabel">NEW OBJECTIVE: YOUR AREA OF FOCUS</h5>
-              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button> -->
-            </div>
-           
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-bs-dismiss="modal" (click)="objectiveHide()"  aria-label="Close"> Cancel </button><br>
-              <button class="btn btn-primary" type="submit" [disabled]="!myForm.valid" data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Add Key Result</button>
-            </div>
-          </form>
-
+          <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalToggleLabel">NEW KEY RESULT: CREATE YOUR KEY RESULT</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button>
           </div>
-        </div>
-        </div>
-        
-        <div class="modal fade show" style="display: block;" *ngIf="show2" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalToggleLabel2">ADD KEY RESULT: HOW YOU WILL DO IT</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="keyresultHide()"></button>
-            </div>
-            <div class="modal-body">
-              <div>
-                <strong>Outcomes:</strong>List Down Your Key Results
-              </div>
-              <button class="btn btn-primary" style="background-color: #0D8EBB;"><img src="https://img.icons8.com/ios/25/000000/add--v2.png"/></button>
-              <div>
-                <strong>Efforts:</strong>These are the Initiatives and action plans to acheive the Key Results
-              </div>
-              <div class="in-date">
-              <div>
-                <input type="text" class="in-2" name="objective" placeholder="Write your Efforts Here">
-              </div>
-              <div>
-                <select class="form-select in-2" aria-label="Default select example">
-                  <option selected>Boolean</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Milestone name:</label><br>
+              <input type="text" class="in-1" formControlName="milestone_name"   >
+           
             </div>
             <div class="in-date">
-                <div>
-                  <label>Start Date*</label><br>
-                  <input type="date" name="start" class="in-d" placeholder="Start Date">
+              <div class="form-group">
+                <label>Which Type of OKR you are Creating?:</label><br>
+                <select class="form-select in-2"  aria-label="Default select example"  #mySelect   (change)='changeChoice(mySelect.value)'>
+              <!-- <option selected>Open this select menu</option> -->
+              <option selected value="boolean">boolean</option>
+              <option value="progress">progress</option>
+              <option value="metric">metric</option>
+            </select>
+          
                 </div>
-                <div>
-                  <label>End Date*</label><br>
-                  <input type="date" name="end" class="in-d" placeholder="End Date">
-                </div>
+             
+              <div class="form-group">
+              <label>Start Date*</label><br>
+              <input type="date"  class="in-d"   formControlName="milestone_start_date">
+             
+              </div>
+              <div class="form-group">
+              <label>End Date*</label><br>
+              <input type="date"   class="in-d" formControlName="milestone_due_date">
+             
               </div>
             </div>
-            <div class="modal-footer">
-              <button class="btn btn-default" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" (click)="previous()">Previous</button>
-              <button class="btn btn-primary" data-bs-target="#exampleModalToggle" style="background-color: #0D8EBB;" data-bs-toggle="modal">Save And Add More</button>
+          <div class="in-date">
+            <div class="form-group">
+            <label>Owner:</label><br>
+            <input type="text" class="in-2" >
+            <br>
+         
+            </div>
+            <div class="form-group">
+            <label>To which Company Objective This Objective Align With:</label><br>
+            <select class="form-select in-2"  aria-label="Default select example">
+          <option selected>Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+     
             </div>
           </div>
+          <div class="in-date" *ngIf="choice=='boolean'">
+             <div class="form-group">
+                <label>milestone status*</label><br>
+                <select class="form-select in-2"  aria-label="Default select example" formControlName="milestone_status">
+                  <option selected value="not completed">Not Completed</option>
+              <option  value="completed">Completed</option>
+
+            </select>
+          
+              </div>
+          </div>
+          <div class="in-date" *ngIf="choice=='progress'">
+            <div class="form-group">
+              <label>Milestone progress status* (%)</label><br>
+              <input type="text" class="" formControlName="milestone_progress"   >
+            </div>
+          </div>
+  
+
+
+          <div class="in-date" *ngIf="choice=='metric'">
+            <div class="form-group">
+              <label>Metric start value*</label><br>
+              <input type="text" class="" formControlName="metric_start_value"   >
+            </div>
+            &nbsp;&nbsp;
+            <div class="form-group ml-3">
+              <label>Metric target value</label><br>
+              <input type="text" class="" formControlName="metric_target_value"   >
+            </div>
+            &nbsp;&nbsp;
+            <div class="form-group">
+              <label>metric current value</label><br>
+              <input type="text" class="" formControlName="metric_curr_value"   >
+            </div>
+          </div>
+
+          <!-- <div class="in-date">
+             <div class="form-group">
+                <label>Which period is the objectiveRunning in?*</label><br>
+                <select class="form-select in-2"  aria-label="Default select example" name="goal_quater">
+              <option value="1">Q1</option>
+              <option value="2">Q2</option>
+              <option value="3">Q3</option>
+              <option value="4">Q4</option>
+            </select>
+          
+              </div>
+          </div> -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-bs-dismiss="modal" (click)="objectiveHide()"  aria-label="Close"> Cancel </button><br>
+            <button class="btn btn-primary" type="submit" 
+            [disabled]="myForm.invalid"
+            data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Add Key dfgdflghdfkhg Result</button>
+          </div>
+        </form>
+
         </div>
       </div>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <a class="btn btn-primary" data-bs-toggle="modal" (click)="objectiveShow()" style="background-color: #0D8EBB;" role="button"><img src="https://img.icons8.com/ios/25/000000/add--v2.png"/> KEY RESULT HERE</a>
-    </li>
-  </ul>
+      </div>
+    
+    <a class="btn btn-primary " data-bs-toggle="modal" (click)="objectiveShow()" style="background-color: #0D8EBB; margin-top: 60px;" role="button"><img src="https://img.icons8.com/ios/25/000000/add--v2.png"/> add my key</a>
+  </li>
+</ul>jonnn

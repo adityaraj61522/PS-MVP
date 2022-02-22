@@ -1,8 +1,9 @@
-import { HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule, HttpEvent, HttpHandler, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-your-objective',
@@ -10,6 +11,21 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./your-objective.component.css']
 })
 export class YourObjectiveComponent implements OnInit {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    const headers = new HttpHeaders({
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+      'x-key':'1',
+      'x-org':'1'
+    });
+
+
+    const cloneReq = req.clone({headers});
+
+    return next.handle(cloneReq);
+  }
+
   constructor( private http : HttpClient) { }
 
   show=false;
@@ -74,7 +90,7 @@ export class YourObjectiveComponent implements OnInit {
     console.log(this.userData.first_name);
     console.log(this.headers)
   }
-  head = {
+  objHead = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -82,9 +98,18 @@ export class YourObjectiveComponent implements OnInit {
     'x-key':'1',
     'x-org':'1'
   }
-  headers ={
-    head : new HttpHeaders(this.head)
-  }
+  headers = new HttpHeaders( );
+  // myObj = {
+
+  // }
+
+  // const myvar = JSON.parse(JSON.stringify(sessionStorage.getItem("token"))
+   headersObj1 = this.headers.set( 'x-access-token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg').set( 'x-key', '1').set( 'x-org', '1')
+
+
+  // headers ={
+  //   head : new HttpHeaders(this.head)
+  // }
 
   addObjective(){
     this.newObjective.goal_name=this.ObjFormData.value.goal_name;
@@ -96,7 +121,7 @@ export class YourObjectiveComponent implements OnInit {
     // this.show=false;
     // this.show2=true;
     
-    this.http.post(`http://localhost:9001/api/v1/employee/test`,this.newObjective).subscribe((result)=>{
+    this.http.post(`http://localhost:9001/api/v1/employee/create-objective`, this.newObjective,{headers: this.headersObj1}).subscribe((result)=>{
       console.log(result); 
       this.show=false;
       this.show2=true;
