@@ -19,19 +19,19 @@ export class MilestoneComponent implements OnInit {
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
-      goal_id: 1,
-      org_id: 1,
+      goal_id: "1",
+      org_id: "1",
       milestone_name: ['',[Validators.required]],
       milestone_start_date: ['',[Validators.required]],
       milestone_due_date: ['',[Validators.required]],
-      // milestone_complete_date: ['',[Validators.required]],
-      is_active: 1,
-      created_by:1,
-      milestone_weightage: 100,
+      milestone_complete_date: ['',[Validators.required]],
+      is_active: "1",
+      created_by: "1",
+      milestone_weightage: "100",
 
       //owner detail
       milestone_owner_id: '1',
-      milestone_owner_name: 'ravu',
+      milestone_owner_name: 'ravi',
       milestone_owner_email: 'ravi@gmail.com',
 
       //boolean
@@ -70,13 +70,13 @@ export class MilestoneComponent implements OnInit {
   onSubmit(form: FormGroup) {
 
     const milestoneObj = {...form.value,milestone_type: this.choice}
-    console.log(milestoneObj);
+  
+
     if(this.choice=='boolean'){
       delete milestoneObj.milestone_progress;
       delete milestoneObj.metric_curr_value;
       delete milestoneObj.metric_start_value;
       delete milestoneObj.metric_target_value;
-      console.log(milestoneObj);
       this.postMilestoneReq(milestoneObj,'boolean')
     }
     if(this.choice=='progress'){
@@ -96,7 +96,7 @@ export class MilestoneComponent implements OnInit {
 
 
   postMilestoneReq = (data:any,milestoneType:string)=>{
-    console.log(data);
+    // console.log(milestoneType, data);
 
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -110,6 +110,10 @@ export class MilestoneComponent implements OnInit {
       headers: new HttpHeaders(headers),
     };
 
+    const testObj = {
+      ravi:'ravi',
+      kumar:'mere'
+    }
      
     this.http.post(`http://localhost:9001/api/v1/employee/create-milestone`, data,requestOptions).subscribe((result)=>{
       console.log(result); 
