@@ -2,75 +2,84 @@
 <div class="container">
     <div class="Register-box shadow-lg">
         <h2 class="reg-logo">Register</h2>
-        <form>
+        <form (ngSubmit)="submit()" #f="ngForm">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <input type="text" name="firstname" placeholder="Enter Firstname..." class="r-in">
+                        <input type="text" name="firstname" ngModel placeholder="Enter Firstname..." class="r-in form-control" #firstname="ngModel" firstname required>
+                        <span class="help-block" *ngIf="!firstname.valid && firstname.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="lastname" placeholder="Enter Lastname..." class="r-in">
+                        <input type="text" name="lastname" ngModel placeholder="Enter Lastname..." class="r-in form-control" #lastname="ngModel" lastname required>
+                        <span class="help-block" *ngIf="!lastname.valid && lastname.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                     </div>
                     
                     <div class="form-group">
-                        <input type="text" name="mobile" placeholder="Enter Mobile Number..." class="r-in">
+                        <input type="text" name="mobile" ngModel placeholder="Enter Mobile Number..." class="r-in form-control" #mobile="ngModel" mobile required>
+                        <span class="help-block" *ngIf="!mobile.valid && mobile.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid mobile number!!!</span>
                     </div>
                     
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Enter Email..." class="r-in">
+                        <input type="email" name="email" ngModel placeholder="Enter Email..." class="r-in form-control" #email="ngModel" email required>
+                        <span class="help-block" *ngIf="!email.valid && email.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid email!!!</span>
+                        <span class="help-block" *ngIf="userExist"><i class="fas fa-exclamation-circle"></i>Entered email already exists!!!</span>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="hometown" placeholder="Enter Hometown" class="r-in">
+                        <input type="text" name="homeTown" ngModel placeholder="Enter Hometown" class="r-in form-control" #homeTown="ngModel" hometown required>
+                        <span class="help-block" *ngIf="!homeTown.valid && homeTown.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid address!!!</span>
                     </div>
                     
                     <div class="form-group">
-                        <input type="password" name="password" placeholder="Enter Password" class="r-in">
+                        <input type="password" name="password" ngModel placeholder="Enter Password" class="r-in form-control" #password="ngModel" password required>
+                        <span class="help-block" *ngIf="!password.valid && password.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid password!!!</span>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <select name="emp-dept" class="r-in">
-                            <option>Select Department</option>
+                        <select name="emp_dept" ngModel class="r-in form-control" #emp_dept="ngModel" emp_dept required>
+                            <option value="">Select Department</option>
                             <option value="Human Resource">Human Resource</option>
                             <option value="Technology">Technology</option>
                             <option value="Informantion Technology">Informantion Technology</option>
                             <option value="Finance">Finance</option>
                         </select>
+                        <span class="help-block" *ngIf="!emp_dept.valid && emp_dept.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                     </div>
                     
-                    <div class="form-group">
-                        <input type="text" name="emp-id" placeholder="Enter Employee ID" class="r-in">
+                    <div class="form-group" >
+                        <input type="text" name="emp_code" ngModel placeholder="Enter Employee Code" class="r-in form-control" #emp_code="ngModel" required emp_code>
+                        <span class="help-block" *ngIf="!emp_code.valid && emp_code.touched"><i class="fas fa-exclamation-circle"></i>Please enter a Emp Code!!!</span>
                     </div>
-                    
-                    <div class="form-group">
-                        <input type="text" name="l1-manager" placeholder="Enter L1 manager" class="r-in">
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="text" name="l2-manager" placeholder="Enter L2 manager" class="r-in">
-                    </div>
-                    
-                    <div class="form-group radio">
-                        <label>Gender:  
-                            <input type="radio" name="gender" >Male
 
-                            <input type="radio" name="gender" >Female
+                    <div class="form-group" >
+                        <input type="text" name="org_id" ngModel placeholder="Enter Org ID" class="r-in form-control" #org_id="ngModel" required org_id>
+                        <span class="help-block" *ngIf="!org_id.valid && org_id.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid org_id!!!</span>
+                    </div>
+                    
+                    <div class="form-group" >
+                        <input type="text" name="line_manager_id" ngModel placeholder="Enter L1 manager" class="r-in form-control" #line_manager_id="ngModel" required line_manager_id>
+                        <span class="help-block" *ngIf="!line_manager_id.valid && line_manager_id.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+                    </div>
+                    
+                    <div class="form-group radio" >
+                        <label>Gender:  
+                            <input type="radio" ngModel name="gender" value="Male" gender required>Male
+
+                            <input type="radio" ngModel name="gender" value="Female" gender required>Female
                         </label>
+                        <!-- <span class="help-block" *ngIf="!gender.valid && gender.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
                     </div>
                             
 
                     <div class="form-group">
-                        <input type="passowrd" name="conf-password" placeholder="Confirm your Password" class="r-in">
+                        <input type="passowrd" name="conf-password" ngModel placeholder="Confirm your Password" class="r-in form-control" #conf_password="ngModel" conf_password required> 
+                        <span class="help-block" *ngIf="!conf_password.valid && conf_password.touched && conf_password===password"><i class="fas fa-exclamation-circle"></i>The password does not match!!!</span>
                     </div>
                 </div>
             </div>
-            
-            
-            
-
-            <button class="btn btn-success bt-reg">Register</button>
+            <button class="btn btn-success bt-reg" type="submit" [disabled]="!f.valid">Register</button>
         </form>
     </div>
 </div>

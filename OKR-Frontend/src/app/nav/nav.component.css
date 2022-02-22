@@ -2,6 +2,11 @@
     background-color: white;
     border-bottom: 1px solid lightgray;
 }
+.nav-logo{
+    height: 30px;
+    /* width: 50px;\ */
+    position: absolute;
+}
 .nav-link{
     color: grey;
     box-shadow: none;

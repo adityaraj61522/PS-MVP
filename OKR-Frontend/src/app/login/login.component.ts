@@ -53,12 +53,20 @@ export class LoginComponent implements OnInit {
   url={
     org_url:""
   }
+  orgData:any;
 
+  org_logo:any;
+  org_banner:any;
   ngOnInit(): void {
-    this.url.org_url=window.location.href;
+    this.url.org_url=window.location.host;
     console.log(this.url);
     this.http.post(`http://localhost:9001/organization-details`,this.url).subscribe((result)=>{
       console.log(result);
+      this.orgData=JSON.parse(JSON.stringify(result));
+      sessionStorage.setItem("orgDetails.id",this.orgData.org_id);
+      this.org_logo=sessionStorage.getItem("orgDetails.org_logo_url")
+      this.org_banner=sessionStorage.getItem("orgDetails.org_corporate_banner_url");
+      // this.org_banner="https://logos-world.net/wp-content/uploads/2020/12/Lays-Logo.png";
     },(error)=>{
       console.error(error);
     });

@@ -1,3 +1,19 @@
+		body,html{
+			height: 100%;
+		}
+		.login-body{
+			/* background-image: url("https://logos-world.net/wp-content/uploads/2020/12/Lays-Logo.png"); */
+			/* width: auto;
+			height: fit-content;background-image: url("img_girl.jpg"); */
+
+			/* Full height */
+			height: 680px;
+		  
+			/* Center and scale the image nicely */
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
 
 		.login-box{
 			/*border: 1px solid black;*/
