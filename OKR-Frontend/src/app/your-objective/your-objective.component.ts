@@ -14,7 +14,20 @@ export class YourObjectiveComponent implements OnInit {
 
   show=false;
   show2=false;
+  show3=false;
 
+  dp=false;
+  showDp(){
+    if(this.dp == false){
+      this.dp=true;
+    }else{
+      this.dp =false;
+    }
+  }
+
+  openUpdateDp(){
+    this.show3=true;
+  }
   newObjective={
     goal_name: "",
     goal_description: "",
@@ -143,8 +156,11 @@ export class YourObjectiveComponent implements OnInit {
     },(error)=>{
       console.error(error);
     });
-
     console.log(this.newObjective ,"obj")
   }
 
+
+  updateObjective(){
+      
+  }
 }
