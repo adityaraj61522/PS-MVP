@@ -6,13 +6,13 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <input type="text" name="firstname" class="r-in form-control" placeholder="Enter First Name" ngModel #firstname="ngModel" firstname required>
-				        <span class="help-block" *ngIf="!firstname.valid && firstname.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid Firstname!</span>
+                        <input type="text" name="first_name" class="r-in form-control" placeholder="Enter First Name" ngModel #first_name="ngModel" firs_tname required>
+				        <span class="help-block" *ngIf="!first_name.valid && first_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid Firstname!</span>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="lastname" class="r-in form-control" placeholder="Enter Last Name" ngModel #lastname="ngModel" lastname required>
-				        <span class="help-block" *ngIf="!lastname.valid && lastname.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid Lastname!</span>
+                        <input type="text" name="last_name" class="r-in form-control" placeholder="Enter Last Name" ngModel #last_name="ngModel" last_name required>
+				        <span class="help-block" *ngIf="!last_name.valid && last_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid Lastname!</span>
                     </div>
 
                     <div class="form-group">
@@ -20,10 +20,10 @@
 				        <span class="help-block" *ngIf="!username.valid && username.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid Username!</span>
                     </div>
                     
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <input type="text" name="mobile" class="r-in form-control" placeholder="Enter Mobile Number" ngModel #mobile="ngModel" mobile required>
 				        <span class="help-block" *ngIf="!mobile.valid && mobile.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid mobile!</span>
-                    </div>
+                    </div> -->
                     
                     <div class="form-group">
                         <input type="email" name="email" class="r-in form-control" placeholder="Enter Email" ngModel #email="ngModel" email required>
@@ -42,14 +42,14 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <select name="emp_dept" ngModel class="r-in form-control" #emp_dept="ngModel" emp_dept required>
+                        <select name="department" ngModel class="r-in form-control" #department="ngModel" department required>
                             <option>Select Department</option>
                             <option value="Human Resource">Human Resource</option>
                             <option value="Technology">Technology</option>
                             <option value="Informantion Technology">Informantion Technology</option>
                             <option value="Finance">Finance</option>
                         </select>
-                        <span class="help-block" *ngIf="!emp_dept.valid && emp_dept.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!</span>
+                        <span class="help-block" *ngIf="!department.valid && department.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!</span>
                     </div>
                     
                     <div class="form-group">
@@ -67,13 +67,13 @@
 				        <span class="help-block" *ngIf="!line_manager_id.valid && line_manager_id.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid Line Manager Id!</span>
                     </div>
                     
-                    <div class="form-group radio">
+                    <!-- <div class="form-group radio">
                         <label>Gender:  
                             <input type="radio" ngModel name="gender" value="Male" gender required>Male
 
                             <input type="radio" ngModel name="gender" value="Female" gender required>Female
                         </label>
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
                         <input type="text" name="country" class="r-in form-control" placeholder="Enter Country Name" ngModel #country="ngModel" country required>
