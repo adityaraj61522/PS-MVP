@@ -19,7 +19,7 @@
                     <span class="help-block" *ngIf="!goal_name.valid && goal_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                   </div>
                   <div class="in-date">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label>Which period is the objectiveRunning in?*</label><br>
                       <select class="form-select in-2" ngModel aria-label="Default select example" name="goal_quater" #goal_quater="ngModel" goal_quater required>
                     <option value="1">Q1</option>
@@ -28,7 +28,7 @@
                     <option value="4">Q4</option>
                   </select>
                   <span class="help-block" *ngIf="!goal_quater.valid && goal_quater.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                     <label>Start Date*</label><br>
                     <input type="date" name="goal_start_date" ngModel class="in-d" #goal_start_date="ngModel" goal_start_date required>
@@ -61,13 +61,13 @@
                 <div class="in-date">
                   <div class="form-group">
                   <label>Which Type of OKR you are Creating?:</label><br>
-                  <select class="form-select in-2" ngModel aria-label="Default select example" name="goal_description" #goal_description="ngModel" goal_description required>
+                  <select class="form-select in-2" ngModel aria-label="Default select example" name="goal_type" #goal_type="ngModel" goal_type required>
                 <option selected>Open this select menu</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
               </select>
-              <span class="help-block" *ngIf="!goal_description.valid && goal_description.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+              <span class="help-block" *ngIf="!goal_type.valid && goal_type.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                   </div>
                 </div>
                 </div>
