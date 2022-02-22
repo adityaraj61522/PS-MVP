@@ -80,7 +80,8 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "MVP-Frontend:build"
+            "browserTarget": "MVP-Frontend:build",
+            "proxyConfig": "./proxy.conf.json"
           }
         },
         "test": {

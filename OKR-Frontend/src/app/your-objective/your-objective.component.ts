@@ -21,7 +21,16 @@ export class YourObjectiveComponent implements OnInit {
     goal_start_date: "",
     goal_due_date: "",
     goal_owner_name: "",
-    linked_org_goal_id: ""
+    linked_org_goal_id: "",
+    org_id:"",
+    goal_owner_id:1,
+    goal_owner_email:"",
+    goal_type:"",
+    goal_setting_id:1,
+    created_by:'',
+    updated_by:1
+
+
   }
 
   newKey={
@@ -69,34 +78,54 @@ export class YourObjectiveComponent implements OnInit {
     this.userdata.token=JSON.parse(JSON.stringify(sessionStorage.getItem("token")));
     this.userdata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
     this.userdata.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
-    console.log(this.userdata.user[0]);
+    console.log(this.userdata.user[0],"kjhskjkj");
     this.userData=this.userdata.user[0]
     console.log(this.userData.first_name);
-    console.log(this.headers)
+    this.newObjective.org_id=this.userData.org_id;
+    // this.newObjective.goal_owner_id=this.userData.first_name;
+    // this.newObjective.goal_owner_email=this.userData.first_name;
+    // this.newObjective.goal_setting_id=this.userData.first_name;
+    this.newObjective.created_by=this.userData.user_id;
+    // this.newObjective.updated_by=this.userData.first_name;
+    // console.log(this.headers)
   }
   head = {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     'Accept': 'application/json',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': '*',
     'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
     'x-key':'1',
     'x-org':'1'
   }
-  headers ={
-    head : new HttpHeaders(this.head)
-  }
+  // headers =new HttpHeaders();
+  // headers = new HttpHeaders().set(this.headers:JSON.stringify(this.head))
+  // let headers = new HttpHeaders();
+  // headers = headers.set('x-auth-token',JSON.stringify(sessionStorage.getItem('token'));
+  // opt.headers = headers;
 
   addObjective(){
     this.newObjective.goal_name=this.ObjFormData.value.goal_name;
-    this.newObjective.goal_description=this.ObjFormData.value.goal_description;
+    this.newObjective.goal_type=this.ObjFormData.value.goal_type;
     this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
     this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
     this.newObjective.goal_owner_name=this.ObjFormData.value.goal_owner_name;
     this.newObjective.linked_org_goal_id=this.ObjFormData.value.linked_org_goal_id;
     // this.show=false;
     // this.show2=true;
+    const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Headers': '*',
+    'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+    'x-key':'1',
+    'x-org':'1'
+  }
+  const requestOptions = {
+    headers: new HttpHeaders(headers),
+  };
     
-    this.http.post(`http://localhost:9001/api/v1/employee/test`,this.newObjective).subscribe((result)=>{
+    this.http.post(`/api/v1/employee/create-objective`, this.newObjective , requestOptions
+  ).subscribe((result)=>{
       console.log(result); 
       this.show=false;
       this.show2=true;
@@ -104,7 +133,7 @@ export class YourObjectiveComponent implements OnInit {
       console.error(error);
     });
 
-    console.log(this.newObjective)
+    console.log(this.newObjective ,"obj")
   }
 
 }
