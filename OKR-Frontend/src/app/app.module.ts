@@ -9,6 +9,8 @@ import { NavComponent } from './nav/nav.component';
 import { YourObjectiveComponent } from './your-objective/your-objective.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ObjectiveDetailsComponent } from './objective-details/objective-details.component';
+import { MilestoneModule } from './milestone/milestone.module';
 import { MilestoneComponent } from './milestone/milestone.component';
 
 @NgModule({
@@ -18,6 +20,7 @@ import { MilestoneComponent } from './milestone/milestone.component';
     YourObjectiveComponent,
     LoginComponent,
     RegisterComponent,
+    ObjectiveDetailsComponent,
     MilestoneComponent
   ],
   imports: [
@@ -26,6 +29,7 @@ import { MilestoneComponent } from './milestone/milestone.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MilestoneModule
   ],
   providers: [],
   bootstrap: [AppComponent]
