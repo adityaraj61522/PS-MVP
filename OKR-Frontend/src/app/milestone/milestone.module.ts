@@ -6,14 +6,14 @@ import { MilestoneComponent } from './milestone.component';
 
 @NgModule({
   declarations: [
-    MilestoneComponent
+    // MilestoneComponent
   ],
   imports: [
     CommonModule,
-    MilestoneComponent
+    // MilestoneComponent
   ],
   exports:[
-    MilestoneComponent
+    // MilestoneComponent
   ]
 })
 export class MilestoneModule { }
