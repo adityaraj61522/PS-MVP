@@ -78,6 +78,8 @@ export class YourObjectiveComponent implements OnInit {
     user:""
   }
   userData:any;
+  goalData: any;
+  
   ngOnInit(): void {
     this.userdata.token=JSON.parse(JSON.stringify(sessionStorage.getItem("token")));
     this.userdata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
@@ -106,9 +108,11 @@ export class YourObjectiveComponent implements OnInit {
     const requestOptions = {
       headers: new HttpHeaders(headers),
     };
+    
 
     this.http.post(`/api/v1/employee/getgoals`, this.getGoal, requestOptions).subscribe((response)=>{
       console.log(response);
+      
     },(error)=>{
       console.error(error);
     })
