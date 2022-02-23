@@ -42,10 +42,17 @@
                   </div>
                 <div class="in-date">
                   <div class="form-group">
-                  <label>Owner:</label><br>
+                  <!-- <label>Owner:</label><br>
                   <input type="text" class="in-2" ngModel name="goal_owner_name" #goal_owner_name="ngModel" goal_owner_name required>
                   <br>
-                  <span class="help-block" *ngIf="!goal_owner_name.valid && goal_owner_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+                  <span class="help-block" *ngIf="!goal_owner_name.valid && goal_owner_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
+                  <label for="typeahead-basic">Search for a Owner:</label>
+                  <input id="typeahead-basic" type="text" class="form-control" [formControl]="OwnerDetailsSearchInput" (input)="doOwnerSearch()"/>
+                  <!-- <ul>
+                    <li *ngFor="let owner of owners | async">
+                      {{owner}}
+                    </li> 
+                  </ul> -->
                   </div>
                   <div class="form-group">
                   <label>To which Company Objective This Objective Align With:</label><br>
@@ -215,57 +222,9 @@
         </li>
       </ul>
     </div>
-    <div class="list">
-      <div class="list-card row">
-        <div class="col-sm-1 progress-percent">
-          100%
-        </div>
-        <div class="col-sm-8 task-details">
-          <strong>Make Performance the most prefered Solution</strong>
-          <ul class="nav">
-            <li class="nav-item">
-              <div class="nav-link active" aria-current="page">
-                <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" style="color: #0D8EBB; padding-top: 0px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  Key Results
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </div>
-            </div>
-            </li>
-            <li class="nav-item">
-              <div class="nav-link">Date</div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Saas Product : Stronger Modules & Others</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-sm-2 options">
-          <ul class="nav">
-            <li class="nav-item">
-              <p class="status shadow">Waiting for approval</p>
-            </li>
-            <li class="nav-item">
-              <div class="dropdown">
-            <button class="btn btn-default dropdown" (click)="showDp()" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png"/>
-            </button>
-            <ul class="dropdown-menu" *ngIf="dp" style="display: block;" aria-labelledby="dropdownMenuButton1">
-              <li (click)="openUpdateDp()"><a class="dropdown-item">Update Goal</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
-            </li>
-          </ul>
-        </div>
+    <div class="list" *ngFor="">
+      <app-goal-list ></app-goal-list>
       </div>
-    </div>
     
     </section>
     
