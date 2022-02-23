@@ -3,7 +3,7 @@
       100%
     </div>
     <div class="col-sm-8 task-details">
-      <strong>Make Performance the most prefered Solution</strong>
+      <strong>{{goalDetails.goal_name}}</strong>
       <ul class="nav">
         <li class="nav-item">
           <div class="nav-link active" aria-current="page">
@@ -20,10 +20,10 @@
         </div>
         </li>
         <li class="nav-item">
-          <div class="nav-link">Date</div>
+          <div class="nav-link">Date: {{goalDetails.creation_date}}</div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Saas Product : Stronger Modules & Others</a>
+          <a class="nav-link" href="#">{{goalDetails.goal_type}}</a>
         </li>
       </ul>
     </div>

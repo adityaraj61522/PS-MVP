@@ -2,7 +2,6 @@
 <section class="active-list">
     <div>
       <strong>Active(1)</strong>
-      <app-milestone></app-milestone>
       <ul class="nav side">
         <li class="nav-item">
           <div class="modal fade show" *ngIf="show"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -17,7 +16,6 @@
               </div>
             </div>
             </div>
-            
             <div class="modal fade show" style="display: block;" *ngIf="show2" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
@@ -47,8 +45,8 @@
         </li>
       </ul>
     </div>
-    <div class="list" *ngFor="">
-      <app-goal-list ></app-goal-list>
+    <div class="list" *ngFor="let goal of goalData">
+      <app-goal-list [goalDetails]="goal"></app-goal-list>
       </div>
     
     </section>
@@ -170,7 +168,7 @@
           </div>
             </li>
           </ul>
-        </div> 
+        </div>
       </div>
     </div>
     
