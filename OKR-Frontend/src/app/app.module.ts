@@ -17,6 +17,7 @@ import { GoalListComponent } from './your-objective/goal-list/goal-list.componen
 import { MilestoneComponent } from './milestone/milestone.component';
 import { CreateGoalComponent } from './your-objective/create-goal/create-goal.component';
 import { CreateMilestoneComponent } from './your-objective/create-milestone/create-milestone.component';
+
 import { EditGoalComponent } from './your-objective/edit-goal/edit-goal.component';
 // import { ApiComponent } from './apiCollection/api/api.component';
 
