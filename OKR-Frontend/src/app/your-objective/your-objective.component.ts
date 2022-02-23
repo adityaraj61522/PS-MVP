@@ -3,7 +3,10 @@ import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { NgStyle } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { Observable,BehaviorSubject, OperatorFunction } from 'rxjs';
+import { debounceTime,switchMap, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-your-objective',
@@ -11,6 +14,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./your-objective.component.css']
 })
 export class YourObjectiveComponent implements OnInit {
+  OwnerDetailsSearchInput = new FormControl;
+  searchOwner= new BehaviorSubject<string>('');
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const headers = new HttpHeaders({
@@ -27,6 +32,32 @@ export class YourObjectiveComponent implements OnInit {
   }
 
   constructor( private http : HttpClient) { }
+
+  // owners : Observable<string[]>= this.searchOwner.pipe(
+  //   switchMap(search=>{
+  //     const headers = {
+  //       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+  //       'Accept': 'application/json',
+  //       'Access-Control-Allow-Headers': '*',
+  //       'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+  //       'x-key':'1',
+  //       'x-org':'1'
+  //     }
+  //     const requestOptions = {
+  //       headers: new HttpHeaders(headers),
+  //     };
+  //     return this.http.post(`/api/v1/employee/getusers?namelike=`+search, this.getUser, requestOptions).subscribe((response)=>{
+  //       console.log(response,"user");
+  //       this.allUsers=response;
+  //     },(error)=>{
+  //       console.error(error);
+  //     })
+  //   })
+  // )
+
+  doOwnerSearch(){
+    this.searchOwner.next(this.OwnerDetailsSearchInput.value); 
+  }
 
   show=false;
   show2=false;
@@ -101,15 +132,19 @@ export class YourObjectiveComponent implements OnInit {
     goal_owner_id:""
   }
 
+  getUser={
+    org_id:""
+  }
   userdata={
     token:"",
     expires:"",
     user:""
   }
   userData:any;
+
+  allUsers:any;
   goalData: any;
-  
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.userdata.token=JSON.parse(JSON.stringify(sessionStorage.getItem("token")));
     this.userdata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
     this.userdata.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
@@ -126,6 +161,9 @@ export class YourObjectiveComponent implements OnInit {
 
     this.getGoal.org_id=this.userData.org_id;
     this.getGoal.goal_owner_id=this.userData.user_id;
+
+
+    this.getUser.org_id=this.userData.org_id;
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       'Accept': 'application/json',
@@ -139,6 +177,7 @@ export class YourObjectiveComponent implements OnInit {
     };
     
 
+    // Get Goals
     this.http.post(`/api/v1/employee/getgoals`, this.getGoal, requestOptions).subscribe((response)=>{
       console.log(response);
       this.goalData=response;
@@ -146,6 +185,16 @@ export class YourObjectiveComponent implements OnInit {
     },(error)=>{
       console.error(error);
     })
+
+    // Get Users
+     await this.http.post(`/api/v1/employee/getusers`, this.getUser, requestOptions).subscribe((response)=>{
+      console.log(response,"user");
+      this.allUsers=response;
+    },(error)=>{
+      console.error(error);
+    })
+
+    console.log(this.allUsers,"all")
   }
 
   addObjective(){

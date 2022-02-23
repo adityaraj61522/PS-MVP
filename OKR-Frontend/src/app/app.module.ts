@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ import { YourObjectiveComponent } from './your-objective/your-objective.componen
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ObjectiveDetailsComponent } from './objective-details/objective-details.component';
+import { GoalListComponent } from './your-objective/goal-list/goal-list.component';
 // import { MilestoneModule } from './milestone/milestone.module';
 import { MilestoneComponent } from './milestone/milestone.component';
 // import { ApiComponent } from './apiCollection/api/api.component';
@@ -22,6 +24,7 @@ import { MilestoneComponent } from './milestone/milestone.component';
     LoginComponent,
     RegisterComponent,
     ObjectiveDetailsComponent,
+    GoalListComponent,
     MilestoneComponent,
     // ApiComponent
   ],
@@ -30,7 +33,10 @@ import { MilestoneComponent } from './milestone/milestone.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule, 
+    // NgbModule
     HttpClientModule,
+    // MilestoneModule
   ],
   providers: [],
   bootstrap: [AppComponent]
