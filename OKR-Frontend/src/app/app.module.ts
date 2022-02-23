@@ -12,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { ObjectiveDetailsComponent } from './objective-details/objective-details.component';
 import { MilestoneModule } from './milestone/milestone.module';
 import { MilestoneComponent } from './milestone/milestone.component';
+// import { ApiComponent } from './apiCollection/api/api.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MilestoneComponent } from './milestone/milestone.component';
     LoginComponent,
     RegisterComponent,
     ObjectiveDetailsComponent,
-    MilestoneComponent
+    MilestoneComponent,
+    // ApiComponent
   ],
   imports: [
     BrowserModule,

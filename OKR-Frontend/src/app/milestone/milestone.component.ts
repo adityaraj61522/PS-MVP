@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {  NgForm } from '@angular/forms';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '../apiCollection/api.service';
 
 @Component({
   selector: 'app-milestone',
@@ -9,8 +10,16 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./milestone.component.css']
 })
 export class MilestoneComponent implements OnInit {
+  userObj:any = []
 
-  constructor(private fb: FormBuilder, private http : HttpClient) { }
+  constructor(private fb: FormBuilder, private http : HttpClient,private apiData:ApiService) { 
+    this.apiData.getUsers().subscribe((result)=>{
+      // console.log(result); 
+      this.userObj = result
+    },(error)=>{
+      console.error(error);
+    });
+  }
   myForm!: FormGroup;
 
   show=false;
@@ -46,6 +55,10 @@ export class MilestoneComponent implements OnInit {
       metric_curr_value: ['0',[Validators.required,Validators.min(0)]],
 
     });
+
+
+    // call user api
+    
   }
 
   objectiveShow(){
@@ -96,26 +109,7 @@ export class MilestoneComponent implements OnInit {
 
 
   postMilestoneReq = (data:any,milestoneType:string)=>{
-    // console.log(milestoneType, data);
-
-    const headers = {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      'Accept': 'application/json',
-      'Access-Control-Allow-Headers': '*',
-      'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
-      'x-key':'1',
-      'x-org':'1'
-    }
-    const requestOptions = {
-      headers: new HttpHeaders(headers),
-    };
-
-    const testObj = {
-      ravi:'ravi',
-      kumar:'mere'
-    }
-     
-    this.http.post(`http://localhost:9001/api/v1/employee/create-milestone`, data,requestOptions).subscribe((result)=>{
+    this.apiData.createMilestone(data).subscribe((result)=>{
       console.log(result); 
     },(error)=>{
       console.error(error);
