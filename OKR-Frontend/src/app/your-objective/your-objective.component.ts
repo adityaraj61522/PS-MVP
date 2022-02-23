@@ -1,8 +1,9 @@
-import { HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule, HttpEvent, HttpHandler, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-your-objective',
@@ -10,11 +11,39 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./your-objective.component.css']
 })
 export class YourObjectiveComponent implements OnInit {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    const headers = new HttpHeaders({
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+      'x-key':'1',
+      'x-org':'1'
+    });
+
+
+    const cloneReq = req.clone({headers});
+
+    return next.handle(cloneReq);
+  }
+
   constructor( private http : HttpClient) { }
 
   show=false;
   show2=false;
+  show3=false;
 
+  dp=false;
+  showDp(){
+    if(this.dp == false){
+      this.dp=true;
+    }else{
+      this.dp =false;
+    }
+  }
+
+  openUpdateDp(){
+    this.show3=true;
+  }
   newObjective={
     goal_name: "",
     goal_description: "",
@@ -147,8 +176,11 @@ export class YourObjectiveComponent implements OnInit {
     },(error)=>{
       console.error(error);
     });
-
     console.log(this.newObjective ,"obj")
   }
 
+
+  updateObjective(){
+      
+  }
 }
