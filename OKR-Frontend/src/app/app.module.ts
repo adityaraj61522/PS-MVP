@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,6 +44,7 @@ import { EditGoalComponent } from './your-objective/edit-goal/edit-goal.componen
     NgbModule,
     HttpClientModule,
     // MilestoneModule
+    AutocompleteLibModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
