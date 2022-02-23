@@ -12,6 +12,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ObjectiveDetailsComponent } from './objective-details/objective-details.component';
 import { GoalListComponent } from './your-objective/goal-list/goal-list.component';
+// import { MilestoneModule } from './milestone/milestone.module';
+import { MilestoneComponent } from './milestone/milestone.component';
+// import { ApiComponent } from './apiCollection/api/api.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,8 @@ import { GoalListComponent } from './your-objective/goal-list/goal-list.componen
     RegisterComponent,
     ObjectiveDetailsComponent,
     GoalListComponent,
+    MilestoneComponent,
+    // ApiComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +35,8 @@ import { GoalListComponent } from './your-objective/goal-list/goal-list.componen
     ReactiveFormsModule,
     HttpClientModule, 
     // NgbModule
+    HttpClientModule,
+    // MilestoneModule
   ],
   providers: [],
   bootstrap: [AppComponent]
