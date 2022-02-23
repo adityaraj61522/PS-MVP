@@ -14,7 +14,20 @@ export class YourObjectiveComponent implements OnInit {
 
   show=false;
   show2=false;
+  show3=false;
 
+  dp=false;
+  showDp(){
+    if(this.dp == false){
+      this.dp=true;
+    }else{
+      this.dp =false;
+    }
+  }
+
+  openUpdateDp(){
+    this.show3=true;
+  }
   newObjective={
     goal_name: "",
     goal_description: "",
@@ -67,6 +80,10 @@ export class YourObjectiveComponent implements OnInit {
     this.show=true;
   }
 
+  getGoal={
+    org_id:"",
+    goal_owner_id:""
+  }
 
   userdata={
     token:"",
@@ -88,20 +105,27 @@ export class YourObjectiveComponent implements OnInit {
     this.newObjective.created_by=this.userData.user_id;
     // this.newObjective.updated_by=this.userData.first_name;
     // console.log(this.headers)
+
+    this.getGoal.org_id=this.userData.org_id;
+    this.getGoal.goal_owner_id=this.userData.user_id;
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Headers': '*',
+      'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+      'x-key':'1',
+      'x-org':'1'
+    }
+    const requestOptions = {
+      headers: new HttpHeaders(headers),
+    };
+
+    this.http.post(`/api/v1/employee/getgoals`, this.getGoal, requestOptions).subscribe((response)=>{
+      console.log(response);
+    },(error)=>{
+      console.error(error);
+    })
   }
-  head = {
-    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    'Accept': 'application/json',
-    'Access-Control-Allow-Headers': '*',
-    'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
-    'x-key':'1',
-    'x-org':'1'
-  }
-  // headers =new HttpHeaders();
-  // headers = new HttpHeaders().set(this.headers:JSON.stringify(this.head))
-  // let headers = new HttpHeaders();
-  // headers = headers.set('x-auth-token',JSON.stringify(sessionStorage.getItem('token'));
-  // opt.headers = headers;
 
   addObjective(){
     this.newObjective.goal_name=this.ObjFormData.value.goal_name;
@@ -132,8 +156,11 @@ export class YourObjectiveComponent implements OnInit {
     },(error)=>{
       console.error(error);
     });
-
     console.log(this.newObjective ,"obj")
   }
 
+
+  updateObjective(){
+      
+  }
 }
