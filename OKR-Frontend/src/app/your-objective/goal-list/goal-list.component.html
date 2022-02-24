@@ -20,7 +20,7 @@
         </div>
         </li>
         <li class="nav-item">
-          <div class="nav-link">Date: {{goalDetails.creation_date}}</div>
+          <div class="nav-link">Date: {{goalDetails.creation_date | date: 'dd-MMM'}}</div>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">{{goalDetails.goal_type}}</a>
