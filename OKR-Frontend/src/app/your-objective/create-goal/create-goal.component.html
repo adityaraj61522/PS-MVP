@@ -30,7 +30,7 @@
     <div class="in-date">
       <div class="form-group">
         <label for="typeahead-basic">Search for a state:</label>
-        <input id="typeahead-basic" type="text" class="form-control" ngModel #goal_owner_name="ngModel" goal_owner_name required [(ngModel)]="model" name="goal_owner_name" [ngbTypeahead]="search"
+        <input id="typeahead-basic" type="text" class="form-control in-2" ngModel #goal_owner_name="ngModel" goal_owner_name required [(ngModel)]="model" name="goal_owner_name" [ngbTypeahead]="search"
         [resultFormatter]="inFormatter"
         [inputFormatter]="outFormatter"/>
       </div>

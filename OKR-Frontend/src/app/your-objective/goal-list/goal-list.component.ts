@@ -26,6 +26,9 @@ export class GoalListComponent implements OnInit {
   openUpdateDp(){
     this.show3=true;
   }
+  objectiveHide(){
+    this.show3=false;
+  }
 
   getGoalDetails(){
     this.router.navigate(
