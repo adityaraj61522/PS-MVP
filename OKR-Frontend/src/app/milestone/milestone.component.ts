@@ -38,7 +38,9 @@ export class MilestoneComponent implements OnInit {
   choice:string = 'boolean';
   
   // test now start
-  public model: any;
+  public model: any={
+    name:'loki'
+  };
 
   demo:any = [
     {id:1,name:'ravi',text:'hello 1'},
@@ -46,8 +48,10 @@ export class MilestoneComponent implements OnInit {
     {id:3,name:'ravi 3',text:'hello 3'}
   ]
 
-     search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
-        text$.pipe(
+     search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>{
+       console.log('thisi is mode',this.model);
+       
+      return  this.model = text$.pipe(
           debounceTime(200),
           distinctUntilChanged(),
           map(term =>   term.length < 2 ? []
@@ -58,7 +62,7 @@ export class MilestoneComponent implements OnInit {
                 console.log(v.name);
                 
                 this.model = v.name
-                return v
+                return v.name
               }
 
 
@@ -71,6 +75,8 @@ export class MilestoneComponent implements OnInit {
             // return  v.indexOf(term.toLowerCase()) > -1
             }))
           )
+
+     }
 
 
   //test now end
