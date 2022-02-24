@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-goal-list',
@@ -8,7 +10,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class GoalListComponent implements OnInit {
 
   @Input() goalDetails:any;
-  constructor() { }
+  constructor( private http : HttpClient, private router : Router) { }
+
+  
 
   show3=false;
   dp=false;
@@ -22,8 +26,20 @@ export class GoalListComponent implements OnInit {
   openUpdateDp(){
     this.show3=true;
   }
+  objectiveHide(){
+    this.show3=false;
+  }
+
+  getGoalDetails(){
+    this.router.navigate(
+      ['/objective-deatils'],
+      { queryParams: { ID: `${this.goalDetails.goal_id }`} }
+    );
+
+  }
 
   ngOnInit(): void {
+    console.log(this.goalDetails,"goalid");
   }
 
 }

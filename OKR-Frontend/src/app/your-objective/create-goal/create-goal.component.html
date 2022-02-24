@@ -30,8 +30,11 @@
     <div class="in-date">
       <div class="form-group">
         <label for="typeahead-basic">Search for a state:</label>
-        <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="model" name="goal_owner_name" [ngbTypeahead]="search"/>
+        <input id="typeahead-basic" type="text" class="form-control in-2" ngModel #goal_owner_name="ngModel" goal_owner_name required [(ngModel)]="model" name="goal_owner_name" [ngbTypeahead]="search"
+        [resultFormatter]="inFormatter"
+        [inputFormatter]="outFormatter"/>
       </div>
+      <!-- <pre>Model: {{ model | json }}</pre> -->
       <div class="form-group">
       <label>To which Company Objective This Objective Align With:</label><br>
       <select class="form-select in-2" ngModel aria-label="Default select example" name="linked_org_goal_id" #linked_org_goal_id="ngModel" linked_org_goal_id required>

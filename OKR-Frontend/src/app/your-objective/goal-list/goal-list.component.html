@@ -1,8 +1,24 @@
+<ul class="nav side">
+  <li class="nav-item">
+    <!--   Edit Objective   -->
+    <div class="modal fade show" *ngIf="show3"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalToggleLabel">UPDATE OBJECTIVE: YOUR AREA OF FOCUS</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button>
+          </div>
+          <app-edit-goal></app-edit-goal>
+        </div>
+      </div>
+      </div>
+    </li>
+</ul>
 <div class="list-card row">
     <div class="col-sm-1 progress-percent">
       100%
     </div>
-    <div class="col-sm-8 task-details">
+    <div class="col-sm-8 task-details" (click)="getGoalDetails()">
       <strong>{{goalDetails.goal_name}}</strong>
       <ul class="nav">
         <li class="nav-item">
