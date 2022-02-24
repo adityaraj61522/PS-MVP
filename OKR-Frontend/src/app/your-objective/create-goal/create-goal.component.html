@@ -47,8 +47,9 @@
       <div class="form-group">
       <label>Which Type of OKR you are Creating?:</label><br>
       <select class="form-select in-2" ngModel aria-label="Default select example" name="goal_type" #goal_type="ngModel" goal_type required>
-    <option value="1">PUBLIC</option>
-    <option value="-1">ORGANIZATIONAL</option>
+        <option value="INDIVIDUAL">INDIVIDUAL</option>
+        <option value="PUBLIC">PUBLIC</option>
+        <option value="ORGANIZATIONAL">ORGANIZATIONAL</option>
   </select>
   <span class="help-block" *ngIf="!goal_type.valid && goal_type.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
       </div>
