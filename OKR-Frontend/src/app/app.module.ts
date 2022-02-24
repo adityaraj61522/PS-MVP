@@ -20,6 +20,8 @@ import { CreateMilestoneComponent } from './your-objective/create-milestone/crea
 
 import { EditGoalComponent } from './your-objective/edit-goal/edit-goal.component';
 import { MilestoneListComponent } from './objective-details/milestone-list/milestone-list.component';
+import { MyTeamComponent } from './my-team/my-team.component';
+import { TeamListComponent } from './my-team/team-list/team-list.component';
 // import { ApiComponent } from './apiCollection/api/api.component';
 
 @NgModule({
@@ -36,6 +38,8 @@ import { MilestoneListComponent } from './objective-details/milestone-list/miles
     CreateMilestoneComponent,
     EditGoalComponent,
     MilestoneListComponent,
+    MyTeamComponent,
+    TeamListComponent,
     // ApiComponent
   ],
   imports: [
