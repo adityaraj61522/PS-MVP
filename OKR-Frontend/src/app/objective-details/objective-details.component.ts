@@ -16,6 +16,7 @@ export class ObjectiveDetailsComponent implements OnInit {
   }
   org_id:any;
   goal_data:any;
+  milestone_data:any;
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params)=>{
@@ -25,7 +26,8 @@ export class ObjectiveDetailsComponent implements OnInit {
       // this.org_id=sessionStorage['orgDetails.id'];
       // console.log(this.org_id)
     })    
-    this.getGoalDetails()
+    this.getGoalDetails();
+    this.getGoalMilestones();
     // console.log(this.userData); 
 
   }
@@ -49,6 +51,32 @@ export class ObjectiveDetailsComponent implements OnInit {
     console.log(response);
     this.goal_data=response;
     console.log("goal_DATA:---", this.goal_data[0])
+    
+  },(error)=>{
+    console.error(error);
+  })
+
+  }
+
+  getGoalMilestones(){
+    const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Headers': '*',
+    'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+    'x-key':'1',
+    'x-org':'1'
+  }
+  const requestOptions = {
+    headers: new HttpHeaders(headers),
+  };
+  
+
+  // Get Goals
+  return this.http.post(`/api/v1/employee/getgoalmilestones`, this.Id, requestOptions).subscribe((response)=>{
+    console.log(response);
+    this.milestone_data=response;
+    console.log("goal_DATA_milestone:---", this.milestone_data)
     
   },(error)=>{
     console.error(error);

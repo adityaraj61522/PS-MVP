@@ -14,6 +14,7 @@ import { debounceTime,switchMap, distinctUntilChanged, map } from 'rxjs/operator
 })
 export class CreateGoalComponent implements OnInit {
   model: any;
+  modelOrgGoal:any;
 
   constructor( private http : HttpClient ) { }
 
@@ -42,6 +43,7 @@ export class CreateGoalComponent implements OnInit {
     org_id:""
   }
   allUsers:any;
+  allOrgGoal:any;
 
   async ngOnInit(): Promise<void> {
     this.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
@@ -76,9 +78,18 @@ export class CreateGoalComponent implements OnInit {
       console.error(error);
     })
 
+    // Get Orginizational goal
+    await this.http.post(`/api/v1/employee/getorganizationgoals`, this.getUser, requestOptions).subscribe((response)=>{
+      console.log(response,"user");
+      this.allOrgGoal=response;
+      console.log(this.allOrgGoal,"or")
+    },(error)=>{
+      console.error(error);
+    })
+
   }
 
-inFormatter = (x: {full_name: string}) => x.full_name;
+inFormatter = (x: {goal_name: string}) => x.goal_name;
 outFormatter = (x: {full_name: string}) => x.full_name;
 
   d=["abc","abcc","abcd","abcde","abcssss","abcddd"]
@@ -91,6 +102,17 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       map(term => term.length < 1 ? []
         : this.allUsers.filter((v: any) => v.full_name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)),
     )
+
+  searchOrgGoal: OperatorFunction<string, readonly string[]> = (text$: 
+      Observable<string>) =>
+      text$.pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        map(term => term.length < 1 ? []
+          : this.allOrgGoal.filter((v: any) => v.goal_name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)),
+      )
+
+
     
 
   addObjective(){
@@ -101,7 +123,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.newObjective.goal_owner_name=this.model.full_name;
     this.newObjective.goal_owner_id=this.model.user_id;
     this.newObjective.goal_owner_email=this.model.email;
-    this.newObjective.linked_org_goal_id=this.ObjFormData.value.linked_org_goal_id;
+    this.newObjective.linked_org_goal_id=this.modelOrgGoal.goal_id;
     // this.show=false;
     // this.show2=true;
     const headers = {
