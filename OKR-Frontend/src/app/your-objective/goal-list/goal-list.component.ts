@@ -39,7 +39,7 @@ export class GoalListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.goalDetails,"goalid");
+    // console.log(this.goalDetails,"goalid");
   }
 
 }

@@ -108,9 +108,9 @@ export class YourObjectiveComponent implements OnInit {
 
     // Get Goals
     this.http.post(`/api/v1/employee/getgoals`, this.getGoal, requestOptions).subscribe((response)=>{
-      console.log(response);
+      // console.log(response);
       this.goalData=response;
-      console.log("goal_DATA:---", this.goalData)
+      // console.log("goal_DATA:---", this.goalData)
       
     },(error)=>{
       console.error(error);
