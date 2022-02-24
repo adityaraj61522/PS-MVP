@@ -43,7 +43,9 @@
           <div class="in-date">
             <div class="form-group">
             <label>Owner:</label><br>
-            <input type="text" class="in-2" >
+            <!-- <label for="typeahead-basic">Search for a state:</label> -->
+            <input type="text" class="in-2" [(ngModel)]="model.name" [ngbTypeahead]="search"  >
+            <!-- <input  type="text" class="form-control" /> -->
             <br>
          
             </div>
