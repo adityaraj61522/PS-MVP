@@ -19,6 +19,7 @@ import { CreateGoalComponent } from './your-objective/create-goal/create-goal.co
 import { CreateMilestoneComponent } from './your-objective/create-milestone/create-milestone.component';
 
 import { EditGoalComponent } from './your-objective/edit-goal/edit-goal.component';
+import { MilestoneListComponent } from './objective-details/milestone-list/milestone-list.component';
 // import { ApiComponent } from './apiCollection/api/api.component';
 
 @NgModule({
@@ -34,6 +35,7 @@ import { EditGoalComponent } from './your-objective/edit-goal/edit-goal.componen
     CreateGoalComponent,
     CreateMilestoneComponent,
     EditGoalComponent,
+    MilestoneListComponent,
     // ApiComponent
   ],
   imports: [

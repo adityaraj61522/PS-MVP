@@ -14,7 +14,7 @@
           <div class="nav-link">Date: {{ goal_data[0].creation_date  |date:'dd-MMM-YY'}}</div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Learning Path: {{ goal_data[0].linked_org_goal_id }}</a>
+          <a class="nav-link" href="#">Learning Path: {{ goal_data[0].goal_type }}</a>
         </li>
       </ul>
     </div>
@@ -64,40 +64,10 @@
     <div>
       <strong>Milestones</strong>
     </div> 
-    <div class="list">
-        
-      <div class="list-card row">
-        <div class="col-sm-1 progress-percent">
-          100%
-        </div>
-        <div class="col-sm-8 task-details">
-          <strong>{{ goal_data.goal_name }}</strong>
-          <ul class="nav">
-            <li class="nav-item">
-              <div class="nav-link">Date:</div>
-            </li>
-          </ul>
-        </div>
-        <div class="col-sm-2 options">
-          <ul class="nav">
-            <li class="nav-item">
-              <p class="status shadow">Waiting for approval</p>
-            </li>
-            <li class="nav-item">
-              <div class="dropdown">
-            <button class="btn btn-default dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png"/>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+
+    <div class="list"*ngFor="let milestone of milestone_data">
+        <app-milestone-list [milestoneDetails]="milestone"></app-milestone-list>
+      
     </div>
     
     </section>
