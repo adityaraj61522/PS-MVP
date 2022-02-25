@@ -64,9 +64,10 @@ export class LoginComponent implements OnInit {
       console.log(result);
       this.orgData=JSON.parse(JSON.stringify(result));
       sessionStorage.setItem("orgDetails.id",this.orgData.org_id);
+      sessionStorage.setItem("orgData",JSON.stringify(this.orgData));
       this.org_logo=sessionStorage.getItem("orgDetails")
       this.org_banner=sessionStorage.getItem("orgDetails.org_corporate_banner_url");
-      console.log(this.orgData.org_logo_url,'orhjndxkjz')
+      console.log(this.orgData,'orhjndxkjz')
       // this.org_banner="https://logos-world.net/wp-content/uploads/2020/12/Lays-Logo.png";
     },(error)=>{
       console.error(error);

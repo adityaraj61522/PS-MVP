@@ -39,14 +39,11 @@ box-shadow: none;
     padding:10px;
 }
 .progress-percent{
-    background-color: #0D8EBB;
     height: 70px;
     width: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
-    color: white;
 }
 .task-details{
     padding: 10px;

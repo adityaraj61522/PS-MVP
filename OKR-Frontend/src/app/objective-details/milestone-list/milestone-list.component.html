@@ -1,6 +1,15 @@
 <div class="list-card row">
     <div class="col-sm-1 progress-percent">
-      100%
+      <circle-progress
+  [percent]="85"
+  [radius]="30"
+  [outerStrokeWidth]="6"
+  [innerStrokeWidth]="4"
+  [outerStrokeColor]="'#3d54ae'"
+  [innerStrokeColor]="'#7db4e8'"
+  [animation]="true"
+  [animationDuration]="300"
+></circle-progress>
     </div>
     <div class="col-sm-8 task-details">
       <strong>{{milestoneDetails.milestone_name}}</strong>
