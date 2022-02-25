@@ -8,14 +8,9 @@
         <li class="nav-item">
           <div class="nav-link active" aria-current="page">
             <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" style="color: #0D8EBB; padding-top: 0px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              View Team
+            <button class="btn btn-default dropdown-toggle" (click)="showGoal()" style="color: #0D8EBB; padding-top: 0px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              View Goals
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
           </div>
         </div>
         </li>
@@ -45,5 +40,11 @@
       </div>
         </li>
       </ul> -->
+    </div>
+    <div *ngIf="goalShow" style="margin-bottom: 10px; display: block;">
+        <strong>GOALS:</strong>
+        <div class="list" *ngFor="let goal of goalData">
+          <app-goal-list [goalDetails]="goal"></app-goal-list>
+          </div>
     </div>
   </div>

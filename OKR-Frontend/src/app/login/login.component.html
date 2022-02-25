@@ -1,7 +1,7 @@
-	<div class="login-body" style="background-image: url('{{org_banner}}');">
-		<img class="login-logo" src="{{org_logo}}">
+	<div class="login-body" style="background-image: url('{{ orgData.org_corporate_banner_url }}');">
 		<div class="login-box shadow-lg">
-            <h2 class="login-logo">Login</h2>
+			<img class="login-logo" src="{{orgData.org_logo_url}}">
+            <!-- <h2 class="login-logo">Login</h2> -->
 			<form (ngSubmit)="login()" #f="ngForm">
 				<input type="email" name="email" class="in" placeholder="Enter Your Email..." ngModel #email="ngModel" email required>
 				<span class="help-block" *ngIf="!email.valid && email.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid email!!!</span>

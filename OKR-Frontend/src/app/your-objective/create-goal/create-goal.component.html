@@ -33,6 +33,7 @@
         <input id="typeahead-basic" type="text" class="form-control in-2" ngModel #goal_owner_name="ngModel" goal_owner_name required [(ngModel)]="model" name="goal_owner_name" [ngbTypeahead]="search"
         [resultFormatter]="outFormatter"
         [inputFormatter]="outFormatter"/>
+        <span class="help-block" *ngIf="!goal_owner_name.valid && goal_owner_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
       </div>
       <!-- <pre>Model: {{ model | json }}</pre> -->
       <div class="form-group">
@@ -58,6 +59,6 @@
     <div class="modal-footer">
       <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal" (click)="objectiveHide()"  aria-label="Close"> Cancel </button><br> -->
       <button class="btn btn-primary" type="submit" 
-      data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Add Key Result</button>
+      data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">Add Key Result</button>
     </div>
   </form>

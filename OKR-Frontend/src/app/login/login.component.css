@@ -24,6 +24,9 @@
 		}		
 		.login-logo{
 			text-align: center;
+			align-items: center;
+			margin-left: 50px;
+			height: 100px;
 		}
 		.in{
 			width: 300px;

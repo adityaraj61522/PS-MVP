@@ -28,17 +28,18 @@ box-shadow: none;
     padding:20px;
 }
 .list{
-    margin-top: 50px
+    margin-top: 20px;
 }
 .list-card{
     height: 100px;
+    position:static;
     background-color: white;
     border-radius: 10px;
     border-left:5px solid red;
     padding:10px;
 }
 .progress-percent{
-    background-color: #0D8EBB;
+    border: 1px solid grey;;
     height: 70px;
     width: 70px;
     display: flex;

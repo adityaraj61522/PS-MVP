@@ -28,7 +28,7 @@ box-shadow: none;
     padding:20px;
 }
 .list{
-    margin-top: 50px
+    margin-top: 20px;
 }
 .list-card{
     height: 100px;
@@ -38,14 +38,11 @@ box-shadow: none;
     padding:10px;
 }
 .progress-percent{
-    background-color: #0D8EBB;
     height: 70px;
     width: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
-    color: white;
 }
 .task-details{
     padding: 10px;
