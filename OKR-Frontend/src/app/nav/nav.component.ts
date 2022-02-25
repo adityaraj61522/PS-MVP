@@ -20,12 +20,16 @@ export class NavComponent implements OnInit {
     this.userdata.token=JSON.parse(JSON.stringify(sessionStorage.getItem("token")));
     this.userdata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
     this.userdata.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
-    console.log(this.userdata.user[0]);
+    // console.log(this.userdata.user[0]);
     this.userData=this.userdata.user[0]
+<<<<<<< HEAD
     console.log(sessionStorage,"dkhjjscnjkwds");
     this.orgData=sessionStorage.getItem("orgData")
     this.orgData=JSON.parse(this.orgData);
     console.log(this.orgData,'jhsjhaxjhahjzhj')
+=======
+    // console.log(this.userData.first_name);
+>>>>>>> 6e1985697e72ab9c7606b7a9556011db30de1095
   }
 
 }

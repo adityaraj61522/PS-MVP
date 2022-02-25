@@ -100,3 +100,9 @@ span{
     color: red;
     font-size: 10px;;
 }
+p.successMsg {
+    font-size: 19px;
+    color: green;
+    position: absolute;
+    top: 62px;
+}
