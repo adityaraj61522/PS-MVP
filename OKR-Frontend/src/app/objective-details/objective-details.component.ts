@@ -18,6 +18,36 @@ export class ObjectiveDetailsComponent implements OnInit {
   goal_data:any;
   milestone_data:any;
 
+  deleteMilestoneReq={
+    milestone_id:"",
+    org_id:"",
+  }
+
+  deleteMilestone=(milestone_name: any, milestone_id:any , org_id: any)=>{
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Headers': '*',
+      'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+      'x-key':'1',
+      'x-org':'1'
+    }
+    const requestOptions = {
+      headers: new HttpHeaders(headers),
+    };
+    this.deleteMilestoneReq.milestone_id= milestone_id;
+    this.deleteMilestoneReq.org_id = org_id;
+    console.log(this.deleteMilestoneReq)
+    if(confirm("Are you sure want to delete "+milestone_name)){
+      this.http.put(`/api/v1/employee/deletemilestone`, {milestone_id,org_id} , requestOptions).subscribe((response)=>{
+        console.log("delete goal console:---", response);
+        window.location.reload();
+      },(error)=>{
+        console.error(error);
+      })
+    }
+  }
+
   ngOnInit(): void {
     this.route.queryParams.subscribe((params)=>{
       console.log(params);

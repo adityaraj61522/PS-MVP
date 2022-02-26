@@ -90,7 +90,7 @@ export class YourObjectiveComponent implements OnInit {
     this.deleteGoalReq.goal_id= goal_id;
     this.deleteGoalReq.org_id = org_id;
     console.log(this.deleteGoalReq)
-    if(confirm("Are you sure want to delete "+goal_name+ goal_id +org_id)){
+    if(confirm("Are you sure want to delete "+goal_name)){
       this.http.put(`/api/v1/employee/deletegoal`, {goal_id,org_id} , requestOptions).subscribe((response)=>{
         console.log("delete goal console:---", response);
         window.location.reload();

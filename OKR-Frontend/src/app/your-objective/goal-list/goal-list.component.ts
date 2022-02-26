@@ -29,12 +29,6 @@ export class GoalListComponent implements OnInit {
   objectiveHide(){
     this.show3=false;
   }
-  // deleteGoal(){
-  //   if(confirm("Are you sure want to delete")){
-  //     console.log("DELETE");
-  //   }
-  // }
-  
 
   getGoalDetails(){
     this.router.navigate(
