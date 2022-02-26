@@ -24,6 +24,9 @@ import { MilestoneListComponent } from './objective-details/milestone-list/miles
 import { MyTeamComponent } from './my-team/my-team.component';
 import { TeamListComponent } from './my-team/team-list/team-list.component';
 import { DeleteGoalComponent } from './your-objective/delete-goal/delete-goal.component';
+import { SettingsComponent } from './admin/settings/settings.component';
+import { UsersComponent } from './admin/users/users.component';
+import { UserCardComponent } from './admin/users/user-card/user-card.component';
 // import { ApiComponent } from './apiCollection/api/api.component';
 
 @NgModule({
@@ -43,6 +46,9 @@ import { DeleteGoalComponent } from './your-objective/delete-goal/delete-goal.co
     MyTeamComponent,
     TeamListComponent,
     DeleteGoalComponent,
+    SettingsComponent,
+    UsersComponent,
+    UserCardComponent,
     // ApiComponent
   ],
   imports: [

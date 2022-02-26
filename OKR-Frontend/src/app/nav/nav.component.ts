@@ -8,6 +8,18 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
 
+  admin=false;
+  employee=true;
+
+  okr(){
+    this.employee=true;
+    this.admin=false;
+  }
+  dashboard(){
+    this.admin=true;
+    this.employee=false;
+  }
+
   constructor() { }
   userdata={
     token:"",
