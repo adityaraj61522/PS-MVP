@@ -46,8 +46,10 @@
         </li>
       </ul>
     </div>
+
+    <!--Active Goal List-->
     <div class="list" *ngFor="let goal of goalData">
-      <app-goal-list [goalDetails]="goal"></app-goal-list>
+      <app-goal-list [deleteGoal]="deleteGoal"  [goalDetails]="goal"></app-goal-list>
       </div>
     
     </section>

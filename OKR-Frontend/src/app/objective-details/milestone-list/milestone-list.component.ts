@@ -9,7 +9,14 @@ export class MilestoneListComponent implements OnInit {
 
   constructor() { }
   @Input() milestoneDetails:any;
-
+  dp=false;
+  showDp(){
+    if(this.dp == false){
+      this.dp=true;
+    }else{
+      this.dp =false;
+    }
+  }
   ngOnInit(): void {
     console.log(this.milestoneDetails,"hjdsbfjchsdjh")
   }

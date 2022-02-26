@@ -35,14 +35,15 @@
         </li>
         <li class="nav-item">
           <div class="dropdown">
-        <button class="btn btn-default dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-default dropdown"  (click)="showDp()" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png"/>
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <ul class="dropdown-menu" *ngIf="dp" aria-labelledby="dropdownMenuButton1">
           <li><a class="dropdown-item" href="#">Action</a></li>
           <li><a class="dropdown-item" href="#">Another action</a></li>
           <li><a class="dropdown-item" href="#">Something else here</a></li>
         </ul>
+        
       </div>
         </li>
       </ul>

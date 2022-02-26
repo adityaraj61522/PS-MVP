@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
 export class GoalListComponent implements OnInit {
 
   @Input() goalDetails:any;
+  @Input() public deleteGoal !: (goal_name: any, goal_id:any , org_id: any) => void;
   constructor( private http : HttpClient, private router : Router) { }
 
-  
-
+  show2=false;
   show3=false;
   dp=false;
   showDp(){
@@ -29,6 +29,12 @@ export class GoalListComponent implements OnInit {
   objectiveHide(){
     this.show3=false;
   }
+  // deleteGoal(){
+  //   if(confirm("Are you sure want to delete")){
+  //     console.log("DELETE");
+  //   }
+  // }
+  
 
   getGoalDetails(){
     this.router.navigate(
