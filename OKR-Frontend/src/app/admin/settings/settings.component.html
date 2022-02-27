@@ -1,1 +1,61 @@
 <app-nav></app-nav>
+<div>
+    <div>
+        <label><strong>Settings:</strong></label>
+    </div>
+    <div class="container">
+        <form>
+            <div class="form-group opt">
+		      	<label>Goal Frequency : </label><br>
+		      	<select class="form-select in-2" aria-label="Default select example">
+				  <option value="Monthly">Monthly</option>
+				  <option value="Half Yearly">Half Yearly</option>
+				  <option value="Bi Yearly">Bi Yearly</option>
+				  <option value="Yearly">Yearly</option>
+				</select>
+            </div>
+            <div class="form-group opt">
+                <label>Objective?</label><br>
+                <input type="checkbox">
+                Align with KRAs with Company Annual Priorities/Objective
+                <br>
+                <input type="checkbox">
+                Make It Mandatory
+            </div>
+            <div class="form-group opt">
+                <label>Who Can Create OKR</label><br>
+                <input type="radio">Everyone<br>
+                <input type="radio">Manager And HR Admin<br>
+                <input type="radio">Only HR From Dashboard
+            </div>
+
+            <div class="form-group opt">
+                <label>Can Employees & manager Edit OKR Start And End Dates While Creating OKR?</label><br>
+                <input type="radio">YES<br>
+                <input type="radio">NO<br>
+            </div>
+
+            <div class="form-group opt">
+                <label>Who Should approve OKR</label><br>
+                <input type="radio">Auto Approve<br>
+                <input type="radio">Manager Should Approve 
+            </div>
+
+            <div class="form-group opt">
+                <label>Who Can edit A goal And Milestone WHen It Is In "Waiting For Approval" State?</label><br>
+                <input type="radio">Employee<br>
+                <input type="radio">Manager<br>
+                <input type="radio">Both<br>
+                <input type="radio">None
+            </div>
+
+
+            <div class="form-group opt">
+                <label>Who Can edit OKR After Approval From Manager?</label><br>
+                <input type="radio">Employee(Employee + MAnager + HR Admin)<br>
+                <input type="radio">Manager And HR Admin<br>
+                <input type="radio">Only HR Admin<br>
+            </div>
+        </form>
+    </div>
+</div>

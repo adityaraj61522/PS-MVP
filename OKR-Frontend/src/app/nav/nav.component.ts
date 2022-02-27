@@ -10,6 +10,7 @@ export class NavComponent implements OnInit {
 
   admin=false;
   employee=true;
+  dpshow=false;
 
   okr(){
     this.employee=true;
@@ -18,6 +19,13 @@ export class NavComponent implements OnInit {
   dashboard(){
     this.admin=true;
     this.employee=false;
+  }
+  dpsh(){
+    if(this.dpshow==false){
+      this.dpshow=true
+    }else{
+      this.dpshow=false
+    }
   }
 
   constructor() { }

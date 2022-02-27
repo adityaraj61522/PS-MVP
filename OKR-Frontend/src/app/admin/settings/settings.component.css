@@ -70,8 +70,15 @@ box-shadow: none;
     margin: 1.75rem auto;
 }
 label{
-    color: grey;
-    font-size: 10px;
+    color: #343942;
+    font-size: 18px;
+}
+div{
+    color: #6d7582;
+    font-size: 15px;;
+}
+.opt{
+    margin-top: 50px;
 }
 .in-date{
     display: flex;
