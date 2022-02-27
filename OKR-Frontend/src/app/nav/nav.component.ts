@@ -12,14 +12,14 @@ export class NavComponent implements OnInit {
   employee=true;
   dpshow=false;
 
-  okr(){
-    this.employee=true;
-    this.admin=false;
-  }
-  dashboard(){
-    this.admin=true;
-    this.employee=false;
-  }
+  // okr(){
+  //   this.employee=true;
+  //   this.admin=false;
+  // }
+  // dashboard(){
+  //   this.admin=true;
+  //   this.employee=false;
+  // }
   dpsh(){
     if(this.dpshow==false){
       this.dpshow=true
@@ -27,6 +27,8 @@ export class NavComponent implements OnInit {
       this.dpshow=false
     }
   }
+  
+  
 
   constructor() { }
   userdata={
@@ -37,6 +39,18 @@ export class NavComponent implements OnInit {
   userData:any;
   orgData:any;
   ngOnInit(): void {
+    console.log(window.location.pathname);
+    if(window.location.pathname=='/admin/users'){
+      this.admin=true;
+      this.employee=false;
+    }else if(window.location.pathname=='/admin/settings'){
+      this.admin=true;
+      this.employee=false;
+    }else{
+      this.admin=false;
+      this.employee=true;
+    }
+
     this.userdata.token=JSON.parse(JSON.stringify(sessionStorage.getItem("token")));
     this.userdata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
     this.userdata.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));

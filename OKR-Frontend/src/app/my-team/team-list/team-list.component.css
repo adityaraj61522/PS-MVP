@@ -31,7 +31,7 @@ box-shadow: none;
     margin-top: 20px;
 }
 .list-card{
-    height: 100px;
+    /* height: 100px; */
     position:static;
     background-color: white;
     border-radius: 10px;
