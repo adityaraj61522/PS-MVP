@@ -2,36 +2,36 @@
   <img class="nav-logo" src="{{orgData.org_logo_url}}">
     <ul class="nav justify-content-center">
       <li class="nav-item">
-        <a class="nav-link " aria-current="page" href="#">HOME</a>
+        <a class="nav-link " aria-current="page">HOME</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#">OKR</a>
+        <a class="nav-link" (click)="okr()" routerLink="/objectives" routerLinkActive="active">OKR</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">PERFORMANCE REVIEW</a>
+        <a class="nav-link">PERFORMANCE REVIEW</a>
       </li>
       <li class="nav-item">
         <a class="nav-link">CONTINIOUS FEEDBACK</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link">DASHBOARD</a>
+        <a class="nav-link" (click)="dashboard()" routerLink="/admin/users"  routerLinkActive="active">DASHBOARD</a>
       </li>
         <ul class="nav side">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#"><img src="https://img.icons8.com/external-others-iconmarket/25/000000/external-bell-winter-others-iconmarket-2.png"/></a>
+          <a class="nav-link active" aria-current="page"><img src="https://img.icons8.com/external-others-iconmarket/25/000000/external-bell-winter-others-iconmarket-2.png"/></a>
         </li>
         <li class="nav-item">
           <div class="nav-link active" aria-current="page">
               <div class="dropdown">
                 {{ userData.first_name }}
                 {{ userData.last_name }}
-              <button class="btn btn-default dropdown-toggle" style="color: #0D8EBB; padding-top: 0px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-default dropdown-toggle" (click)="dpsh()" style="color: #0D8EBB; padding-top: 0px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://img.icons8.com/ios-filled/25/000000/circled.png"/>
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <ul class="dropdown-menu" style="display: block;" *ngIf="dpshow" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item">Action</a></li>
+                <li><a class="dropdown-item">Another action</a></li>
+                <li><a class="dropdown-item">Something else here</a></li>
               </ul>
             </div>
           </div>
@@ -42,21 +42,32 @@
   
   <!-- Second Nav -->
   
-  <nav>
+  <nav *ngIf="employee">
   <ul class="nav">
     <li class="nav-item">
-      <a class="nav-link" aria-current="page" href="#">QUICK CHECK-IN</a>
+      <a class="nav-link" aria-current="page">QUICK CHECK-IN</a>
     </li>
     <li class="nav-item">
       <a class="nav-link"routerLink="/objectives" routerLinkActive="active">MY OBJECTIVE</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">MY IDP</a>
+      <a class="nav-link">MY IDP</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" routerLink="/my-team" routerLinkActive="active">MY TEAM</a>
     </li>
   </ul>
-  
   </nav>
   
+
+  <nav *ngIf="admin">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" routerLink="/admin/users" routerLinkActive="active">USERS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/settings" routerLinkActive="active">SETTINGS</a>
+      </li>
+    </ul>
+    </nav>
+    

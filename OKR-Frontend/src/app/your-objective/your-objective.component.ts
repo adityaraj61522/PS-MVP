@@ -23,19 +23,13 @@ export class YourObjectiveComponent implements OnInit {
       'x-key':'1',
       'x-org':'1'
     });
-
-
     const cloneReq = req.clone({headers});
-
     return next.handle(cloneReq);
   }
-
   constructor( private http : HttpClient) { }
-
   show=false;
   show2=false;
-  show3=false; 
-
+  show3=false;
   dp=false;
   showDp(){
     if(this.dp == false){
@@ -44,7 +38,6 @@ export class YourObjectiveComponent implements OnInit {
       this.dp =false;
     }
   }
-
   openUpdateDp(){
     this.show3=true;
   }
@@ -63,6 +56,10 @@ export class YourObjectiveComponent implements OnInit {
     this.show2=false;
     this.show=true;
   }
+  deleteGoalReq={
+    goal_id:"",
+    org_id:"",
+  }
 
   getGoal={
     org_id:"",
@@ -77,10 +74,51 @@ export class YourObjectiveComponent implements OnInit {
     expires:"",
     user:""
   }
+
+  deleteGoal=(goal_name: any, goal_id:any , org_id: any)=>{
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Headers': '*',
+      'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+      'x-key':'1',
+      'x-org':'1'
+    }
+    const requestOptions = {
+      headers: new HttpHeaders(headers),
+    };
+    this.deleteGoalReq.goal_id= goal_id;
+    this.deleteGoalReq.org_id = org_id;
+    console.log(this.deleteGoalReq)
+    if(confirm("Are you sure want to delete "+goal_name)){
+      this.http.put(`/api/v1/employee/deletegoal`, {goal_id,org_id} , requestOptions).subscribe((response)=>{
+        console.log("delete goal console:---", response);
+        window.location.reload();
+      },(error)=>{
+        console.error(error);
+      })
+    }
+  }
+
+
+
+
   userData:any;
 
   allUsers:any;
   goalData: any;
+
+  // public deleteGoal=(goal_name: any, goal_id:any , org_id: any)=>{
+  //   if(confirm("Are you sure want to delete "+goal_name)){
+  //     this.http.post(`/api/v1/employee/getgoals`, this.getGoal).subscribe((response)=>{
+  //       // console.log(response);
+  //       this.goalData=response;      
+  //       console.log("goal_DATA:---", this.goalData)   
+  //     },(error)=>{
+  //       console.error(error);
+  //     })
+  //   }
+  // }
   async ngOnInit(): Promise<void> {
     this.userdata.token=JSON.parse(JSON.stringify(sessionStorage.getItem("token")));
     this.userdata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
@@ -127,7 +165,8 @@ export class YourObjectiveComponent implements OnInit {
 
     // console.log(this.allUsers,"all")
   }
-  updateObjective(){
+  // updateObjective(){
       
-  }
+  // }
+  
 }

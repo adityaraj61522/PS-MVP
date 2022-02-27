@@ -66,8 +66,7 @@
     </div> 
 
     <div class="list"*ngFor="let milestone of milestone_data">
-        <app-milestone-list [milestoneDetails]="milestone"></app-milestone-list>
-      
+        <app-milestone-list [deleteMilestone]="deleteMilestone" [milestoneDetails]="milestone"></app-milestone-list>
     </div>
     
     </section>
