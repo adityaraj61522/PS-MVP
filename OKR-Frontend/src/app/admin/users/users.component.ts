@@ -33,7 +33,7 @@ export class UsersComponent implements OnInit {
     
 
     // Get Goals
-    this.http.post(`/api/v1/employee/getUsers`, this.orgData, requestOptions).subscribe((response)=>{
+    this.http.post(`/api/v1/admin/getUsers`, this.orgData, requestOptions).subscribe((response)=>{
       console.log(response);
       this.allUsers=response;
       // console.log("team_DATA:---", this.teamMembers)

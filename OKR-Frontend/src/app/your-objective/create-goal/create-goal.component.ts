@@ -28,7 +28,7 @@ export class CreateGoalComponent implements OnInit {
     org_id:"",
     goal_owner_id:"",
     goal_owner_email:"",
-    goal_type:"",
+    // goal_type:"",
     goal_setting_id:1,
     created_by:'',
     updated_by:1
@@ -49,7 +49,6 @@ export class CreateGoalComponent implements OnInit {
     this.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
     // console.log(this.userdata.user[0],"kjhskjkj");
     this.userData=this.user[0]
-    // console.log(this.userData.first_name);
     this.newObjective.org_id=this.userData.org_id;
     // this.newObjective.goal_setting_id=this.userData.first_name;
     this.newObjective.created_by=this.userData.user_id;
@@ -117,13 +116,13 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
   addObjective(){
     this.newObjective.goal_name=this.ObjFormData.value.goal_name;
-    this.newObjective.goal_type=this.ObjFormData.value.goal_type;
+    // this.newObjective.goal_type=this.ObjFormData.value.goal_type;
     this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
     this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
     this.newObjective.goal_owner_name=this.model.full_name;
     this.newObjective.goal_owner_id=this.model.user_id;
     this.newObjective.goal_owner_email=this.model.email;
-    this.newObjective.linked_org_goal_id=this.modelOrgGoal.goal_id;
+    this.newObjective.linked_org_goal_id=this.ObjFormData.value.linked_org_goal_id;
     // this.show=false;
     // this.show2=true;
     const headers = {
