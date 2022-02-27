@@ -17,7 +17,7 @@
 <div class="list-card row">
     <div class="col-sm-1 progress-percent">
       <circle-progress
-  [percent]="85"
+  [percent]="20"
   [radius]="30"
   [outerStrokeWidth]="6"
   [innerStrokeWidth]="4"
@@ -45,7 +45,7 @@
         </div>
         </li>
         <li class="nav-item">
-          <div class="nav-link">Date: {{goalDetails.creation_date | date: 'dd-MMM'}}</div>
+          <div class="nav-link">Due Date: {{goalDetails.goal_due_date | date: 'dd-MMM'}}</div>
         </li>
         <li class="nav-item">
           <a class="nav-link" >{{goalDetails.linked_org_goal_name}}</a>

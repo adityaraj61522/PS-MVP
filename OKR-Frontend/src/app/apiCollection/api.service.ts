@@ -36,7 +36,7 @@ export class ApiService {
       return this.http.post(this.getUsersUrl, { "org_id":this.org_id},this.requestOptions);
   }
   createMilestone(data:any){
-      return this.http.post(this.getUsersUrl, data,this.requestOptions);
+      return this.http.post(this.createMilestoneUrl, data,this.requestOptions);
   }
 }
  
