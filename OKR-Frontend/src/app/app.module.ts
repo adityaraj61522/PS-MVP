@@ -23,7 +23,6 @@ import { EditGoalComponent } from './your-objective/edit-goal/edit-goal.componen
 import { MilestoneListComponent } from './objective-details/milestone-list/milestone-list.component';
 import { MyTeamComponent } from './my-team/my-team.component';
 import { TeamListComponent } from './my-team/team-list/team-list.component';
-import { DeleteGoalComponent } from './your-objective/delete-goal/delete-goal.component';
 import { SettingsComponent } from './admin/settings/settings.component';
 import { UsersComponent } from './admin/users/users.component';
 import { UserCardComponent } from './admin/users/user-card/user-card.component';
@@ -45,7 +44,6 @@ import { UserCardComponent } from './admin/users/user-card/user-card.component';
     MilestoneListComponent,
     MyTeamComponent,
     TeamListComponent,
-    DeleteGoalComponent,
     SettingsComponent,
     UsersComponent,
     UserCardComponent,
