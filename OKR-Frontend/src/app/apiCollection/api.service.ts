@@ -12,7 +12,15 @@ export class ApiService {
   showObjective:boolean = false;
   showMilestone:boolean = false
 
-
+disableShowObjective=()=>{
+  this.showObjective = false
+}
+enableShowObjective=()=>{
+  this.showObjective = true
+}
+changeShowMilestone=()=>{
+  this.showMilestone = !this.showMilestone
+}
  
 
 
