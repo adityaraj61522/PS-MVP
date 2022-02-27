@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class MilestoneListComponent implements OnInit {
 
   constructor() { }
-  @Input() public deleteMilestone !: (goal_name: any, goal_id:any , org_id: any) => void;
+  @Input() public deleteMilestone !: (milestone_name: any, milestone_id:any , org_id: any) => void;
   @Input() milestoneDetails:any;
   dp=false;
   showDp(){
