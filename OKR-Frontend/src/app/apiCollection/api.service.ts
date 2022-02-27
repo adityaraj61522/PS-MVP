@@ -8,6 +8,11 @@ export class ApiService {
   baseUrl = 'http://localhost:9001'
   getUsersUrl = `${this.baseUrl}/api/v1/employee/getusers`;
   createMilestoneUrl = `${this.baseUrl}/api/v1/employee/create-milestone`;
+
+  showObjective:boolean = false;
+  showMilestone:boolean = false
+
+
  
 
 

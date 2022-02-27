@@ -2,7 +2,7 @@
 <section class="active-list">
     <div>
       <strong>Active(1)</strong>
-      <app-milestone></app-milestone>
+      <app-milestone></app-milestone> 
       <ul class="nav side">
         <li class="nav-item">
           <div class="modal fade show" *ngIf="show"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -12,7 +12,7 @@
                     <h5 class="modal-title" id="exampleModalToggleLabel">NEW KEY RESULT: CREATE YOUR KEY RESULT</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button>
                   </div>
-                <app-create-goal></app-create-goal>
+                <app-create-goal></app-create-goal > 
 
               </div>
             </div>
@@ -24,7 +24,8 @@
                   <h5 class="modal-title" id="exampleModalToggleLabel2">ADD KEY RESULT: HOW YOU WILL DO IT</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="keyresultHide()"></button>
                 </div>
-                 <app-create-milestone></app-create-milestone>
+                 <!-- <app-create-milestone></app-create-milestone> -->
+                 <app-milestone></app-milestone>
               </div>
             </div>
           </div>
@@ -46,7 +47,7 @@
         </li>
       </ul>
     </div>
-    <div class="list" *ngFor="let goal of goalData">
+    <div class="list" *ngFor="let goal of goalData"> 
       <app-goal-list [goalDetails]="goal"></app-goal-list>
       </div>
     

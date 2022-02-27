@@ -34,7 +34,7 @@ export class YourObjectiveComponent implements OnInit {
 
   show=false;
   show2=false;
-  show3=false;
+  show3=false; 
 
   dp=false;
   showDp(){
@@ -50,7 +50,7 @@ export class YourObjectiveComponent implements OnInit {
   }
   objectiveShow(){
     this.show=true;
-  }
+  } 
 
   objectiveHide(){
     this.show=false;
