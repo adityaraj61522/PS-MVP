@@ -1,0 +1,10 @@
+<app-nav></app-nav>
+<section class="active-list">
+    <div>
+      <strong>Team Members</strong>
+    </div>
+    <div class="list" *ngFor="let user of allUsers" style="margin-left: 20px; margin-right: 20px;">
+      <app-team-list [teamMemberDetails]="user"></app-team-list>
+      </div>
+    
+    </section>
