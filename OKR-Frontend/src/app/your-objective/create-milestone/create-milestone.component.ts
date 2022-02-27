@@ -14,6 +14,17 @@ import { debounceTime,switchMap, distinctUntilChanged, map } from 'rxjs/operator
   styleUrls: ['./create-milestone.component.css']
 })
 export class CreateMilestoneComponent implements OnInit {
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Headers': '*',
+    'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
+    'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
+    'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
+  }  
+  requestOptions = {
+    headers: new HttpHeaders(this.headers),
+  };
 
   constructor( private http : HttpClient ) { }
   
