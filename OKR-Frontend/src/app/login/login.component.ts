@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   loginData={
     username:"",
     password:"",
-    orgId:1
+    orgId:1 // hard coded 
   };
 
   correctPassword=true;
