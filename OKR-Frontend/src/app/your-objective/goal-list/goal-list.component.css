@@ -34,7 +34,7 @@ box-shadow: none;
     height: 100px;
     background-color: white;
     border-radius: 10px;
-    border-left:5px solid red;
+    border-left:5px solid green;
     padding:10px;
 }
 .progress-percent{
@@ -91,7 +91,7 @@ input{
     border:1px solid lightgrey;
 }
 input.ng-invalid.ng-touched, select.ng-invalid.ng-touched{
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid green;
 }
 span{
     color: red;

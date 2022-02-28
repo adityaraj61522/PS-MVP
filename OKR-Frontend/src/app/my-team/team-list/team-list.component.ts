@@ -27,24 +27,24 @@ export class TeamListComponent implements OnInit {
   };
   goalData:any;
 
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Headers': '*',
+    'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
+    'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
+    'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
+  }  
+  requestOptions = {
+    headers: new HttpHeaders(this.headers),
+  };
+
   ngOnInit(): void {
     this.getGoal.org_id=this.teamMemberDetails.org_id;
     this.getGoal.goal_owner_id=this.teamMemberDetails.user_id;
-    const headers = {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      'Accept': 'application/json',
-      'Access-Control-Allow-Headers': '*',
-      'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
-      'x-key':'1',
-      'x-org':'1'
-    }
-    const requestOptions = {
-      headers: new HttpHeaders(headers),
-    };
-    
 
     // Get Goals
-    this.http.post(`/api/v1/employee/getgoals`, this.getGoal, requestOptions).subscribe((response)=>{
+    this.http.post(`/api/v1/employee/getgoals`, this.getGoal, this.requestOptions).subscribe((response)=>{
       console.log(response);
       this.goalData=response;
       console.log("goal_DATA list:---", this.goalData)

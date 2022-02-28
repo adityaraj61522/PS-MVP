@@ -1,0 +1,42 @@
+<form (ngSubmit)="updateUser()" #KeyForm="ngForm">
+    <div class="modal-body">
+      <div>
+        <strong>Outcomes:</strong>List Down Your Key Results
+      </div>
+      <!-- <button class="btn btn-primary" style="background-color: #0D8EBB;"><img src="https://img.icons8.com/ios/25/000000/add--v2.png"/></button>
+      <div>
+        <strong>Efforts:</strong>These are the Initiatives and action plans to acheive the Key Results
+      </div> -->
+      <div class="in-date">
+      <div class="form-group">
+        <input type="text" class="in-2" name="milestone_name" ngModel #milestone_name="ngModel" milestone_name required placeholder="Write your Efforts Here">
+        <span class="help-block" *ngIf="!milestone_name.valid && milestone_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+      </div>
+      <div class="form-group">
+        <select class="form-select in-2" aria-label="Default select example" name="milestone_type" ngModel #milestone_type="ngModel" milestone_type required>
+          <option value="">Boolean</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <span class="help-block" *ngIf="!milestone_type.valid && milestone_type.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+      </div>
+    </div>
+    <div class="in-date">
+        <div class="form-group">
+          <label>Start Date*</label><br>
+          <input type="date" name="start" class="in-d" placeholder="Start Date" name="milestone_start_date" ngModel #milestone_start_date="ngModel" milestone_start_date required>
+        </div>
+        <span class="help-block" *ngIf="!milestone_start_date.valid && milestone_start_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+        <div class="form-group">
+          <label>End Date*</label><br>
+          <input type="date" name="end" class="in-d" placeholder="End Date" name="milestone_due_date" ngModel #milestone_due_date="ngModel" milestone_due_date required>
+        </div>
+        <span class="help-block" *ngIf="!milestone_due_date.valid && milestone_due_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <!-- <button class="btn btn-default" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" (click)="previous()">Previous</button> -->
+      <button class="btn btn-primary" type="submit" data-bs-target="#exampleModalToggle" style="background-color: #0D8EBB;" data-bs-toggle="modal">Save And Add More</button>
+    </div>
+  </form>
