@@ -1,22 +1,33 @@
 import { HttpClientModule, HttpEvent, HttpHandler, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input,Output, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NgStyle } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { Observable,BehaviorSubject, OperatorFunction } from 'rxjs';
 import { debounceTime,switchMap, distinctUntilChanged, map } from 'rxjs/operators';
+import { ApiService } from 'src/app/apiCollection/api.service';
 
 @Component({
   selector: 'app-create-goal',
   templateUrl: './create-goal.component.html',
   styleUrls: ['./create-goal.component.css']
 })
+
+
 export class CreateGoalComponent implements OnInit {
+  @Input() objectiveHide: any;
+  @Input() keyresultshow: any;
+
+  
   model: any;
   modelOrgGoal:any;
 
-  constructor( private http : HttpClient ) { }
+
+  constructor( private http : HttpClient ,private apiData:ApiService) {
+  
+    
+   }
 
   newObjective={
     goal_name: "",
@@ -36,6 +47,7 @@ export class CreateGoalComponent implements OnInit {
 
   @ViewChild('ObjForm') ObjFormData!: NgForm;
 
+
   user="";
   userData:any;
   
@@ -46,6 +58,8 @@ export class CreateGoalComponent implements OnInit {
   allOrgGoal:any;
 
   async ngOnInit(): Promise<void> {
+    this.objectiveHide()
+
     this.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
     // console.log(this.userdata.user[0],"kjhskjkj");
     this.userData=this.user[0]
@@ -115,38 +129,46 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
     
 
+
   addObjective(){
-    this.newObjective.goal_name=this.ObjFormData.value.goal_name;
-    this.newObjective.goal_type=this.ObjFormData.value.goal_type;
-    this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
-    this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
-    this.newObjective.goal_owner_name=this.model.full_name;
-    this.newObjective.goal_owner_id=this.model.user_id;
-    this.newObjective.goal_owner_email=this.model.email;
-    this.newObjective.linked_org_goal_id=this.modelOrgGoal.goal_id;
-    // this.show=false;
-    // this.show2=true;
-    const headers = {
-    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    'Accept': 'application/json',
-    'Access-Control-Allow-Headers': '*',
-    'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
-    'x-key':'1',
-    'x-org':'1'
-  }  
-  const requestOptions = {
-    headers: new HttpHeaders(headers),
-  };
     
-    this.http.post(`/api/v1/employee/create-objective`, this.newObjective , requestOptions
-  ).subscribe((result)=>{
-      console.log(result); 
-      // this.show=false;
-      // this.show2=true;
-    },(error)=>{
-      console.error(error);
-    });
-    console.log(this.newObjective ,"obj")
+   this.objectiveHide()
+
+  //   this.newObjective.goal_name=this.ObjFormData.value.goal_name;
+  //   this.newObjective.goal_type=this.ObjFormData.value.goal_type;
+  //   this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
+  //   this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
+  //   this.newObjective.goal_owner_name=this.model.full_name;
+  //   this.newObjective.goal_owner_id=this.model.user_id;
+  //   this.newObjective.goal_owner_email=this.model.email;
+  //   this.newObjective.linked_org_goal_id=this.modelOrgGoal.goal_id;
+  //   // this.show=false;
+  //   // this.show2=true;
+  //   const headers = {
+  //   'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+  //   'Accept': 'application/json',
+  //   'Access-Control-Allow-Headers': '*',
+  //   'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+  //   'x-key':'1',
+  //   'x-org':'1'
+  // }  
+  // const requestOptions = {
+  //   headers: new HttpHeaders(headers),
+  // };
+    
+  //   this.http.post(`/api/v1/employee/create-objective`, this.newObjective , requestOptions
+  // ).subscribe((result)=>{
+  //     console.log(result); 
+  //     // this.apiData.showObjective = false;
+  //     // this.apiData.showMilestone = true
+  //     this.objectiveHide()
+  //     this.keyresultshow()
+  //     // this.show=false;
+  //     // this.show2=true;
+  //   },(error)=>{
+  //     console.error(error);
+  //   });
+  //   console.log(this.newObjective ,"obj")
   }
 
 

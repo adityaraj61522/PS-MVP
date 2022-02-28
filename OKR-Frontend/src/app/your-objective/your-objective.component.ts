@@ -7,6 +7,7 @@ import { NgStyle } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { Observable,BehaviorSubject, OperatorFunction } from 'rxjs';
 import { debounceTime,switchMap, distinctUntilChanged, map } from 'rxjs/operators';
+import { ApiService } from '../apiCollection/api.service';
 
 @Component({
   selector: 'app-your-objective',
@@ -26,11 +27,28 @@ export class YourObjectiveComponent implements OnInit {
     const cloneReq = req.clone({headers});
     return next.handle(cloneReq);
   }
-  constructor( private http : HttpClient) { }
-  show=false;
+  constructor( private http : HttpClient,private apiData:ApiService) { }
+  show=false
   show2=false;
   show3=false;
   dp=false;
+
+
+  
+  // toggleObjective=()=>{
+  //   this.show = !this.show
+  //   // console.log(this.show);
+    
+  // }
+  // toggleMilestone=()=>{
+  //   this.show2 = !this.show2
+  //   // console.log(this.show);
+    
+  // }
+
+
+
+
   showDp(){
     if(this.dp == false){
       this.dp=true;
@@ -41,17 +59,29 @@ export class YourObjectiveComponent implements OnInit {
   openUpdateDp(){
     this.show3=true;
   }
+
+
+  // show goal & milestone
   objectiveShow(){
     this.show=true;
   } 
 
   objectiveHide(){
-    this.show=false;
+    console.log('objective hide',this.show);
+    this.show = false
+    console.log('objective hide',this.show);
+    
+  
   }
 
+  keyresultshow(){
+    this.show2=true;
+  }
   keyresultHide(){
     this.show2=false;
   }
+
+
   previous(){
     this.show2=false;
     this.show=true;

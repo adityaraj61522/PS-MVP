@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {  NgForm } from '@angular/forms';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../apiCollection/api.service';
@@ -14,6 +14,9 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
   styleUrls: ['./milestone.component.css']
 })
 export class MilestoneComponent implements OnInit {
+  @Input() keyresultshow: any;
+  @Input() keyresultHide: any;
+
   allUsers:any = []
   public model: any;
 
@@ -53,6 +56,9 @@ outFormatter = (x: {full_name: string}) => x.full_name;
    
 
   ngOnInit(): void {
+   
+
+    
     this.myForm = this.fb.group({
       goal_id: "1",
       org_id: "1",
@@ -110,6 +116,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
   onSubmit(form: FormGroup) {
     // console.log(form.value.ownerObj);
+    this.keyresultHide()
 
     const extraDetails = {
       milestone_type: this.choice,
