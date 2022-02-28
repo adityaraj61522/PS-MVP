@@ -63,6 +63,8 @@ export class LoginComponent implements OnInit {
     this.http.post(`http://localhost:9001/organization-details`,this.url).subscribe((result)=>{
       console.log(result);
       this.orgData=JSON.parse(JSON.stringify(result));
+      console.log(this.orgData);
+      
       sessionStorage.setItem("orgDetails_id",this.orgData.org_id);
       sessionStorage.setItem("orgData",JSON.stringify(this.orgData));
       this.org_logo=sessionStorage.getItem("orgDetails")

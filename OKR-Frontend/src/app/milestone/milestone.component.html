@@ -16,7 +16,8 @@
       </div>
 
 
+ 
+      
+<button type="button" class="btn btn-primary addMilestone btn-sm d-md-block" *ngIf="refFrom=='detailsPage'"  (click)="objectiveShow()" >ADD MILESTONE</button>
 
-
-
-<p (click)="objectiveShow()" >Add milestone</p>
+<p (click)="objectiveShow()"  *ngIf="refFrom=='listPage'"  >Add milestone</p>

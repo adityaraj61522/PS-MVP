@@ -65,7 +65,7 @@
         <ul class="dropdown-menu" *ngIf="dp" style="display: block;" aria-labelledby="dropdownMenuButton1">
           <li (click)="openUpdateDp()"><a class="dropdown-item">Update Goal</a></li>
           <li><a class="dropdown-item" >
-            <app-milestone [goalId]="goalDetails.goal_id"></app-milestone>
+            <app-milestone [goalId]="goalDetails.goal_id" [refFrom]="'listPage'"></app-milestone>
           </a></li>
           <li (click)="deleteGoal(goalDetails.goal_name, goalDetails.goal_id, goalDetails.org_id)"><a class="dropdown-item"> Delete Goal</a></li>
         </ul>

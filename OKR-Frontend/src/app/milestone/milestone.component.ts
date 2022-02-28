@@ -11,6 +11,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class MilestoneComponent implements OnInit {
  @Input() goalId:any;
+ @Input() refFrom:any;
 
   constructor() { 
 

@@ -13,7 +13,7 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 })
 export class CreateMilestoneComponent implements OnInit {
   @Input() goalId:any;
-
+ 
   allUsers:any = []
   public model: any;
   myForm!: FormGroup;
@@ -63,7 +63,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
     
     this.myForm = this.fb.group({
-      org_id: "1",
+      org_id: sessionStorage.getItem('orgDetails_id'),
       milestone_name: ['',[Validators.required]],
       milestone_start_date: ['',[Validators.required]],
       milestone_due_date: ['',[Validators.required]],
