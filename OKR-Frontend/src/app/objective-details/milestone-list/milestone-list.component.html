@@ -1,7 +1,7 @@
 <div class="list-card row">
     <div class="col-sm-1 progress-percent">
       <circle-progress
-  [percent]="85"
+  [percent]="milestoneDetails.milestone_progress"
   [radius]="30"
   [outerStrokeWidth]="6"
   [innerStrokeWidth]="4"
@@ -26,13 +26,13 @@
         <li class="nav-item st" *ngIf="milestoneDetails.milestone_type=='metric'">
             <strong>Target/Acheived:</strong>{{milestoneDetails.metric_target_value}}/{{milestoneDetails.metric_curr_value}}
         </li>
+        <li class="nav-item st" *ngIf="milestoneDetails.milestone_type=='progress'">
+            <strong>Progress:</strong>{{milestoneDetails.milestone_progress}}
+        </li>
       </ul>
     </div>
     <div class="col-sm-2 options">
       <ul class="nav">
-        <!-- <li class="nav-item">
-          <p class="status shadow">Waiting for approval</p>
-        </li> -->
         <li class="nav-item">
           <div class="dropdown">
         <button class="btn btn-default dropdown"  (click)="showDp()" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,7 +43,9 @@
           <li><a class="dropdown-item" >Another actions</a></li>
           <li (click)="deleteMilestone(milestoneDetails.milestone_name, milestoneDetails.milestone_id, milestoneDetails.org_id)"><a class="dropdown-item">Delete Milestone</a></li>
         </ul>
-
+        </div>
+        </li>
+        <li class="nav-item" *ngIf="milestoneDetails.milestone_status=='Not Completed'">
         <ul class="nav">
           <li class="nav-item">
             <div class="modal fade show" *ngIf="check"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -57,12 +59,12 @@
                 </div>
               </div>
               </div>
-      <!-- <button class="btn btn-primary" style="background-color: #0D8EBB;" (click)="checkin()">Edit</button> -->
       <button type="button" class="btn btn-default" style="color: #0D8EBB;" (click)="checkin()"><img src="https://img.icons8.com/ios-filled/20/000000/marker.png" (click)="checkin()"/>Checkin</button>
           </li>
         </ul>
-      </div>
         </li>
+
+        <li class="nav-item" *ngIf="milestoneDetails.milestone_status=='Completed'">
+          <button type="button" class="btn btn-default" style="color: #0D8EBB;" ><img src="https://img.icons8.com/ios-filled/20/000000/marker.png" (click)="checkin()"/>Completed</button>
+              </li>
       </ul>
-    </div>
-  </div>
