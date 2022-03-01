@@ -2,6 +2,43 @@
     background-color: white;
     border-bottom: 1px solid lightgray;
 }
+mat-slider {
+    width: 1000px;
+}
+
+::ng-deep .mat-slider-track-background{
+    background: grey !important;
+    transform: none !important;
+    height: 5px !important;
+}
+mat-slider-track-fill{
+    /* background-color: red !important; */
+}
+::ng-deep .mat-slider-thumb{
+    background: #0D8EBB;
+    transform:none !important;
+    height: 15px !important;
+    width: 15px !important;
+}
+::ng-deep .mat-slider-thumb-label{
+    background: #0D8EBB;
+    color: white;
+    font-size: 10px;
+    transform: none !important;
+    transform: rotate(45deg) !important;
+    border-radius: 50% 50% 0 !important;
+    height: 30px !important;
+    width: 30px !important;
+    margin-bottom: 10px !important;
+}
+::ng-deep .mat-slider-thumb-label-text{
+    display: block;
+    opacity: 100 !important;
+    transform: none !important;
+    transform: rotate(-45deg) !important;
+}
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 .modal{
     background-color: rgba(0, 0, 0, 0.5);
 }
@@ -35,18 +72,15 @@ box-shadow: none;
     height: 100px;
     background-color: white;
     border-radius: 10px;
-    border-left:5px solid red;
+    border-left:5px solid green;
     padding:10px;
 }
 .progress-percent{
-    background-color: #0D8EBB;
     height: 70px;
     width: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
-    color: white;
 }
 .task-details{
     padding: 10px;
@@ -95,6 +129,10 @@ label{
     width: 300px;
     margin-right: 50px;
 }
+.st{
+    margin-left: 50px;
+    margin-right: 50px;
+}
 input{
     border:1px solid lightgrey;
 }
@@ -104,19 +142,4 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched{
 span{
     color: red;
     font-size: 10px;;
-}
-
-p.successMsg {
-    position: absolute;
-    left: 16px;
-    color: green;
-    font-size: 16px;
-    font-weight: 500;
-}
-p.errorMsg {
-    position: absolute;
-    left: 16px;
-    color: red;
-    font-size: 16px;
-    font-weight: 500;
 }

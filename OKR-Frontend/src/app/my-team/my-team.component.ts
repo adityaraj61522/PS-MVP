@@ -18,28 +18,27 @@ export class MyTeamComponent implements OnInit {
   sessionData:any;
   teamMembers:any;
 
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Headers': '*',
+    'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
+    'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
+    'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
+  }  
+  requestOptions = {
+    headers: new HttpHeaders(this.headers),
+  };
+
   ngOnInit(): void {
 
     this.sessionData=JSON.parse(sessionStorage['userData'])[0];
     this.manager.line_manager_id=this.sessionData.line_manager_id;
     this.manager.org_id=this.sessionData.org_id;
     console.log(this.manager,12345678)
-    
-    const headers = {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      'Accept': 'application/json',
-      'Access-Control-Allow-Headers': '*',
-      'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
-      'x-key':'1',
-      'x-org':'1'
-    }
-    const requestOptions = {
-      headers: new HttpHeaders(headers),
-    };
-    
-
+  
     // Get Goals
-    this.http.post(`/api/v1/employee/getMyTeam`, this.manager, requestOptions).subscribe((response)=>{
+    this.http.post(`/api/v1/employee/getMyTeam`, this.manager, this.requestOptions).subscribe((response)=>{
       console.log(response);
       this.teamMembers=response;
       console.log("team_DATA:---", this.teamMembers)

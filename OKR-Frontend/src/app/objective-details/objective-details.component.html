@@ -18,8 +18,11 @@
         </li>
       </ul>
     </div>
+    
     <div class="col-sm-2 options">
-      <ul class="nav">
+      <app-milestone [goalId]="goal_data[0].goal_id" [refFrom]="'detailsPage'"></app-milestone>
+      <!-- <button type="button" class="btn btn-primary addMilestone btn-sm d-md-block">ADD MILESTONE</button> -->
+      <!-- <ul class="nav">
         <li class="nav-item">
           <p class="status shadow">Active</p>
         </li>
@@ -35,7 +38,7 @@
         </ul>
       </div>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </div>
   <hr>
@@ -47,14 +50,14 @@
           <strong>Owner:</strong>{{ goal_data[0].goal_owner_name }}
         </li>
         <li class="nav-item details">
-            <strong>Your Progress:</strong>
+            <strong>Start Date:</strong>{{ goal_data[0].goal_start_date }}
         </li>
         <li class="nav-item details">
-            <strong>Outcome Progress:</strong>
+            <strong>Due Date:</strong>{{ goal_data[0].goal_due_date }}
         </li>
-        <li class="nav-item details">
+        <!-- <li class="nav-item details">
             <strong>Effort Progress:</strong>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>

@@ -11,7 +11,10 @@ export class GoalListComponent implements OnInit {
 
   @Input() goalDetails:any;
   @Input() public deleteGoal !: (goal_name: any, goal_id:any , org_id: any) => void;
-  constructor( private http : HttpClient, private router : Router) { }
+  constructor( private http : HttpClient, private router : Router) {
+  
+    
+   }
 
   show2=false;
   show3=false;
@@ -39,7 +42,7 @@ export class GoalListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log(this.goalDetails,"goalid");
+
   }
 
 }

@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +28,9 @@ import { TeamListComponent } from './my-team/team-list/team-list.component';
 import { SettingsComponent } from './admin/settings/settings.component';
 import { UsersComponent } from './admin/users/users.component';
 import { UserCardComponent } from './admin/users/user-card/user-card.component';
+import { EditUsersComponent } from './admin/users/user-card/edit-users/edit-users.component';
+import { CheckinPopupComponent } from './objective-details/milestone-list/checkin-popup/checkin-popup.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ApiComponent } from './apiCollection/api/api.component';
 
 @NgModule({
@@ -47,6 +52,8 @@ import { UserCardComponent } from './admin/users/user-card/user-card.component';
     SettingsComponent,
     UsersComponent,
     UserCardComponent,
+    EditUsersComponent,
+    CheckinPopupComponent,
     // ApiComponent
   ],
   imports: [
@@ -70,9 +77,13 @@ import { UserCardComponent } from './admin/users/user-card/user-card.component';
       "titleFontSize": "18",
       "showSubtitle": false,
       "showBackground": false,
-    })
+    }),
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatProgressBarModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }
