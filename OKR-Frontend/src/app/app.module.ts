@@ -17,7 +17,6 @@ import { RegisterComponent } from './register/register.component';
 import { ObjectiveDetailsComponent } from './objective-details/objective-details.component';
 import { GoalListComponent } from './your-objective/goal-list/goal-list.component';
 // import { MilestoneModule } from './milestone/milestone.module';
-import { MilestoneComponent } from './milestone/milestone.component';
 import { CreateGoalComponent } from './your-objective/create-goal/create-goal.component';
 import { CreateMilestoneComponent } from './your-objective/create-milestone/create-milestone.component';
 
@@ -42,7 +41,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RegisterComponent,
     ObjectiveDetailsComponent,
     GoalListComponent,
-    MilestoneComponent,
     CreateGoalComponent,
     CreateMilestoneComponent,
     EditGoalComponent,
@@ -54,7 +52,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserCardComponent,
     EditUsersComponent,
     CheckinPopupComponent,
-    // ApiComponent
   ],
   imports: [
     BrowserModule,
