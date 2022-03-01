@@ -2,8 +2,8 @@
 <section class="active-list">
     <div>
       <strong>Active(1)</strong>
-      <app-milestone></app-milestone>
-      <ul class="nav side">
+      <app-milestone></app-milestone> 
+      <ul class="nav side">  
         <li class="nav-item">
           <div class="modal fade show" *ngIf="show"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -101,6 +101,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="keyresultHide()"></button>
                 </div>
                  <app-create-milestone></app-create-milestone>
+                 <!-- <app-milestone [keyresultshow]="keyresultshow"   [keyresultHide]="keyresultHide" ></app-milestone> -->
               </div>
             </div>
           </div>
@@ -191,7 +192,7 @@
     </section>
     
     
-    <!--    Rejected      -->
+    <!--    Rejected      --> 
     
     <!--      Closed Section      -->
     

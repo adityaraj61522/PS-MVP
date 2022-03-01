@@ -7,6 +7,7 @@ import { NgStyle } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { Observable,BehaviorSubject, OperatorFunction } from 'rxjs';
 import { debounceTime,switchMap, distinctUntilChanged, map } from 'rxjs/operators';
+import { ApiService } from '../apiCollection/api.service';
 
 @Component({
   selector: 'app-your-objective',
@@ -18,9 +19,12 @@ export class YourObjectiveComponent implements OnInit {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     'Accept': 'application/json',
     'Access-Control-Allow-Headers': '*',
-    'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
-    'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
-    'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
+    'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+    'x-key':'1',
+    'x-org':'1'
+    // 'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
+    // 'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
+    // 'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
   }  
   requestOptions = {
     headers: new HttpHeaders(this.headers),
@@ -85,17 +89,29 @@ export class YourObjectiveComponent implements OnInit {
   openUpdateDp(){
     this.show3=true;
   }
+
+
+  // show goal & milestone
   objectiveShow(){
     this.show=true;
-  }
+  } 
 
   objectiveHide(){
-    this.show=false;
+    // console.log('objective hide',this.show);
+    this.show = false
+    // console.log('objective hide',this.show);
+    
+  
   }
 
+  keyresultshow(){
+    this.show2=true;
+  }
   keyresultHide(){
     this.show2=false;
   }
+
+
   previous(){
     this.show2=false;
     this.show=true;
@@ -104,13 +120,13 @@ export class YourObjectiveComponent implements OnInit {
   deleteGoal=(goal_name: any, goal_id:any , org_id: any)=>{
     this.deleteGoalReq.goal_id= goal_id;
     this.deleteGoalReq.org_id = org_id;
-    console.log(this.deleteGoalReq)
+    // console.log(this.deleteGoalReq)
     if(confirm("Are you sure want to delete "+goal_name)){
       this.http.put(`/api/v1/employee/deletegoal`, {goal_id,org_id} , this.requestOptions).subscribe((response)=>{
-        console.log("delete goal console:---", response);
+        // console.log("delete goal console:---", response);
         window.location.reload();
       },(error)=>{
-        console.error(error);
+        // console.error(error);
       })
     }
   }
@@ -131,6 +147,10 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     )
 
   addObjective(){
+    console.log(this.newObjective ,"obj")
+    
+    // this.show=false;
+    // this.show2=true;
     this.newObjective.goal_name=this.ObjFormData.value.goal_name;
     // this.newObjective.goal_type=this.ObjFormData.value.goal_type;
     this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
@@ -141,10 +161,11 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.newObjective.linked_org_goal_id=this.ObjFormData.value.linked_org_goal_id;
     
     this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions
-  ).subscribe((result)=>{
-      console.log(result); 
+  ).subscribe((result:any)=>{
+      // console.log(result:any); 
       this.show=false;
       this.show2=true;
+      sessionStorage.setItem("goalId",result.goalId);
     },(error)=>{
       console.error(error);
       this.er=true;
@@ -168,7 +189,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       // console.log(response);
       this.goalData=response;
       
-      console.log("goal_DATA:---", this.goalData)
+      // console.log("goal_DATA:---", this.goalData)
       
     },(error)=>{
       console.error(error);
@@ -183,24 +204,24 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.newObjective.created_by=this.userData.user_id;
     // this.newObjective.updated_by=this.userData.first_name;
     this.getUser.org_id=this.userData.org_id;
-    console.log(this.getUser, "jhvjhcds")
+  
     this.user_id=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))))[0].user_id
     sessionStorage.setItem("user_id",this.user_id);
 
     // Get Users
      await this.http.post(`/api/v1/employee/getusers`, this.getUser, this.requestOptions).subscribe((response)=>{
-      console.log(response,"user");
+
       this.allUsers=response;
-      console.log(this.allUsers,"al")
+
     },(error)=>{
       console.error(error);
     })
 
     // Get Orginizational goal
     await this.http.post(`/api/v1/employee/getorganizationgoals`, this.getUser, this.requestOptions).subscribe((response)=>{
-      console.log(response,"user");
+
       this.allOrgGoal=response;
-      console.log(this.allOrgGoal,"or")
+
     },(error)=>{
       console.error(error);
     })

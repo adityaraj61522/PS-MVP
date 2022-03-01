@@ -39,7 +39,7 @@ export class NavComponent implements OnInit {
   userData:any;
   orgData:any;
   ngOnInit(): void {
-    console.log(window.location.pathname);
+  
     if(window.location.pathname=='/admin/users'){
       this.admin=true;
       this.employee=false;
@@ -56,10 +56,10 @@ export class NavComponent implements OnInit {
     this.userdata.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
     // console.log(this.userdata.user[0]);
     this.userData=this.userdata.user[0]
-    console.log(sessionStorage,"dkhjjscnjkwds");
+
     this.orgData=sessionStorage.getItem("orgData")
     this.orgData=JSON.parse(this.orgData);
-    console.log(this.orgData,'jhsjhaxjhahjzhj')
+  
   }
 
 }

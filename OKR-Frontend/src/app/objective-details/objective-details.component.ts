@@ -18,7 +18,7 @@ export class ObjectiveDetailsComponent implements OnInit {
   goal_data:any;
   milestone_data:any;
 
-  deleteMilestoneReq={
+  deleteMilestoneReq={ 
     milestone_id:"",
     org_id:"",
   }
@@ -26,11 +26,14 @@ export class ObjectiveDetailsComponent implements OnInit {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     'Accept': 'application/json',
     'Access-Control-Allow-Headers': '*',
-    'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
-    'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
-    'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
+    'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+    'x-key':'1',
+    'x-org':'1'
+    // 'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
+    // 'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
+    // 'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
   }  
-  requestOptions = {
+  requestOptions = { 
     headers: new HttpHeaders(this.headers),
   };
 
@@ -51,24 +54,28 @@ export class ObjectiveDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params)=>{
-      console.log(params);
+    
       this.Id.goal_id=params["ID"];
-      console.log(this.Id.goal_id);
-      // this.org_id=sessionStorage['orgDetails.id'];
-      // console.log(this.org_id)
+     
+      //  const myorgid = sessionStorage.getItem('orgDetails_id');
+      // console.log(myorgid)
     })    
     this.getGoalDetails();
     this.getGoalMilestones();
-    // console.log(this.userData); 
+   
 
   }
 
   getGoalDetails(){
   // Get Goals
+
+  
   return this.http.post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions).subscribe((response)=>{
-    console.log(response);
+   
     this.goal_data=response;
-    console.log("goal_DATA:---", this.goal_data[0])
+    console.log(this.goal_data);
+    
+   
     
   },(error)=>{
     console.error(error);
@@ -80,9 +87,9 @@ export class ObjectiveDetailsComponent implements OnInit {
 
   // Get Goals
   return this.http.post(`/api/v1/employee/getgoalmilestones`, this.Id, this.requestOptions).subscribe((response)=>{
-    console.log(response);
+   
     this.milestone_data=response;
-    console.log("goal_DATA_milestone:---", this.milestone_data)
+  
     
   },(error)=>{
     console.error(error);
