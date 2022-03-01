@@ -28,14 +28,14 @@ export class UsersComponent implements OnInit {
   allUsers:any;
 
   ngOnInit(): void {
-    this.orgData.org_id=sessionStorage['orgDetails.id']
+    this.orgData.org_id=sessionStorage['orgDetails_id']
     console.log(this.orgData.org_id)
 
     // Get Goals
     this.http.post(`/api/v1/admin/getUsers`, this.orgData, this.requestOptions).subscribe((response)=>{
       console.log(response);
       this.allUsers=response;
-      // console.log("team_DATA:---", this.teamMembers)
+      console.log("team_DATA:---", this.orgData)
       
     },(error)=>{
       console.error(error);

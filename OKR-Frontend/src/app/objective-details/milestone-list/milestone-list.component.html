@@ -44,8 +44,23 @@
           <li (click)="deleteMilestone(milestoneDetails.milestone_name, milestoneDetails.milestone_id, milestoneDetails.org_id)"><a class="dropdown-item">Delete Milestone</a></li>
         </ul>
 
-        <button type="button" class="btn btn-default"><img src="https://img.icons8.com/ios-filled/20/000000/marker.png"/>Checkin</button>
-        
+        <ul class="nav">
+          <li class="nav-item">
+            <div class="modal fade show" *ngIf="check"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalToggleLabel">Checkin: {{milestoneDetails.milestone_name}}</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="checkin()" aria-label="Close"></button>
+                    </div>
+                    <app-checkin-popup [milestoneDetails] = "milestoneDetails"></app-checkin-popup>
+                </div>
+              </div>
+              </div>
+      <!-- <button class="btn btn-primary" style="background-color: #0D8EBB;" (click)="checkin()">Edit</button> -->
+      <button type="button" class="btn btn-default" style="color: #0D8EBB;" (click)="checkin()"><img src="https://img.icons8.com/ios-filled/20/000000/marker.png" (click)="checkin()"/>Checkin</button>
+          </li>
+        </ul>
       </div>
         </li>
       </ul>

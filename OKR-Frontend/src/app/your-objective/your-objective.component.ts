@@ -32,6 +32,7 @@ export class YourObjectiveComponent implements OnInit {
   show2=false;
   show3=false;
   dp=false;
+  er=false;
   user_id:any;
   deleteGoalReq={
     goal_id:"",
@@ -138,8 +139,6 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.newObjective.goal_owner_id=this.model.user_id;
     this.newObjective.goal_owner_email=this.model.email;
     this.newObjective.linked_org_goal_id=this.ObjFormData.value.linked_org_goal_id;
-    this.show=false;
-    this.show2=true;
     
     this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions
   ).subscribe((result)=>{
@@ -148,8 +147,10 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       this.show2=true;
     },(error)=>{
       console.error(error);
+      this.er=true;
+
     });
-    console.log(this.newObjective ,"obj")
+    console.log(JSON.stringify(this.newObjective ),"obj")
   }
 
   session:any;
