@@ -1,0 +1,18 @@
+
+<div class="modal fade show" *ngIf="show"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalToggleLabel">NEW KEY RESULT: CREATE YOUR KEY RESULT</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button>
+          </div>
+        <app-create-milestone [goalId]="goalId"></app-create-milestone>
+        </div>
+    </div>
+</div>
+
+
+<!-- <p >milestone-reuse works!</p> -->
+<p *ngIf="refFrom=='listPage'" (click)="objectiveShow()">Add milestone</p>
+
+<button class="btn-primary"  *ngIf="refFrom=='detailsPage'" (click)="objectiveShow()" >Add milestone</button>

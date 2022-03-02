@@ -70,17 +70,17 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       milestone_due_date: ['',[Validators.required]],
       is_active: "1",
       created_by: "1",
-      //owner detail
+      //owner detail 
       ownerObj:{},
       // milestone_owner_id: '1', 
       // milestone_owner_name: 'ravi',
       // milestone_owner_email: 'ravi@gmail.com',
 
       //boolean
-      milestone_status: ['not completed',[Validators.required]],
+      // milestone_status: ['not completed',[Validators.required]],
       
-      //progress
-      milestone_progress: [0,[Validators.required,Validators.min(0),Validators.max(100)]],
+      // //progress
+      // milestone_progress: [0,[Validators.required,Validators.min(0),Validators.max(100)]],
 
       // metric
       metric_start_value: [0,[Validators.required,Validators.min(0)]],
@@ -112,10 +112,11 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
 
   onSubmit(form: FormGroup) {
+
     var postReq:any = {
-      goal_id: sessionStorage.getItem("goalId") || this.goalId,
+      goal_id:  this.goalId  || sessionStorage.getItem("goalId") ,
       is_active: "1",
-      org_id: "1",
+      org_id: sessionStorage.getItem("orgDetails_id") || "1", 
       milestone_name: form.value.milestone_name,
       milestone_start_date: form.value.milestone_start_date,
       milestone_due_date: form.value.milestone_due_date,
@@ -129,23 +130,24 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     }
 
    
+  console.log(postReq);
   
 
-    if(this.choice=='boolean'){
-      postReq["milestone_status"] = form.value.milestone_status
-      this.postMilestoneReq(postReq,'boolean')
-    }
-    if(this.choice=='progress'){
-      postReq["milestone_progress"] = form.value.milestone_progress
-      this.postMilestoneReq(postReq,'progress')
-    }
-    if(this.choice=='metric'){
-      postReq["metric_start_value"] = form.value.metric_start_value
-      postReq["metric_target_value"] = form.value.metric_target_value
-      postReq["metric_curr_value"] = form.value.metric_start_value
-      this.postMilestoneReq(postReq,'metric')
+    // if(this.choice=='boolean'){
+    //   postReq["milestone_status"] = 'not completed'
+    //   this.postMilestoneReq(postReq,'boolean')
+    // }
+    // if(this.choice=='progress'){
+    //   postReq["milestone_progress"] = 0
+    //   this.postMilestoneReq(postReq,'progress')
+    // }
+    // if(this.choice=='metric'){
+    //   postReq["metric_start_value"] = form.value.metric_start_value
+    //   postReq["metric_target_value"] = form.value.metric_target_value
+    //   postReq["metric_curr_value"] = form.value.metric_start_value
+    //   this.postMilestoneReq(postReq,'metric')
 
-    }
+    // }
 
   }
 
@@ -155,6 +157,10 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       console.log(result);
       if(result){
         this.successMsg = true
+        setInterval(() => {
+          window.location.reload();
+          }, 1000);
+      
       }
     },(error)=>{
       console.error(error);

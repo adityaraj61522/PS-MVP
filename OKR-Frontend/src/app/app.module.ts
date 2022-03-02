@@ -30,6 +30,7 @@ import { UserCardComponent } from './admin/users/user-card/user-card.component';
 import { EditUsersComponent } from './admin/users/user-card/edit-users/edit-users.component';
 import { CheckinPopupComponent } from './objective-details/milestone-list/checkin-popup/checkin-popup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MilestoneReuseComponent } from './milestone/milestone-reuse/milestone-reuse.component';
 // import { ApiComponent } from './apiCollection/api/api.component';
 
 @NgModule({
@@ -52,6 +53,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserCardComponent,
     EditUsersComponent,
     CheckinPopupComponent,
+    MilestoneReuseComponent,
   ],
   imports: [
     BrowserModule,
