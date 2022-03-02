@@ -49,7 +49,7 @@
     <div class="form-group">
     <label>Owner:</label><br>
     <!-- <label for="typeahead-basic">Search for a state:</label> -->
-    <input type="text" class="in-2" [(ngModel)]="model" [ngbTypeahead]="search"  formControlName="ownerObj"
+    <input type="text" class="in-2" [(ngModel)]="model" [ngbTypeahead]="search"  formControlName="ownerObj" 
     [resultFormatter]="inFormatter"
     [inputFormatter]="outFormatter"/>
     
@@ -58,13 +58,13 @@
  
     </div>
      <div class="form-group">
-      <label>Start Date*</label><br>
-      <input type="date"  class="in-d"   formControlName="milestone_start_date">
+      <label>Start Date*</label><br> 
+      <input type="date"  class="in-d"   formControlName="milestone_start_date"  #dateStartSelect   (change)='chooseDate(dateStartSelect.value)'>
      
       </div>
       <div class="form-group">
       <label>End Date*</label><br>
-      <input type="date"   class="in-d" formControlName="milestone_due_date">
+      <input type="date"   class="in-d" formControlName="milestone_due_date" min="{{min_due_date}}">
      
       </div>
   </div>
@@ -85,9 +85,9 @@
   </div> -->
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-bs-dismiss="modal"   aria-label="Close"> Cancel </button><br>
+    <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal"   aria-label="Close"> Cancel </button><br> -->
     <button class="btn btn-primary" type="submit" 
-  
+    [disabled]="myForm.invalid"
     data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Add Key  Result</button>
   </div>
 </form>

@@ -23,6 +23,7 @@ export class CreateMilestoneComponent implements OnInit {
   choice:string = 'boolean';
   successMsg:boolean = false
   errorMsg:boolean = false
+  min_due_date:string = ''
 
   constructor(private fb: FormBuilder, private http : HttpClient,private apiData:ApiService) { 
     this.apiData.getUsers().subscribe((result)=>{
@@ -71,7 +72,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       created_by: "1",
       //owner detail
       ownerObj:{},
-      // milestone_owner_id: '1',
+      // milestone_owner_id: '1', 
       // milestone_owner_name: 'ravi',
       // milestone_owner_email: 'ravi@gmail.com',
 
@@ -93,7 +94,11 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     // call user api
     
   }
-
+// for desable min date
+  chooseDate(value:string){
+    this.min_due_date = value
+   
+  }
 
 
   changeChoice(option:string){
