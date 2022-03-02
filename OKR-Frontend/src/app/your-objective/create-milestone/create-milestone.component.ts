@@ -84,7 +84,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
       // metric
       metric_start_value: [0,[Validators.required,Validators.min(0)]],
-      metric_target_value: [0,[Validators.required,Validators.min(0)]],
+      metric_target_value: [0,[Validators.required,Validators.min(1)]],
 
 
 
@@ -133,21 +133,21 @@ outFormatter = (x: {full_name: string}) => x.full_name;
   console.log(postReq);
   
 
-    // if(this.choice=='boolean'){
-    //   postReq["milestone_status"] = 'not completed'
-    //   this.postMilestoneReq(postReq,'boolean')
-    // }
-    // if(this.choice=='progress'){
-    //   postReq["milestone_progress"] = 0
-    //   this.postMilestoneReq(postReq,'progress')
-    // }
-    // if(this.choice=='metric'){
-    //   postReq["metric_start_value"] = form.value.metric_start_value
-    //   postReq["metric_target_value"] = form.value.metric_target_value
-    //   postReq["metric_curr_value"] = form.value.metric_start_value
-    //   this.postMilestoneReq(postReq,'metric')
+    if(this.choice=='boolean'){
+      postReq["milestone_status"] = 'not completed'
+      this.postMilestoneReq(postReq,'boolean')
+    }
+    if(this.choice=='progress'){
+      postReq["milestone_progress"] = 0
+      this.postMilestoneReq(postReq,'progress')
+    }
+    if(this.choice=='metric'){
+      postReq["metric_start_value"] = form.value.metric_start_value
+      postReq["metric_target_value"] = form.value.metric_target_value
+      postReq["metric_curr_value"] = form.value.metric_start_value
+      this.postMilestoneReq(postReq,'metric')
 
-    // }
+    }
 
   }
 
