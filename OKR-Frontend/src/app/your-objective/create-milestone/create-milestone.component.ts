@@ -84,7 +84,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
       // metric
       metric_start_value: [0,[Validators.required,Validators.min(0)]],
-      metric_target_value: [0,[Validators.required,Validators.min(1)]],
+      metric_target_value: [1,[Validators.required,Validators.min(1)]],
 
 
 
