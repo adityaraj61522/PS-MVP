@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MilestoneComponent } from './milestone.component';
+import { MilestoneReuseComponent } from './milestone-reuse.component';
 
-describe('MilestoneComponent', () => {
-  let component: MilestoneComponent;
-  let fixture: ComponentFixture<MilestoneComponent>;
+describe('MilestoneReuseComponent', () => {
+  let component: MilestoneReuseComponent;
+  let fixture: ComponentFixture<MilestoneReuseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MilestoneComponent ]
+      declarations: [ MilestoneReuseComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MilestoneComponent);
+    fixture = TestBed.createComponent(MilestoneReuseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

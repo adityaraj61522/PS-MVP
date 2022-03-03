@@ -1,0 +1,79 @@
+<form [formGroup]="checkinForm" (ngSubmit)="checkiGoal()">
+    <div>
+        <p style="margin-left: 20px;"><strong> Milestone Type: </strong>{{milestoneDetails.milestone_type}}</p>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="milestoneDetails.milestone_type=='metric'">
+        <div class="in-date">
+            <div class="form-group">
+              <label>Start Value:</label><br>
+              <input type="text" class="in-2 form-control" formControlName="metric_start_value" required>
+              <!-- <span class="help-block" *ngIf="!goal_name.valid && goal_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
+            </div>
+            <div class="form-group">
+              <label>Target Value:</label><br>
+              <input type="text" class="in-2 form-control" formControlName="metric_target_value" required>
+              <!-- <span class="help-block" *ngIf="!goal_name.valid && goal_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
+            </div>
+
+        </div>
+      <div class="in-date">
+        <div class="form-group">
+        <label>Already Acheived Value(To Date):</label><br>
+        <input type="text" class="in-2 form-control" formControlName="metric_curr_value" required>
+        <!-- <span class="help-block" *ngIf="!goal_start_date.valid && goal_start_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
+        </div>
+        <div class="form-group">
+        <label>Enter Target Value Achieved (to date):</label><br>
+        <input type="text" class="in-2 form-control" formControlName="metric_value_new" required>
+        <!-- <span class="help-block" *ngIf="!goal_due_date.valid && goal_due_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
+        </div>
+      </div>
+    </div>
+    <div class="in-date" *ngIf="milestoneDetails.milestone_type=='boolean'">
+        <div class="form-group">
+            <label>Have You Acheived This?
+                <br><br>
+            <input type="radio" class="" formControlName="boolean_status" value="1" required> <strong class="yes-no" > Yes</strong>
+            <input type="radio" class="radio-btn" formControlName="boolean_status" value="0" required> <strong class="yes-no"> No</strong>
+        </label>
+        </div>
+      </div>
+      <div class="in-date" *ngIf="milestoneDetails.milestone_type=='progress'">
+        <div class="form-group">
+            <label>What is your progress?</label>
+                <br><br>
+                <mat-slider 
+                #progress
+                    thumbLabel
+                    [displayWith]="formatLabel"
+                    tickInterval="1"
+                    step="1"
+                    min="0"
+                    max="100"
+                    aria-label="units"
+                    value="{{milestoneDetails.milestone_progress}}"
+                    style=""
+                    color="primary"
+                    (change)="updateProgress($event)" >
+                </mat-slider>
+                <input type="text" value="{{progress.value}}" 
+                (change)="updateProgress($event)">
+
+        </div>
+      </div>
+      <div class="in-date">
+        <div class="form-group">
+            <label>What is your progress?</label>
+                <br><br>
+                <input type="text" class="in-2 form-control" formControlName="checin_comment" required placeholder="Checkin Comment">
+
+        </div>
+        </div>
+      </div>
+    <div class="modal-footer">
+      <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal" (click)="objectiveHide()"  aria-label="Close"> Cancel </button><br> -->
+      <button class="btn btn-primary" type="submit" 
+      data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Checkin</button>
+    </div>
+  </form>

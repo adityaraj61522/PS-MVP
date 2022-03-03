@@ -29,13 +29,14 @@ export class YourObjectiveComponent implements OnInit {
   requestOptions = {
     headers: new HttpHeaders(this.headers),
   };
-  constructor( private http : HttpClient) { }
+  constructor( private http : HttpClient ) { }
 
   @ViewChild('ObjForm') ObjFormData!: NgForm;
   show=false;
   show2=false;
   show3=false;
   dp=false;
+  er=false;
   user_id:any;
   deleteGoalReq={
     goal_id:"",
@@ -158,8 +159,6 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.newObjective.goal_owner_id=this.model.user_id;
     this.newObjective.goal_owner_email=this.model.email;
     this.newObjective.linked_org_goal_id=this.ObjFormData.value.linked_org_goal_id;
-    this.show=false;
-    this.show2=true;
     
     this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions
   ).subscribe((result:any)=>{
@@ -169,8 +168,10 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       sessionStorage.setItem("goalId",result.goalId);
     },(error)=>{
       console.error(error);
-    });
+      this.er=true;
 
+    });
+    console.log(JSON.stringify(this.newObjective ),"obj")
   }
 
   session:any;

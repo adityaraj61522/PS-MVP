@@ -17,7 +17,7 @@
 <div class="list-card row shadow-lg">
     <div class="col-sm-1 progress-percent">
       <circle-progress
-  [percent]="20"
+  [percent]="goalDetails.goal_progress"
   [radius]="30"
   [outerStrokeWidth]="6"
   [innerStrokeWidth]="4"
@@ -53,7 +53,7 @@
       </ul>
     </div>
     <div class="col-sm-2 options"> 
-      <ul class="nav">
+      <ul class="nav"> 
         <li class="nav-item">
           <p class="status shadow">Waiting for approval</p>
         </li>
@@ -65,7 +65,7 @@
         <ul class="dropdown-menu" *ngIf="dp" style="display: block;" aria-labelledby="dropdownMenuButton1">
           <li (click)="openUpdateDp()"><a class="dropdown-item">Update Goal</a></li>
           <li><a class="dropdown-item" >
-            <app-milestone [goalId]="goalDetails.goal_id" [refFrom]="'listPage'"></app-milestone>
+            <app-milestone-reuse [goalId]="goalDetails.goal_id" [refFrom]="'listPage'"></app-milestone-reuse> 
           </a></li>
           <li (click)="deleteGoal(goalDetails.goal_name, goalDetails.goal_id, goalDetails.org_id)"><a class="dropdown-item"> Delete Goal</a></li>
         </ul>

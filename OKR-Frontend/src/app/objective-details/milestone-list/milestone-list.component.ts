@@ -11,6 +11,15 @@ export class MilestoneListComponent implements OnInit {
   @Input() public deleteMilestone !: (goal_name: any, goal_id:any , org_id: any) => void;
   @Input() milestoneDetails:any;
   dp=false;
+  check=false;
+  checkin(){
+    if(this.check==false){
+      this.check=true;
+    }else{
+      this.check=false;
+    }
+
+  }
   showDp(){
     if(this.dp == false){
       this.dp=true;

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-users',
@@ -8,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class EditUsersComponent implements OnInit {
 
   constructor() { }
+  @ViewChild('UpdateForm') ObjFormData!: NgForm;
 
   updateUser(){
     
   }
+
+
 
   ngOnInit(): void {
   }
