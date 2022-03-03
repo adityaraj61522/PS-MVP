@@ -60,6 +60,10 @@ export class EditGoalComponent implements OnInit {
   }
   // goal_data:any;
   goal_id:any;
+  allOrgGoal:any;
+  getOrgGoal={
+    org_id:""
+  }
 
   inFormatter = (x: {full_name: string}) => x.full_name;
 outFormatter = (x: {full_name: string}) => x.full_name; 
@@ -77,6 +81,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
   
 
   ngOnInit(): void {
+    this.getOrgGoal.org_id=JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")));
     this.route.queryParams.subscribe((params)=>{
     this.goaldata.token=JSON.parse(JSON.stringify(sessionStorage.getItem("token")));
     this.goaldata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
@@ -94,6 +99,15 @@ outFormatter = (x: {full_name: string}) => x.full_name;
   this.Id.goal_id=this.goalData.goal_id
   console.log("idnhjdjhjn",this.Id)
   this.getGoalDetails();
+
+   // Get Orginizational goal
+   this.http.post(`/api/v1/employee/getorganizationgoals`, this.getOrgGoal, this.requestOptions).subscribe((response)=>{
+
+    this.allOrgGoal=response;
+
+  },(error)=>{
+    console.error(error);
+  })
   }
 
 
@@ -123,6 +137,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
   updateObjective(){
     this.http.post(`/api/v1/employee/update-objective`, this.updateForm.value, this.requestOptions).subscribe((result)=>{
       console.log(result);
+      console.log("aaaaaa", this.model);
     },(error)=>{
       console.error(error);
     });
