@@ -28,7 +28,7 @@ box-shadow: none;
     padding:20px;
 }
 .list{
-    margin-top: 50px
+    margin-top: 20px
 }
 .list-card{
     height: 100px;
@@ -99,10 +99,4 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched{
 span{
     color: red;
     font-size: 10px;;
-}
-p.successMsg {
-    font-size: 19px;
-    color: green;
-    position: absolute;
-    top: 62px;
 }

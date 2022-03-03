@@ -4,7 +4,16 @@
     
   <div class="list-card row">
     <div class="col-sm-1 progress-percent">
-      100%
+      <circle-progress
+  [percent]="goal_data[0].goal_progress"
+  [radius]="30"
+  [outerStrokeWidth]="6"
+  [innerStrokeWidth]="4"
+  [outerStrokeColor]="'#3d54ae'"
+  [innerStrokeColor]="'#7db4e8'"
+  [animation]="true"
+  [animationDuration]="300"
+></circle-progress>
     </div>
     <div class="col-sm-8 task-details">
       <strong>{{ goal_data[0].goal_name }}</strong>
@@ -20,7 +29,7 @@
     </div>
     
     <div class="col-sm-2 options">
-      <app-milestone [goalId]="goal_data[0].goal_id" [refFrom]="'detailsPage'"></app-milestone>
+      <app-milestone-reuse [goalId]="goal_data[0].goal_id" [refFrom]="'detailsPage'"></app-milestone-reuse> 
       <!-- <button type="button" class="btn btn-primary addMilestone btn-sm d-md-block">ADD MILESTONE</button> -->
       <!-- <ul class="nav">
         <li class="nav-item">
@@ -50,10 +59,10 @@
           <strong>Owner:</strong>{{ goal_data[0].goal_owner_name }}
         </li>
         <li class="nav-item details">
-            <strong>Start Date:</strong>{{ goal_data[0].goal_start_date }}
+            <strong>Start Date: </strong> {{ goal_data[0].goal_start_date | date:'dd-MMM-YY'}}
         </li>
         <li class="nav-item details">
-            <strong>Due Date:</strong>{{ goal_data[0].goal_due_date }}
+            <strong>Due Date: </strong> {{ goal_data[0].goal_due_date | date:'dd-MMM-YY'}}
         </li>
         <!-- <li class="nav-item details">
             <strong>Effort Progress:</strong>

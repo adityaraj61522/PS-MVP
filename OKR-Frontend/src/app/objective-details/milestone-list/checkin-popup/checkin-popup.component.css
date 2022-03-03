@@ -42,6 +42,14 @@ mat-slider-track-fill{
 .modal{
     background-color: rgba(0, 0, 0, 0.5);
 }
+.radio-btn{
+    margin-left: 100px;
+    font-size: 15px;
+}
+.yes-no{
+    margin-left: 5px;
+    font-size: 15px;
+}
 .nav-link{
     color: grey;
     box-shadow: none;

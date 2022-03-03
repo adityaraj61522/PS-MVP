@@ -82,11 +82,11 @@
                     </div>
                     </div>
                     <div class="modal-footer">
+                      <span class="help-block" *ngIf="er"><i class="fas fa-exclamation-circle"></i>Error while creating objective!!!</span>
                       <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal" (click)="objectiveHide()"  aria-label="Close"> Cancel </button><br> -->
                       <button class="btn btn-primary" type="submit" 
                       data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">Add Key Result</button>
                       <br>
-                  <span class="help-block" *ngIf="er"><i class="fas fa-exclamation-circle"></i>Error while creating objective!!!</span>
                     </div>
                   </form>
 
