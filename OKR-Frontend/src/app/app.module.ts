@@ -33,6 +33,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MilestoneReuseComponent } from './milestone/milestone-reuse/milestone-reuse.component';
 // import { ApiComponent } from './apiCollection/api/api.component';
 
+// loader
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +82,9 @@ import { MilestoneReuseComponent } from './milestone/milestone-reuse/milestone-r
     }),
     BrowserAnimationsModule,
     MatSliderModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatProgressSpinnerModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],

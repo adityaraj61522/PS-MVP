@@ -17,7 +17,7 @@ export class CreateMilestoneComponent implements OnInit {
   allUsers:any = []
   public model: any;
   myForm!: FormGroup;
-
+  isLoad = false
   show=false;
   show2=false;
   choice:string = 'boolean';
@@ -112,6 +112,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
 
   onSubmit(form: FormGroup) {
+    this.isLoad = true
 
     var postReq:any = {
       goal_id:  this.goalId  || sessionStorage.getItem("goalId") ,
@@ -156,7 +157,9 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.apiData.createMilestone(data).subscribe((result)=>{
       console.log(result);
       if(result){
+        this.isLoad = false
         this.successMsg = true
+
         setInterval(() => {
           window.location.reload();
           }, 1000);

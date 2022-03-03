@@ -1,6 +1,12 @@
-<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+
+  <mat-spinner *ngIf="isLoad" [diameter]="40" style="margin-left: auto; margin-right: auto; margin-top: 150px; margin-bottom: 150px;"></mat-spinner>
+<form *ngIf="!isLoad" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
   <p class="successMsg" *ngIf="successMsg" >Milestone has been created successfully</p>
   <p class="errorMsg" *ngIf="errorMsg" >Something went wrong</p>
+
+
+
+
 
   <div class="modal-body">
     <div class="form-group">
