@@ -115,6 +115,7 @@
               </div>
             </div>
             <button
+              *ngIf="milestoneDetails.milestone_status !== 'Completed'"
               type="button"
               class="btn btn-default"
               style="color: #0d8ebb"
@@ -125,21 +126,25 @@
                 (click)="checkin()"
               />Checkin
             </button>
+            <button
+              *ngIf="milestoneDetails.milestone_status == 'Completed'"
+              type="button"
+              class="btn btn-default"
+              style="color: #0d8ebb"
+              (click)="checkin()"
+            >
+              <img
+                src="https://img.icons8.com/external-royyan-wijaya-detailed-outline-royyan-wijaya/20/000000/external-tick-interface-royyan-wijaya-detailed-outline-royyan-wijaya-4.png"
+                (click)="checkin()"
+              />Completed
+            </button>
           </li>
         </ul>
       </li>
 
-      <li
-        class="nav-item"
-        *ngIf="milestoneDetails.milestone_status == 'Completed'"
-      >
-        <button type="button" class="btn btn-default" style="color: #0d8ebb">
-          <img
-            src="https://img.icons8.com/ios-filled/20/000000/marker.png"
-            (click)="checkin()"
-          />Completed
-        </button>
-      </li>
+      <!-- <li class="nav-item" >
+          <button type="button" class="btn btn-default" style="color: #0D8EBB;" ><img src="https://img.icons8.com/ios-filled/20/000000/marker.png" (click)="checkin()"/>Completed</button>
+              </li> -->
     </ul>
   </div>
 </div>

@@ -7,7 +7,7 @@
         <div class="in-date">
             <div class="form-group">
               <label>Start Value:</label><br>
-              <input type="text" class="in-2 form-control" formControlName="metric_start_value" required>
+              <input type="text" class="in-2 form-control" formControlName="metric_start_value" [disabled]="true" required>
               <!-- <span class="help-block" *ngIf="!goal_name.valid && goal_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
             </div>
             <div class="form-group">
@@ -34,7 +34,7 @@
         <div class="form-group">
             <label>Have You Acheived This?
                 <br><br>
-            <input type="radio" class="" formControlName="boolean_status" value="1" required> <strong class="yes-no" > Yes</strong>
+            <input type="radio" class="" formControlName="boolean_status" value="100" required> <strong class="yes-no" > Yes</strong>
             <input type="radio" class="radio-btn" formControlName="boolean_status" value="0" required> <strong class="yes-no"> No</strong>
         </label>
         </div>
