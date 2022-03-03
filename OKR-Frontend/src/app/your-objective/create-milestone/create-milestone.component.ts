@@ -125,7 +125,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       milestone_owner_name: form.value.ownerObj.full_name,
       milestone_owner_email: form.value.ownerObj.email,
       milestone_weightage: "60",
-      milestone_complete_date: "2022-02-25",
+      // milestone_complete_date: "2022-02-25",
       created_by: "1",
     }
 
