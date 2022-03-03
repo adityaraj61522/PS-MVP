@@ -14,6 +14,19 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 })
 export class EditGoalComponent implements OnInit {
 
+
+   headers = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Headers': '*',
+    'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
+    'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
+    'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
+  }
+   requestOptions = {
+    headers: new HttpHeaders(this.headers),
+  };
+
   @Input() goalData:any;
 
   updateForm = new FormGroup({
@@ -31,6 +44,7 @@ export class EditGoalComponent implements OnInit {
   public model: any;
   userdata: any;
   goaldata: any;
+  goal_data: any;
   constructor( private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiData:ApiService) {
     this.apiData.getUsers().subscribe((result)=>{
       console.log(result);
@@ -84,22 +98,11 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
 
   getGoalDetails(){
-    const headers = {
-    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    'Accept': 'application/json',
-    'Access-Control-Allow-Headers': '*',
-    'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
-    'x-key':'1',
-    'x-org':'1'
-  }
-  const requestOptions = {
-    headers: new HttpHeaders(headers),
-  };
-    return this.http.post(`/api/v1/employee/getgoaldetails`, this.Id, requestOptions).subscribe((response)=>{
+    return this.http.post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions).subscribe((response)=>{
       console.log(response);
-    // this.goal_data=response;
-    this.goal_id=response;
-    console.log("goal_id:---- ", this.goal_id);
+    this.goal_data=response;
+    // this.goal_id=response;
+    // console.log("goal_id:---- ", this.goal_id);
     // console.log("goal_DATA:---", this.goal_data)
       this.updateForm = new FormGroup({
         goal_name:new FormControl(this.goalData['goal_name']),
@@ -107,8 +110,10 @@ outFormatter = (x: {full_name: string}) => x.full_name;
         goal_due_date:new FormControl(this.goalData['goal_due_date']),
         goal_owner_name:new FormControl(this.goalData['goal_owner_name']),
         linked_org_goal_id:new FormControl(this.goalData['linked_org_goal_id']),
-        goal_type:new FormControl(this.goalData['goal_type'])
+        goal_type:new FormControl(this.goalData['goal_type']),
+        goal_id:new FormControl(this.goalData['goal_id'])
       })
+  
       console.log(this.updateForm.value)
     },(error)=>{
       console.error(error);
@@ -116,7 +121,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
   }
   
   updateObjective(){
-    this.http.put(`/api/v1/employee/update-objective`, this.updateForm.value).subscribe((result)=>{
+    this.http.post(`/api/v1/employee/update-objective`, this.updateForm.value, this.requestOptions).subscribe((result)=>{
       console.log(result);
     },(error)=>{
       console.error(error);
