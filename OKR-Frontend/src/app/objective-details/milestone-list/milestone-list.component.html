@@ -45,7 +45,7 @@
         </ul>
         </div>
         </li>
-        <li class="nav-item" *ngIf="milestoneDetails.milestone_status=='Not Completed'">
+        <li class="nav-item">
         <ul class="nav">
           <li class="nav-item">
             <div class="modal fade show" *ngIf="check"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -59,12 +59,13 @@
                 </div>
               </div>
               </div>
-      <button type="button" class="btn btn-default" style="color: #0D8EBB;" (click)="checkin()"><img src="https://img.icons8.com/ios-filled/20/000000/marker.png" (click)="checkin()"/>Checkin</button>
+      <button *ngIf="milestoneDetails.milestone_status!=='Completed'" type="button" class="btn btn-default" style="color: #0D8EBB;" (click)="checkin()"><img src="https://img.icons8.com/ios-filled/20/000000/marker.png" (click)="checkin()"/>Checkin</button>
+      <button *ngIf="milestoneDetails.milestone_status=='Completed'" type="button" class="btn btn-default" style="color: #0D8EBB;" (click)="checkin()"><img src="https://img.icons8.com/external-royyan-wijaya-detailed-outline-royyan-wijaya/20/000000/external-tick-interface-royyan-wijaya-detailed-outline-royyan-wijaya-4.png" (click)="checkin()"/>Completed</button>
           </li>
         </ul>
         </li>
 
-        <li class="nav-item" *ngIf="milestoneDetails.milestone_status=='Completed'">
+        <!-- <li class="nav-item" >
           <button type="button" class="btn btn-default" style="color: #0D8EBB;" ><img src="https://img.icons8.com/ios-filled/20/000000/marker.png" (click)="checkin()"/>Completed</button>
-              </li>
+              </li> -->
       </ul>

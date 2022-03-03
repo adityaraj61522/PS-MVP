@@ -99,8 +99,10 @@ export class CheckinPopupComponent implements OnInit {
       this.checkinFormSubmit.close_checkin_old_value=this.checkinForm.value.conf_password;
       this.checkinFormSubmit.close_checkin_new_value=this.checkinForm.value.conf_password;
       this.checkinFormSubmit.milestone_type=this.checkinForm.value.milestone_type;
-      this.checkinFormSubmit.boolean_status=this.checkinForm.value.milestone_type;
-      this.checkinFormSubmit.checin_comment=this.checkinForm.value.milestone_type;
+      this.checkinFormSubmit.boolean_status=this.checkinForm.value.boolean_status;
+      this.checkinFormSubmit.checin_comment=this.checkinForm.value.checin_comment;
+
+    console.log(this.checkinForm,"first")
     console.log(this.checkinFormSubmit,"first")
     this.http.post(`/api/v1/employee/checkin`, this.checkinFormSubmit , this.requestOptions
   ).subscribe((result:any)=>{
@@ -124,10 +126,10 @@ export class CheckinPopupComponent implements OnInit {
     this.checkinForm = new FormGroup ({
       org_id:new FormControl(this.milestoneDetails['org_id']),
       goal_id:new FormControl(this.milestoneDetails['goal_id']),
-      metric_start_value:new FormControl({value: this.milestoneDetails['metric_start_value'], disabled: true}),
-      metric_target_value:new FormControl({value: this.milestoneDetails['metric_target_value'], disabled: true}),
-      metric_curr_value:new FormControl({value: this.milestoneDetails['metric_curr_value'], disabled: true}),
-      metric_value_new:new FormControl(this.milestoneDetails['metric_value_new']),
+      metric_start_value:new FormControl(this.milestoneDetails['metric_start_value']),
+      metric_target_value:new FormControl(this.milestoneDetails['metric_target_value']),
+      metric_curr_value:new FormControl(this.milestoneDetails['metric_curr_value']),
+      metric_value_new:new FormControl(),
       check_in_status:new FormControl(this.milestoneDetails['dob']),
       milestone_progress:new FormControl(this.progress),
       milestone_id:new FormControl(this.milestoneDetails['milestone_id']),

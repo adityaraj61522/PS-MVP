@@ -126,7 +126,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       milestone_owner_email: form.value.ownerObj.email,
       milestone_weightage: "60",
       milestone_complete_date: "2022-02-25",
-      created_by: "1",
+      created_by: sessionStorage.getItem("user_id"),
     }
 
    
@@ -134,7 +134,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
   
 
     if(this.choice=='boolean'){
-      postReq["milestone_status"] = 'not completed'
+      postReq["milestone_status"] = 'Not Completed'
       this.postMilestoneReq(postReq,'boolean')
     }
     if(this.choice=='progress'){
