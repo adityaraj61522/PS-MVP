@@ -138,6 +138,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.http.post(`/api/v1/employee/update-objective`, this.updateForm.value, this.requestOptions).subscribe((result)=>{
       console.log(result);
       console.log("aaaaaa", this.model);
+      window.location.reload();
     },(error)=>{
       console.error(error);
     });

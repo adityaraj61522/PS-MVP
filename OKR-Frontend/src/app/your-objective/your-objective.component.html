@@ -167,7 +167,7 @@
 
   <!--Active Goal List-->
   <div class="list" *ngFor="let goal of goalData" >
-    <div *ngIf="(goal.goal_status=='WAITING_FOR_APPROVAL' || goal.goal_status=='ACTIVE')">
+    <div *ngIf="(goal.goal_status=='WAITING_FOR_APPROVAL' || goal.goal_status=='APPROVED')">
       <app-goal-list 
         [deleteGoal]="deleteGoal"
         [goalDetails]="goal"

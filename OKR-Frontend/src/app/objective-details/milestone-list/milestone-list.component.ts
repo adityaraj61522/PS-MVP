@@ -33,7 +33,7 @@ export class MilestoneListComponent implements OnInit {
   completed=false
   ngOnInit(): void {
     console.log(this.milestoneDetails.milestone_status, 'hjdsbfjchsdjh');
-    if(this.milestoneDetails.milestone_status==="Completed"){
+    if(this.milestoneDetails.milestone_status=="Completed"){
       this.completed=true;
     }else{
       this.completed=false;

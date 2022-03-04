@@ -238,8 +238,8 @@ export class YourObjectiveComponent implements OnInit {
       );
 
       // if(this.goalData.goal_status=='WAITING_FOR_APPROVAL' || this.goalData.goal_status=='APPROVED'){
-      //   this.active=this.goalData.filter((goal:any)=>goal.goal_status=='WAITING_FOR_APPROVAL'||goal.goal_status=='APPROVED')
-      // }
+      //   this.active=this.goalData.filter((goal:any)=>goal.goal_status=='WAITING_FOR_APPROVAL'||goal.goal_status=='APPROVED');
+      // // }
       // console.log(this.active,"active")
 
     // Create-goal content

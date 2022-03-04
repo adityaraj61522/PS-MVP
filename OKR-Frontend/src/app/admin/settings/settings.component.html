@@ -1,61 +1,76 @@
 <app-nav></app-nav>
-<div>
+<div style="background-color:white; padding: 20px;">
     <div>
         <label><strong>Settings:</strong></label>
     </div>
     <div class="container">
-        <form>
+        <form [formGroup]="settingsForm" (ngSubmit)="settingsChange();">
             <div class="form-group opt">
 		      	<label>Goal Frequency : </label><br>
-		      	<select class="form-select in-2" aria-label="Default select example">
-				  <option value="Monthly">Monthly</option>
-				  <option value="Half Yearly">Half Yearly</option>
-				  <option value="Bi Yearly">Bi Yearly</option>
-				  <option value="Yearly">Yearly</option>
+		      	<select class="form-select in-2" aria-label="Default select example" formControlName="goal_frequency">
+				  <option value="MONTHLY">Monthly</option>
+				  <option value="QUARTERLY">Quaterly</option>
+				  <option value="HALF_YEARLY">Half Yearly</option>
+				  <option value="BI_YEARLY">Bi Yearly</option>
+				  <option value="YEARLY">Yearly</option>
 				</select>
             </div>
             <div class="form-group opt">
+                <label>Goal Status : </label><br>
+                <select class="form-select in-2" aria-label="Default select example" formControlName="goal_setting_status">
+                <option value="OPEN">Open</option>
+                <option value="CLOSED">Closed</option>
+              </select>
+          </div>
+          <div class="form-group opt">
+              <label>Number Of Goals an employee can make? </label><br>
+              Minimum: <input type="text" class="in-3" formControlName="min_goal">
+              Maximum: <input type="text" class="in-3" formControlName="max_goals">
+        </div>
+            <div class="form-group opt">
                 <label>Objective?</label><br>
-                <input type="checkbox">
+                <input type="checkbox" formControlName="align_company_objective">
                 Align with KRAs with Company Annual Priorities/Objective
                 <br>
-                <input type="checkbox">
+                <input type="checkbox" formControlName="mandatory_company_objective">
                 Make It Mandatory
             </div>
             <div class="form-group opt">
                 <label>Who Can Create OKR</label><br>
-                <input type="radio">Everyone<br>
-                <input type="radio">Manager And HR Admin<br>
-                <input type="radio">Only HR From Dashboard
+                <input type="radio" value="EVERYONE" formControlName="goal_creator">Everyone<br>
+                <input type="radio" value="MANAGER_AND_HR" formControlName="goal_creator">Manager And HR Admin<br>
+                <input type="radio" value="HR" formControlName="goal_creator">Only HR From Dashboard
             </div>
 
             <div class="form-group opt">
                 <label>Can Employees & manager Edit OKR Start And End Dates While Creating OKR?</label><br>
-                <input type="radio">YES<br>
-                <input type="radio">NO<br>
+                <input type="radio" value="1" formControlName="goal_updator">YES<br>
+                <input type="radio" value="0" formControlName="goal_updator">NO<br>
             </div>
 
             <div class="form-group opt">
                 <label>Who Should approve OKR</label><br>
-                <input type="radio">Auto Approve<br>
-                <input type="radio">Manager Should Approve 
+                <input type="radio" value="AUTO" formControlName="goal_approver">Auto Approve<br>
+                <input type="radio" value="MANAGER" formControlName="goal_approver">Manager Should Approve 
             </div>
 
-            <div class="form-group opt">
+            <!-- <div class="form-group opt">
                 <label>Who Can edit A goal And Milestone WHen It Is In "Waiting For Approval" State?</label><br>
-                <input type="radio">Employee<br>
-                <input type="radio">Manager<br>
-                <input type="radio">Both<br>
-                <input type="radio">None
-            </div>
+                <input type="radio" formControlName="goal_approver">Employee<br>
+                <input type="radio" formControlName="goal_approver">Manager<br>
+                <input type="radio" formControlName="goal_approver">Both<br>
+                <input type="radio" formControlName="goal_approver">None
+            </div> -->
 
 
-            <div class="form-group opt">
+            <!-- <div class="form-group opt">
                 <label>Who Can edit OKR After Approval From Manager?</label><br>
-                <input type="radio">Employee(Employee + MAnager + HR Admin)<br>
-                <input type="radio">Manager And HR Admin<br>
-                <input type="radio">Only HR Admin<br>
-            </div>
+                <input type="radio" formControlName="goal_approver">Employee(Employee + MAnager + HR Admin)<br>
+                <input type="radio" formControlName="goal_approver">Manager And HR Admin<br>
+                <input type="radio" formControlName="goal_approver">Only HR Admin<br>
+            </div> -->
+            <span *ngIf="e">Something Went Wrong!!!!!</span>
+            <button type="submit" class="btn btn-primary opt" style="margin-left: 600px;"> SAVE</button>
         </form>
     </div>
 </div>
