@@ -33,10 +33,6 @@ export class GoalListComponent implements OnInit {
   objectiveHide(){
     this.show3=false;
   }
-  objectiveHide() {
-    this.show3 = false;
-  }
-
   getGoalDetails() {
     this.router.navigate(['/objective-deatils'], {
       queryParams: { ID: `${this.goalDetails.goal_id}` },

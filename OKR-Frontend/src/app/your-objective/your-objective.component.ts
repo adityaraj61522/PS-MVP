@@ -32,6 +32,7 @@ export class YourObjectiveComponent implements OnInit {
   constructor( private http : HttpClient ) { }
 
   @ViewChild('ObjForm') ObjFormData!: NgForm;
+  isLoad = false
   show=false;
   show2=false;
   show3=false;
@@ -148,6 +149,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
   addObjective(){
     console.log(this.newObjective ,"obj")
+    this.isLoad = true;
     
     // this.show=false;
     // this.show2=true;
@@ -163,6 +165,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions
   ).subscribe((result:any)=>{
       // console.log(result:any); 
+      this.isLoad = false
       this.show=false;
       this.show2=true;
       sessionStorage.setItem("goalId",result.goalId);
