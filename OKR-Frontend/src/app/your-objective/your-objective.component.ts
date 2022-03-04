@@ -61,6 +61,7 @@ export class YourObjectiveComponent implements OnInit {
   userData:any;
   allUsers:any;
   goalData: any;
+  goalCountData: any;
 
   model: any;
   modelOrgGoal:any;
@@ -191,15 +192,22 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.getGoal.goal_owner_id=this.userData.user_id;
     this.getUser.org_id=this.userData.org_id;
     // Get Goals
-    this.http.post(`/api/v1/employee/getgoals`, this.getGoal, this.requestOptions).subscribe((response)=>{
-      // console.log(response);
-      this.goalData=response;
-      
-      // console.log("goal_DATA:---", this.goalData)
-      
-    },(error)=>{
-      console.error(error);
-    })
+    this.http
+      .post(`/api/v1/employee/getgoals`, this.getGoal, this.requestOptions)
+      .subscribe(
+        (response) => {
+          // console.log(Object.values(response)[0]);
+          this.goalData = Object.values(response)[0];
+          this.goalCountData = Object.values(response)[1]
+          console.log("goalData:---", this.goalData);
+          console.log("goal Count Data", this.goalCountData);
+
+          // console.log("goal_DATA:---", this.goalData)
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
 
       // if(this.goalData.goal_status=='WAITING_FOR_APPROVAL' || this.goalData.goal_status=='APPROVED'){
       //   this.active=this.goalData.filter((goal:any)=>goal.goal_status=='WAITING_FOR_APPROVAL'||goal.goal_status=='APPROVED');
