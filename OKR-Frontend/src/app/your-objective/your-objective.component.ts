@@ -72,6 +72,7 @@ export class YourObjectiveComponent implements OnInit {
   userData:any;
   allUsers:any;
   goalData: any;
+  goalCountData: any;
 
   model: any;
   modelOrgGoal: any;
@@ -227,8 +228,11 @@ export class YourObjectiveComponent implements OnInit {
       .post(`/api/v1/employee/getgoals`, this.getGoal, this.requestOptions)
       .subscribe(
         (response) => {
-          // console.log(response);
-          this.goalData = response;
+          // console.log(Object.values(response)[0]);
+          this.goalData = Object.values(response)[0];
+          this.goalCountData = Object.values(response)[1]
+          console.log("goalData:---", this.goalData);
+          console.log("goal Count Data", this.goalCountData);
 
           // console.log("goal_DATA:---", this.goalData)
         },

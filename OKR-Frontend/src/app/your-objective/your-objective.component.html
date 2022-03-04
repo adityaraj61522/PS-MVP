@@ -1,7 +1,7 @@
 <app-nav></app-nav>
 <section class="active-list">
     <div>
-      <strong>Active</strong>
+      <strong>Active({{goalCountData[0].APPROVED  + goalCountData[0].WAITING_FOR_APPROVAL}})</strong>
       <app-milestone></app-milestone> 
       <ul class="nav side">  
         <li class="nav-item">
@@ -167,7 +167,7 @@
 
   <!--Active Goal List-->
   <div class="list" *ngFor="let goal of goalData" >
-    <div *ngIf="(goal.goal_status=='WAITING_FOR_APPROVAL' || goal.goal_status=='ACTIVE')">
+    <div *ngIf="(goal.goal_status=='WAITING_FOR_APPROVAL' || goal.goal_status=='APPROVED')">
       <app-goal-list 
         [deleteGoal]="deleteGoal"
         [goalDetails]="goal"
@@ -182,7 +182,7 @@
 
 <section class="active-list">
   <div>
-    <strong>Closed</strong>
+    <strong>Closed({{goalCountData[0].CLOSED}})</strong>
   </div>
   <div class="list" *ngFor="let goal of goalData" >
     <div *ngIf="(goal.goal_status=='CLOSED')">
@@ -201,7 +201,7 @@
 
 <section class="active-list">
   <div>
-    <strong>Rejected</strong>
+    <strong>Rejected({{goalCountData[0].REJECTED}})</strong>
   </div>
   <div class="list" *ngFor="let goal of goalData" >
     <div *ngIf="(goal.goal_status=='REJECTED')">
