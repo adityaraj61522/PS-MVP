@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-goal-list',
   templateUrl: './goal-list.component.html',
-  styleUrls: ['./goal-list.component.css']
+  styleUrls: ['./goal-list.component.css'],
 })
 export class GoalListComponent implements OnInit {
 
@@ -33,17 +33,15 @@ export class GoalListComponent implements OnInit {
   objectiveHide(){
     this.show3=false;
   }
-
-  getGoalDetails(){
-    this.router.navigate(
-      ['/objective-deatils'],
-      { queryParams: { ID: `${this.goalDetails.goal_id }`} }
-    );
-
+  objectiveHide() {
+    this.show3 = false;
   }
 
-  ngOnInit(): void {
-
+  getGoalDetails() {
+    this.router.navigate(['/objective-deatils'], {
+      queryParams: { ID: `${this.goalDetails.goal_id}` },
+    });
   }
 
+  ngOnInit(): void {}
 }
