@@ -10,12 +10,14 @@ import { ActivatedRoute } from '@angular/router';
 export class ObjectiveDetailsComponent implements OnInit {
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
-  Id = {
-    goal_id: '',
-  };
-  org_id: any;
-  goal_data: any;
-  milestone_data: any;
+
+  Id={
+    goal_id:""
+  }
+  org_id:any;
+  goal_data:any;
+  milestone_data:any;
+  goalStatus: string = 'WAITING_FOR_APPROVAL';
 
   deleteMilestoneReq = {
     milestone_id: '',
@@ -75,8 +77,21 @@ export class ObjectiveDetailsComponent implements OnInit {
     this.getGoalMilestones();
   }
 
-  getGoalDetails() {
-    // Get Goals
+  getGoalDetails(){
+  // Get Goals
+
+  
+  return this.http.post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions).subscribe((response)=>{
+   
+    // this.goal_data=response;
+    this.goal_data=JSON.parse(JSON.stringify(response))[0];
+    console.log(this.goal_data);
+    this.goalStatus = this.goal_data.goal_status;
+    console.log('...goal_status...', this.goalStatus)
+    
+    },(error)=>{
+      console.error(error);
+    })
 
     return this.http
       .post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions)
@@ -91,17 +106,42 @@ export class ObjectiveDetailsComponent implements OnInit {
       );
   }
 
-  getGoalMilestones() {
-    // Get Goals
-    return this.http
-      .post(`/api/v1/employee/getgoalmilestones`, this.Id, this.requestOptions)
-      .subscribe(
-        (response) => {
-          this.milestone_data = response;
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
+  getGoalMilestones(){
+
+  // Get Goals
+  return this.http.post(`/api/v1/employee/getgoalmilestones`, this.Id, this.requestOptions).subscribe((response)=>{
+   
+    this.milestone_data=response;
+  
+    },(error)=>{
+      console.error(error);
+    })
+
   }
+
+  onApprove(){
+    this.http.post(`/api/v1/employee/approve-goal`, this.Id, this.requestOptions).subscribe((response)=>{
+      console.log(response)
+      let parsed_res = JSON.parse(JSON.stringify(response));
+      // console.log(parsed_res);
+      if(parsed_res.status === 'SUCCESS'){
+        this.goalStatus = 'APPROVED';
+      }
+    },(error)=>{
+      console.error(error);
+    })
+  }
+  onReject(){
+    this.http.post(`/api/v1/employee/reject-goal`, this.Id, this.requestOptions).subscribe((response)=>{
+      let parsed_res = JSON.parse(JSON.stringify(response));
+      console.log(parsed_res);
+      if(parsed_res.status === 'SUCCESS'){
+        this.goalStatus = 'REJECTED';
+      }
+    },(error)=>{
+      console.error(error);
+    })
+  }
+  
+
 }
