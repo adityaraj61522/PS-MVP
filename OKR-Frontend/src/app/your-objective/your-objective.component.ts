@@ -61,6 +61,9 @@ export class YourObjectiveComponent implements OnInit {
   getUser={
     org_id:""
   }
+  active:any;
+  rejected:any;
+  closed:any;
   userdata={
     token:"",
     expires:"",
@@ -233,6 +236,11 @@ export class YourObjectiveComponent implements OnInit {
           console.error(error);
         }
       );
+
+      // if(this.goalData.goal_status=='WAITING_FOR_APPROVAL' || this.goalData.goal_status=='APPROVED'){
+      //   this.active=this.goalData.filter((goal:any)=>goal.goal_status=='WAITING_FOR_APPROVAL'||goal.goal_status=='APPROVED')
+      // }
+      // console.log(this.active,"active")
 
     // Create-goal content
     this.user = JSON.parse(

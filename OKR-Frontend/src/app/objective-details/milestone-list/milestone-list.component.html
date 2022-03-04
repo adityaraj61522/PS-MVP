@@ -115,7 +115,7 @@
               </div>
             </div>
             <button
-              *ngIf="milestoneDetails.milestone_status !== 'Completed'"
+              *ngIf="!completed"
               type="button"
               class="btn btn-default"
               style="color: #0d8ebb"
@@ -127,7 +127,7 @@
               />Checkin
             </button>
             <button
-              *ngIf="milestoneDetails.milestone_status == 'Completed'"
+              *ngIf="completed"
               type="button"
               class="btn btn-default"
               style="color: #0d8ebb"

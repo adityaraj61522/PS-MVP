@@ -18,12 +18,16 @@
       </div> -->
       <div class="form-group">
       <label>Start Date*</label><br>
-      <input type="date" formControlName="goal_start_date" class="in-d form-control" goal_start_date required>
+      <!-- <input type="text" formControlName="goal_start_date" class="in-d form-control" goal_start_date required> -->
+
+    <div type="text" class="in-2 form-control"  >{{goalData.goal_start_date | date: 'dd-MM-yyyy'}}</div>
       <!-- <span class="help-block" *ngIf="!goal_start_date.valid && goal_start_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
       </div>
       <div class="form-group">
       <label>End Date*</label><br>
-      <input type="date"  formControlName="goal_due_date" class="in-d form-control" goal_due_date required>
+      <!-- <input type="text"  formControlName="goal_due_date" class="in-d form-control" goal_due_date required> -->
+
+    <div type="text" class="in-2 form-control"  >{{goalData.goal_due_date| date: 'dd-MM-yyyy'}}</div>
       <!-- <span class="help-block" *ngIf="!goal_due_date.valid && goal_due_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
       </div>
     </div>
@@ -33,7 +37,7 @@
     <!-- <input type="text" class="in-2 form-control" [(ngModel)]="model" [ngbTypeahead]="search"  formControlName="goal_owner_name" goal_owner_name required
     [resultFormatter]="inFormatter"
     [inputFormatter]="outFormatter"/> -->
-    <input type="text" formControlName="goal_owner_name" goal_owner_name >
+    <div type="text" class="in-2 form-control"  >{{goalData.goal_owner_name}}</div>
     
     <!-- <span class="help-block" *ngIf="!goal_owner_name.valid && goal_owner_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
     </div>
