@@ -104,3 +104,9 @@ span{
     color: red;
     font-size: 10px;;
 }
+.ml-20{
+    margin-left: 20px;
+}
+.flex{
+    display: flex;
+}

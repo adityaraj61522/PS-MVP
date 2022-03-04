@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -11,10 +11,10 @@ export class GoalListComponent implements OnInit {
 
   @Input() goalDetails:any;
   @Input() public deleteGoal !: (goal_name: any, goal_id:any , org_id: any) => void;
-  constructor( private http : HttpClient, private router : Router) {
   
+  constructor( private http : HttpClient, private router : Router) {
     
-   }
+  }
 
   show2=false;
   show3=false;
@@ -26,6 +26,7 @@ export class GoalListComponent implements OnInit {
       this.dp =false;
     }
   }
+
   openUpdateDp(){
     this.show3=true;
   }
