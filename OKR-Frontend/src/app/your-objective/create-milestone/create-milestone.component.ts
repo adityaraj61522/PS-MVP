@@ -22,29 +22,22 @@ export class CreateMilestoneComponent implements OnInit {
   allUsers: any = [];
   public model: any;
   myForm!: FormGroup;
+  isLoad = false
+  show=false;
+  show2=false;
+  choice:string = 'boolean';
+  successMsg:boolean = false
+  errorMsg:boolean = false
+  min_due_date:string = ''
 
-  show = false;
-  show2 = false;
-  choice: string = 'boolean';
-  successMsg: boolean = false;
-  errorMsg: boolean = false;
-  min_due_date: string = '';
-
-  constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private apiData: ApiService
-  ) {
-    this.apiData.getUsers().subscribe(
-      (result) => {
-        console.log(result);
-
-        this.allUsers = result;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+  constructor(private fb: FormBuilder, private http : HttpClient,private apiData:ApiService) { 
+    this.apiData.getUsers().subscribe((result)=>{
+      console.log(result);
+      
+      this.allUsers = result
+    },(error)=>{
+      console.error(error);
+    });
   }
 
   // test now start
@@ -111,10 +104,12 @@ export class CreateMilestoneComponent implements OnInit {
   }
 
   onSubmit(form: FormGroup) {
-    var postReq: any = {
-      goal_id: this.goalId || sessionStorage.getItem('goalId'),
-      is_active: '1',
-      org_id: sessionStorage.getItem('orgDetails_id') || '1',
+    this.isLoad = true
+
+    var postReq:any = {
+      goal_id:  this.goalId  || sessionStorage.getItem("goalId") ,
+      is_active: "1",
+      org_id: sessionStorage.getItem("orgDetails_id") || "1", 
       milestone_name: form.value.milestone_name,
       milestone_start_date: form.value.milestone_start_date,
       milestone_due_date: form.value.milestone_due_date,
@@ -124,7 +119,6 @@ export class CreateMilestoneComponent implements OnInit {
       milestone_owner_email: form.value.ownerObj.email,
       milestone_weightage: '60',
       milestone_status: 'Not Completed',
-      milestone_complete_date: '2022-02-25',
       created_by: sessionStorage.getItem('user_id'),
     };
 
@@ -146,14 +140,16 @@ export class CreateMilestoneComponent implements OnInit {
     }
   }
 
-  postMilestoneReq = (data: any, milestoneType: string) => {
-    this.apiData.createMilestone(data).subscribe(
-      (result) => {
-        console.log(result);
-        if (result) {
-          this.successMsg = true;
-          setInterval(() => {
-            window.location.reload();
+
+  postMilestoneReq = (data:any,milestoneType:string)=>{
+    this.apiData.createMilestone(data).subscribe((result)=>{
+      console.log(result);
+      if(result){
+        this.isLoad = false
+        this.successMsg = true
+
+        setInterval(() => {
+          window.location.reload();
           }, 1000);
         }
       },

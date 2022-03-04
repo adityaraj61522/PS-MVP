@@ -43,30 +43,31 @@ export class YourObjectiveComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   @ViewChild('ObjForm') ObjFormData!: NgForm;
-  show = false;
-  show2 = false;
-  show3 = false;
-  dp = false;
-  er = false;
-  user_id: any;
-  deleteGoalReq = {
-    goal_id: '',
-    org_id: '',
-  };
-  getGoal = {
-    org_id: '',
-    goal_owner_id: '',
-  };
-  getUser = {
-    org_id: '',
-  };
-  userdata = {
-    token: '',
-    expires: '',
-    user: '',
-  };
-  userData: any;
-  allUsers: any;
+  isLoad = false
+  show=false;
+  show2=false;
+  show3=false;
+  dp=false;
+  er=false;
+  user_id:any;
+  deleteGoalReq={
+    goal_id:"",
+    org_id:"",
+  }
+  getGoal={
+    org_id:"",
+    goal_owner_id:""
+  }
+  getUser={
+    org_id:""
+  }
+  userdata={
+    token:"",
+    expires:"",
+    user:""
+  }
+  userData:any;
+  allUsers:any;
   goalData: any;
 
   model: any;
@@ -171,40 +172,35 @@ export class YourObjectiveComponent implements OnInit {
       )
     );
 
-  addObjective() {
-    console.log(this.newObjective, 'obj');
 
+  addObjective(){
+    this.isLoad = true;
+    console.log(this.newObjective ,"obj")
+    
     // this.show=false;
     // this.show2=true;
     this.newObjective.goal_name = this.ObjFormData.value.goal_name;
     // this.newObjective.goal_type=this.ObjFormData.value.goal_type;
-    this.newObjective.goal_start_date = this.ObjFormData.value.goal_start_date;
-    this.newObjective.goal_due_date = this.ObjFormData.value.goal_due_date;
-    this.newObjective.goal_owner_name = this.model.full_name;
-    this.newObjective.goal_owner_id = this.model.user_id;
-    this.newObjective.goal_owner_email = this.model.email;
-    this.newObjective.linked_org_goal_id =
-      this.ObjFormData.value.linked_org_goal_id;
+    this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
+    this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
+    this.newObjective.goal_owner_name=this.model.full_name;
+    this.newObjective.goal_owner_id=this.model.user_id;
+    this.newObjective.goal_owner_email=this.model.email;
+    this.newObjective.linked_org_goal_id=this.ObjFormData.value.linked_org_goal_id;
+    
+    this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions
+  ).subscribe((result:any)=>{
+      // console.log(result:any); 
+      this.isLoad = false
+      this.show=false;
+      this.show2=true;
+      sessionStorage.setItem("goalId",result.goalId);
+    },(error)=>{
+      console.error(error);
+      this.er=true;
 
-    this.http
-      .post(
-        `/api/v1/employee/create-objective`,
-        this.newObjective,
-        this.requestOptions
-      )
-      .subscribe(
-        (result: any) => {
-          // console.log(result:any);
-          this.show = false;
-          this.show2 = true;
-          sessionStorage.setItem('goalId', result.goalId);
-        },
-        (error) => {
-          console.error(error);
-          this.er = true;
-        }
-      );
-    console.log(JSON.stringify(this.newObjective), 'obj');
+    });
+    console.log(JSON.stringify(this.newObjective ),"obj")
   }
 
   session: any;
