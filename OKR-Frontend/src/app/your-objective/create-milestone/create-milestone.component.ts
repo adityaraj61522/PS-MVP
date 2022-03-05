@@ -156,6 +156,7 @@ export class CreateMilestoneComponent implements OnInit {
       (error) => {
         console.error(error);
         if (error) {
+          this.isLoad = false;
           this.errorMsg = true;
         }
       }

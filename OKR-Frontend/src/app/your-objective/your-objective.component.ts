@@ -158,7 +158,6 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     // this.show=false;
     // this.show2=true;
     this.newObjective.goal_name=this.ObjFormData.value.goal_name;
-    // this.newObjective.goal_type=this.ObjFormData.value.goal_type;
     this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
     this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
     this.newObjective.goal_owner_name=this.model.full_name;
@@ -169,14 +168,15 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions
   ).subscribe((result:any)=>{
       // console.log(result:any); 
+      console.log(result);
       this.isLoad = false
       this.show=false;
       this.show2=true;
       sessionStorage.setItem("goalId",result.goalId);
     },(error)=>{
       console.error(error);
+      this.isLoad = false;
       this.er=true;
-
     });
     console.log(JSON.stringify(this.newObjective ),"obj")
   }

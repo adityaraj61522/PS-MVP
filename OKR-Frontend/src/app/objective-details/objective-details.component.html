@@ -30,7 +30,7 @@
     
     <div class="col-sm-2 options">
       <app-milestone-reuse [goalId]="goal_data[0].goal_id" [refFrom]="'detailsPage'"></app-milestone-reuse> 
-      <div *ngIf="user_id==line_manager_id">
+      <div>
         <div class="flex" *ngIf="goalStatus=='WAITING_FOR_APPROVAL'">
           <button class="btn btn-success shadow ml-20" (click)="onApprove()" type="button">Approve</button>
           <button class="btn btn-danger shadow ml-20" (click)="onReject()" type="button">Reject</button>
