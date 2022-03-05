@@ -19,6 +19,10 @@ export class ObjectiveDetailsComponent implements OnInit {
   milestone_data:any;
   goalStatus: string = 'WAITING_FOR_APPROVAL';
 
+  user_id: any;
+  line_manager_id: any;
+
+
   deleteMilestoneReq={ 
     milestone_id:"",
     org_id:"",
@@ -60,7 +64,12 @@ export class ObjectiveDetailsComponent implements OnInit {
     })    
     this.getGoalDetails();
     this.getGoalMilestones();
-   
+   console.log('goal data here......',this.goal_data)
+
+   this.user_id = sessionStorage.getItem("user_id")
+   this.line_manager_id = sessionStorage.getItem("userData")
+   this.line_manager_id = JSON.stringify(JSON.parse(this.line_manager_id)[0].line_manager_id);
+   console.log("########",this.user_id, this.line_manager_id)
 
   }
 
@@ -70,10 +79,10 @@ export class ObjectiveDetailsComponent implements OnInit {
   
   return this.http.post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions).subscribe((response)=>{
    
-    // this.goal_data=response;
-    this.goal_data=JSON.parse(JSON.stringify(response))[0];
+    this.goal_data=response;
+    // this.goal_data=JSON.parse(JSON.stringify(response))[0];
     console.log(this.goal_data);
-    this.goalStatus = this.goal_data.goal_status;
+    this.goalStatus = this.goal_data[0].goal_status;
     console.log('...goal_status...', this.goalStatus)
     
     },(error)=>{
