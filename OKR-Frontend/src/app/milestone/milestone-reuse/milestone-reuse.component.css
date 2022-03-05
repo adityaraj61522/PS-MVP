@@ -100,3 +100,9 @@ span{
     color: red;
     font-size: 10px;;
 }
+p.gotaNameTittle {
+    color: black;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 600;
+}

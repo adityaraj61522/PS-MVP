@@ -3,10 +3,36 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalToggleLabel">NEW KEY RESULT: CREATE YOUR KEY RESULT</h5>
+            <p class="gotaNameTittle"> NEW KEY RESULT: {{singleUser.goal_name}}</p>
             <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button>
           </div>
-        <app-create-milestone [goalId]="goalId"></app-create-milestone>
+
+
+
+
+
+
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <app-create-milestone [goalId]="goalId" 
+        [start_date]="start_date"
+        [end_date]="end_date"
+      
+        ></app-create-milestone>
         </div>
     </div>
 </div>
@@ -16,3 +42,7 @@
 <p *ngIf="refFrom=='listPage'" (click)="objectiveShow()">Add milestone</p>
 
 <button class="btn-primary"  *ngIf="refFrom=='detailsPage'" (click)="objectiveShow()" >Add milestone</button>
+
+
+
+<ngbd-toast-global></ngbd-toast-global>

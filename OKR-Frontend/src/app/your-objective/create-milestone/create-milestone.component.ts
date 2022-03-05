@@ -10,6 +10,7 @@ import {
 import { ApiService } from '../../apiCollection/api.service';
 import { Observable, OperatorFunction } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { ToastService } from 'src/app/milestone/toast/toast-service';
 
 @Component({
   selector: 'app-create-milestone',
@@ -18,8 +19,12 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 })
 export class CreateMilestoneComponent implements OnInit {
   @Input() goalId: any;
+  @Input() start_date:any
+  @Input() end_date:any
+  @Input() goal_name:any
 
   allUsers: any = [];
+
   public model: any;
   myForm!: FormGroup;
   isLoad = false
@@ -28,19 +33,19 @@ export class CreateMilestoneComponent implements OnInit {
   choice:string = 'boolean';
   successMsg:boolean = false
   errorMsg:boolean = false
+
   min_due_date:string = ''
 
-  constructor(private fb: FormBuilder, private http : HttpClient,private apiData:ApiService) { 
+  constructor(private fb: FormBuilder, private http : HttpClient,private apiData:ApiService,public toastService: ToastService) { 
+
     this.apiData.getUsers().subscribe((result)=>{
-      console.log(result);
-      
       this.allUsers = result
     },(error)=>{
       console.error(error);
     });
   }
 
-  // test now start
+  // search typehead now start
 
   inFormatter = (x: { full_name: string }) => x.full_name;
   outFormatter = (x: { full_name: string }) => x.full_name;
@@ -63,10 +68,9 @@ export class CreateMilestoneComponent implements OnInit {
       )
     );
 
-  //test now end
+  //search typehead now end
 
   ngOnInit(): void {
-    console.log(this.goalId);
 
     this.myForm = this.fb.group({
       org_id: sessionStorage.getItem('orgDetails_id'),
@@ -77,34 +81,25 @@ export class CreateMilestoneComponent implements OnInit {
       created_by: '1',
       //owner detail
       ownerObj: {},
-      // milestone_owner_id: '1',
-      // milestone_owner_name: 'ravi',
-      // milestone_owner_email: 'ravi@gmail.com',
-
-      //boolean
-      // milestone_status: ['not completed',[Validators.required]],
-
-      // //progress
-      // milestone_progress: [0,[Validators.required,Validators.min(0),Validators.max(100)]],
-
       // metric
       metric_start_value: [0, [Validators.required, Validators.min(0)]],
       metric_target_value: [1, [Validators.required, Validators.min(1)]],
     });
 
-    // call user api
   }
   // for desable min date
-  chooseDate(value: string) {
-    this.min_due_date = value;
+  chooseStartDate(value:string) {
+    this.min_due_date = value > this.end_date?value:this.end_date ;
   }
+ 
 
   changeChoice(option: string) {
     this.choice = option;
   }
 
   onSubmit(form: FormGroup) {
-    this.isLoad = true
+
+     this.isLoad = true
 
     var postReq:any = {
       goal_id:  this.goalId  || sessionStorage.getItem("goalId") ,
@@ -146,7 +141,8 @@ export class CreateMilestoneComponent implements OnInit {
       console.log(result);
       if(result){
         this.isLoad = false
-        this.successMsg = true
+        // this.successMsg = true
+        this.toastService.show('milestone has been created successfully', { classname: 'bg-success text-light', delay: 10000 })
 
         setInterval(() => {
           window.location.reload();
@@ -157,7 +153,8 @@ export class CreateMilestoneComponent implements OnInit {
         console.error(error);
         if (error) {
           this.isLoad = false;
-          this.errorMsg = true;
+          this.toastService.show('somthing went wrong', { classname: 'bg-danger text-light', delay: 10000 })
+          // this.errorMsg = true;
         }
       }
     );
