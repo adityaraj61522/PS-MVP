@@ -1,13 +1,8 @@
 
-  <mat-spinner *ngIf="isLoad" [diameter]="40" style="margin-left: auto; margin-right: auto; margin-top: 150px; margin-bottom: 150px;"></mat-spinner>
-<form *ngIf="!isLoad" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+
+<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
   <p class="successMsg" *ngIf="successMsg" >Milestone has been created successfully</p>
   <p class="errorMsg" *ngIf="errorMsg" >Something went wrong</p>
-
-
-
-
-
   <div class="modal-body">
     <div class="form-group">
       <label>Milestone name:</label><br>
@@ -65,7 +60,7 @@
     </div>
      <div class="form-group"> 
       <label>Start Date*</label><br> 
-      <input type="date"  class="in-d" formControlName="milestone_start_date"  #dateStartSelect   (change)='chooseDate(dateStartSelect.value)'>
+      <input type="date"  class="in-d" formControlName="milestone_start_date" min="{{start_date}}" #dateStartSelect   (change)='chooseStartDate(dateStartSelect.value)' >
      
       </div>
       <div class="form-group">
@@ -92,8 +87,9 @@
   </div>
   <div class="modal-footer">
     <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal"   aria-label="Close"> Cancel </button><br> -->
-    <button class="btn btn-primary" type="submit" 
-    [disabled]="myForm.invalid"
+    <mat-spinner  *ngIf="isLoad" [diameter]="30" ></mat-spinner>
+    <button  *ngIf="!isLoad" class="btn btn-primary" type="submit" 
+   
     data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Add Key  Result</button>
   </div>
 </form>

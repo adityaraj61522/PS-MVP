@@ -35,6 +35,9 @@ import { MilestoneReuseComponent } from './milestone/milestone-reuse/milestone-r
 
 // loader
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { NgbdToastGlobal } from './milestone/toast/toast-global.component';
+import { ToastsContainer } from './milestone/toast/toasts-container.component';
+// import { NgbdToastGlobalModule } from './milestone/toast/toast-global.module';
 
 @NgModule({
   declarations: [
@@ -57,6 +60,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     EditUsersComponent,
     CheckinPopupComponent,
     MilestoneReuseComponent,
+    NgbdToastGlobal,
+    ToastsContainer
   ],
   imports: [
     BrowserModule,
@@ -83,7 +88,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     BrowserAnimationsModule,
     MatSliderModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    // NgbdToastGlobalModule
 
   ],
   providers: [],
