@@ -1,71 +1,149 @@
 <div class="list-card row">
-    <div class="col-sm-1 progress-percent">
-      <circle-progress
-  [percent]="milestoneDetails.milestone_progress"
-  [radius]="30"
-  [outerStrokeWidth]="6"
-  [innerStrokeWidth]="4"
-  [outerStrokeColor]="'#3d54ae'"
-  [innerStrokeColor]="'#7db4e8'"
-  [animation]="true"
-  [animationDuration]="300"
-></circle-progress>
-    </div>
-    <div class="col-sm-8 task-details">
-      <strong>{{milestoneDetails.milestone_name}}</strong>
-      <ul class="nav">
-        <li class="nav-item">
-          <div class="nav-link">Date:{{milestoneDetails.creation_date |date:"dd-MMM-yy"}}</div>
-        </li>
-        <!-- <li class="nav-item st">
+  <div class="col-sm-1 progress-percent">
+    <circle-progress
+      [percent]="milestoneDetails.milestone_progress"
+      [radius]="30"
+      [outerStrokeWidth]="6"
+      [innerStrokeWidth]="4"
+      [outerStrokeColor]="'#3d54ae'"
+      [innerStrokeColor]="'#7db4e8'"
+      [animation]="true"
+      [animationDuration]="300"
+    ></circle-progress>
+  </div>
+  <div class="col-sm-8 task-details">
+    <strong>{{ milestoneDetails.milestone_name }}</strong>
+    <ul class="nav">
+      <li class="nav-item">
+        <div class="nav-link">
+          Date:{{ milestoneDetails.creation_date | date: "dd-MMM-yy" }}
+        </div>
+      </li>
+      <!-- <li class="nav-item st">
             <strong>Status:</strong>{{milestoneDetails.metric_based_target_conditn}}
         </li> -->
-        <li class="nav-item st">
-            <strong>Type:</strong>{{milestoneDetails.milestone_type}}
-        </li>
-        <li class="nav-item st" *ngIf="milestoneDetails.milestone_type=='metric'">
-            <strong>Target/Acheived:</strong>{{milestoneDetails.metric_target_value}}/{{milestoneDetails.metric_curr_value}}
-        </li>
-        <li class="nav-item st" *ngIf="milestoneDetails.milestone_type=='progress'">
-            <strong>Progress:</strong>{{milestoneDetails.milestone_progress}}
-        </li>
-      </ul>
-    </div>
-    <div class="col-sm-2 options">
-      <ul class="nav">
-        <li class="nav-item">
-          <div class="dropdown">
-        <button class="btn btn-default dropdown"  (click)="showDp()" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png"/>
-        </button>
-        <ul class="dropdown-menu" *ngIf="dp" style="display: block;" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" >Update Milestone</a></li>
-          <li><a class="dropdown-item" >Another actions</a></li>
-          <li (click)="deleteMilestone(milestoneDetails.milestone_name, milestoneDetails.milestone_id, milestoneDetails.org_id)"><a class="dropdown-item">Delete Milestone</a></li>
-        </ul>
+      <li class="nav-item st">
+        <strong>Type:</strong>{{ milestoneDetails.milestone_type }}
+      </li>
+      <li
+        class="nav-item st"
+        *ngIf="milestoneDetails.milestone_type == 'metric'"
+      >
+        <strong>Target/Acheived:</strong
+        >{{ milestoneDetails.metric_target_value }}/{{
+          milestoneDetails.metric_curr_value
+        }}
+      </li>
+      <li
+        class="nav-item st"
+        *ngIf="milestoneDetails.milestone_type == 'progress'"
+      >
+        <strong>Progress:</strong>{{ milestoneDetails.milestone_progress }}
+      </li>
+    </ul>
+  </div>
+  <div class="col-sm-2 options">
+    <ul class="nav">
+      <li class="nav-item">
+        <div class="dropdown">
+          <button
+            class="btn btn-default dropdown"
+            (click)="showDp()"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png" />
+          </button>
+          <ul
+            class="dropdown-menu"
+            *ngIf="dp"
+            style="display: block"
+            aria-labelledby="dropdownMenuButton1"
+          >
+            <li><a class="dropdown-item">Update Milestone</a></li>
+            <li><a class="dropdown-item">Another actions</a></li>
+            <li
+              (click)="
+                deleteMilestone(
+                  milestoneDetails.milestone_name,
+                  milestoneDetails.milestone_id,
+                  milestoneDetails.org_id,
+                  milestoneDetails.goal_id
+                )
+              "
+            >
+              <a class="dropdown-item">Delete Milestone</a>
+            </li>
+          </ul>
         </div>
-        </li>
-        <li class="nav-item">
+      </li>
+      <li
+        class="nav-item"
+      >
         <ul class="nav">
           <li class="nav-item">
-            <div class="modal fade show" *ngIf="check"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+            <div
+              class="modal fade show"
+              *ngIf="check"
+              id="exampleModalToggle"
+              aria-hidden="false"
+              style="display: block !important"
+              aria-labelledby="exampleModalToggleLabel"
+              tabindex="-1"
+            >
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalToggleLabel">Checkin: {{milestoneDetails.milestone_name}}</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="checkin()" aria-label="Close"></button>
-                    </div>
-                    <app-checkin-popup [milestoneDetails] = "milestoneDetails"></app-checkin-popup>
+                    <h5 class="modal-title" id="exampleModalToggleLabel">
+                      Checkin: {{ milestoneDetails.milestone_name }}
+                    </h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      (click)="checkin()"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <app-checkin-popup
+                    [milestoneDetails]="milestoneDetails"
+                  ></app-checkin-popup>
                 </div>
               </div>
-              </div>
-      <button *ngIf="milestoneDetails.milestone_status!=='Completed'" type="button" class="btn btn-default" style="color: #0D8EBB;" (click)="checkin()"><img src="https://img.icons8.com/ios-filled/20/000000/marker.png" (click)="checkin()"/>Checkin</button>
-      <button *ngIf="milestoneDetails.milestone_status=='Completed'" type="button" class="btn btn-default" style="color: #0D8EBB;" (click)="checkin()"><img src="https://img.icons8.com/external-royyan-wijaya-detailed-outline-royyan-wijaya/20/000000/external-tick-interface-royyan-wijaya-detailed-outline-royyan-wijaya-4.png" (click)="checkin()"/>Completed</button>
+            </div>
+            <button
+              *ngIf="!completed"
+              type="button"
+              class="btn btn-default"
+              style="color: #0d8ebb"
+              (click)="checkin()"
+            >
+              <img
+                src="https://img.icons8.com/ios-filled/20/000000/marker.png"
+                (click)="checkin()"
+              />Checkin
+            </button>
+            <button
+              *ngIf="completed"
+              type="button"
+              class="btn btn-default"
+              style="color: #0d8ebb"
+              (click)="checkin()"
+            >
+              <img
+                src="https://img.icons8.com/external-royyan-wijaya-detailed-outline-royyan-wijaya/20/000000/external-tick-interface-royyan-wijaya-detailed-outline-royyan-wijaya-4.png"
+                (click)="checkin()"
+              />Completed
+            </button>
           </li>
         </ul>
-        </li>
+      </li>
 
-        <!-- <li class="nav-item" >
+      <!-- <li class="nav-item" >
           <button type="button" class="btn btn-default" style="color: #0D8EBB;" ><img src="https://img.icons8.com/ios-filled/20/000000/marker.png" (click)="checkin()"/>Completed</button>
               </li> -->
-      </ul>
+    </ul>
+  </div>
+</div>

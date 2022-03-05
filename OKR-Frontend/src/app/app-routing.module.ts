@@ -9,7 +9,8 @@ import { RegisterComponent } from './register/register.component';
 import { YourObjectiveComponent } from './your-objective/your-objective.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent},  
+  { path: '', component: LoginComponent},
+  { path: 'login', component: LoginComponent},  
   { path: 'objectives', component: YourObjectiveComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'objective-deatils', component: ObjectiveDetailsComponent},

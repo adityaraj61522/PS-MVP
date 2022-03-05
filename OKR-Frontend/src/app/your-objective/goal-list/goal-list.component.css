@@ -52,9 +52,30 @@ box-shadow: none;
     justify-content: center;
     align-items: center;
 }
-.status{
+.status-waiting{
     background-color: #F9ECB4;
     color: #D2AB0A;
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+}
+.status-active{
+    background-color: rgb(84, 175, 84);
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+}
+.status-closed{
+    background-color: rgb(180, 170, 170);
+    color: black;
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+}
+.status-rejected{
+    background-color: rgb(219, 40, 40);
+    color: white;
     border-radius: 10px;
     text-align: center;
     padding: 5px;

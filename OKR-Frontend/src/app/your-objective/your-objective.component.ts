@@ -32,6 +32,7 @@ export class YourObjectiveComponent implements OnInit {
   constructor( private http : HttpClient ) { }
 
   @ViewChild('ObjForm') ObjFormData!: NgForm;
+  isLoad = false
   show=false;
   show2=false;
   show3=false;
@@ -49,6 +50,9 @@ export class YourObjectiveComponent implements OnInit {
   getUser={
     org_id:""
   }
+  active:any;
+  rejected:any;
+  closed:any;
   userdata={
     token:"",
     expires:"",
@@ -57,6 +61,7 @@ export class YourObjectiveComponent implements OnInit {
   userData:any;
   allUsers:any;
   goalData: any;
+  goalCountData: any;
 
   model: any;
   modelOrgGoal:any;
@@ -148,6 +153,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
   addObjective(){
     console.log(this.newObjective ,"obj")
+    this.isLoad = true;
     
     // this.show=false;
     // this.show2=true;
@@ -163,6 +169,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions
   ).subscribe((result:any)=>{
       // console.log(result:any); 
+      this.isLoad = false
       this.show=false;
       this.show2=true;
       sessionStorage.setItem("goalId",result.goalId);
@@ -185,15 +192,27 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.getGoal.goal_owner_id=this.userData.user_id;
     this.getUser.org_id=this.userData.org_id;
     // Get Goals
-    this.http.post(`/api/v1/employee/getgoals`, this.getGoal, this.requestOptions).subscribe((response)=>{
-      // console.log(response);
-      this.goalData=response;
-      
-      // console.log("goal_DATA:---", this.goalData)
-      
-    },(error)=>{
-      console.error(error);
-    })
+    this.http
+      .post(`/api/v1/employee/getgoals`, this.getGoal, this.requestOptions)
+      .subscribe(
+        (response) => {
+          // console.log(Object.values(response)[0]);
+          this.goalData = Object.values(response)[0];
+          this.goalCountData = Object.values(response)[1]
+          console.log("goalData:---", this.goalData);
+          console.log("goal Count Data", this.goalCountData);
+
+          // console.log("goal_DATA:---", this.goalData)
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+
+      // if(this.goalData.goal_status=='WAITING_FOR_APPROVAL' || this.goalData.goal_status=='APPROVED'){
+      //   this.active=this.goalData.filter((goal:any)=>goal.goal_status=='WAITING_FOR_APPROVAL'||goal.goal_status=='APPROVED');
+      // // }
+      // console.log(this.active,"active")
 
     // Create-goal content
     this.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
