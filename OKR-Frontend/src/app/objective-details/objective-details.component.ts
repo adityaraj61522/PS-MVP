@@ -40,16 +40,11 @@ export class ObjectiveDetailsComponent implements OnInit {
     headers: new HttpHeaders(this.headers),
   };
 
-  deleteMilestone = (
-    milestone_name: any,
-    milestone_id: any,
-    org_id: any,
-    goal_id: any
-  ) => {
+  deleteMilestone = (milestone_name: any, milestone_id: any, org_id: any, goal_id: any) => {
     this.deleteMilestoneReq.milestone_id = milestone_id;
     this.deleteMilestoneReq.org_id = org_id;
     this.deleteMilestoneReq.goal_id = goal_id;
-    console.log('GOal id of milestone:---', this.deleteMilestoneReq.goal_id);
+    console.log('Goal id of milestone:---', this.deleteMilestoneReq.goal_id);
     console.log(this.deleteMilestoneReq);
     if (confirm('Are you sure want to delete ' + milestone_name)) {
       this.http
