@@ -266,8 +266,8 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     // Get Orginizational goal
     await this.http.post(`/api/v1/employee/getorganizationgoals`, this.getUser, this.requestOptions).subscribe((response)=>{
       
-      this.allOrgGoal= Object.values(response)[0];
-      console.log(this.allOrgGoal);
+      this.allOrgGoal=response;
+      console.log("Org goals:---",this.allOrgGoal);
 
     },(error)=>{
       console.error(error);

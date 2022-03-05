@@ -138,7 +138,7 @@
             </div>
         </div>
     </div>
-    <div class="list" *ngIf="(goalCountData[0].IN_PROGRESS +goalCountData[0].WAITING_FOR_APPROVAL)">
+    <div class="list" *ngIf="!(goalCountData[0].IN_PROGRESS +goalCountData[0].WAITING_FOR_APPROVAL)">
         You do not have any goal assigned. Please go ahead and create one.
     </div>
 
