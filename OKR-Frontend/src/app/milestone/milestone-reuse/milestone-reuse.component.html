@@ -3,41 +3,30 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="modal-header">
-            <p class="gotaNameTittle"> NEW KEY RESULT: {{singleUser.goal_name}}</p>
+            <!-- <p class="gotaNameTittle"> NEW KEY RESULT: {{singleUser.goal_name}}</p> -->
             <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button>
           </div>
 
 
-
-
-
-
-         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      
         <app-create-milestone [goalId]="goalId" 
         [start_date]="start_date"
         [end_date]="end_date"
-      
+        [goal_name]="goal_name"
+        [isMilestoneVaid]="isMilestoneVaid"
         ></app-create-milestone>
-        </div>
+        </div> 
     </div>
 </div>
 
 
+<app-create-milestone [goalId]="cur_goal_id" *ngIf="refFrom=='createPage'"
+        [start_date]="start_date"
+        [end_date]="end_date"
+        [goal_name]="goal_name"
+        [isMilestoneVaid]="isMilestoneVaid"
+  
+        ></app-create-milestone>
 <!-- <p >milestone-reuse works!</p> -->
 <p *ngIf="refFrom=='listPage'" (click)="objectiveShow()">Add milestone</p>
 

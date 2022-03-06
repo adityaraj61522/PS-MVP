@@ -179,7 +179,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     )
 
   addObjective(){
-    console.log(this.newObjective ,"obj")
+    // console.log(this.newObjective ,"obj")
     this.isLoad = true;
     
     // this.show=false;
@@ -205,7 +205,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       this.isLoad = false;
       this.er=true;
     });
-    console.log(JSON.stringify(this.newObjective ),"obj")
+    // console.log(JSON.stringify(this.newObjective ),"obj")
   }
 
   session:any;
