@@ -3,7 +3,7 @@
 <section class="active-list">
     <div>
       <strong>Active({{goalCountData[0].APPROVED  + goalCountData[0].WAITING_FOR_APPROVAL}})</strong>
-      <app-milestone></app-milestone> 
+      <app-milestone></app-milestone>  
       <ul class="nav side">  
         <li class="nav-item">
           <div class="modal fade show" *ngIf="show"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -44,7 +44,7 @@
                   <span class="help-block" *ngIf="!goal_due_date.valid && goal_due_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                   </div>
                 </div>
-              <div class="in-date">
+              <div class="in-date"> 
                 <div class="form-group">
                   <label for="typeahead-basic">Owner:</label>
                   <input id="typeahead-basic" type="text" class="form-control in-2" ngModel #goal_owner_name="ngModel" goal_owner_name required [(ngModel)]="model" name="goal_owner_name" [ngbTypeahead]="search"
@@ -87,8 +87,8 @@
               <div class="modal-footer">
                 <span class="help-block" *ngIf="er"><i class="fas fa-exclamation-circle"></i>Error while creating objective!!!</span>
                 <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal" (click)="objectiveHide()"  aria-label="Close"> Cancel </button><br> -->
-                <button class="btn btn-primary" type="submit" 
-                data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">Add Key Result</button>
+                <button class="btn btn-primary" type="submit" [disabled]="!ObjForm.valid" 
+                data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Add Key Result</button>
                 <br>
               </div>
             </form>
@@ -105,21 +105,20 @@
           aria-labelledby="exampleModalToggleLabel2"
           tabindex="-1"
         >
-          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-dialog modal-dialog-centered"> 
             <div class="modal-content">
+            
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalToggleLabel2">
-                  ADD KEY RESULT: HOW YOU WILL DO IT
-                </h5>
                 <button
-                  type="button"
+                  type="button" 
                   class="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                   (click)="keyresultHide()"
                 ></button>
               </div>
-              <app-create-milestone></app-create-milestone>
+              <app-milestone-reuse [refFrom]="'createPage'"></app-milestone-reuse>
+              <!-- <app-create-milestone></app-create-milestone> -->
               <!-- <app-milestone [keyresultshow]="keyresultshow"   [keyresultHide]="keyresultHide" ></app-milestone> -->
             </div>
           </div>

@@ -152,7 +152,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     )
 
   addObjective(){
-    console.log(this.newObjective ,"obj")
+    // console.log(this.newObjective ,"obj")
     this.isLoad = true;
     
     // this.show=false;
@@ -178,7 +178,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       this.isLoad = false;
       this.er=true;
     });
-    console.log(JSON.stringify(this.newObjective ),"obj")
+    // console.log(JSON.stringify(this.newObjective ),"obj")
   }
 
   session:any;
@@ -239,8 +239,10 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     // Get Orginizational goal
     await this.http.post(`/api/v1/employee/getorganizationgoals`, this.getUser, this.requestOptions).subscribe((response)=>{
       
-      this.allOrgGoal= Object.values(response)[0];
-      console.log(this.allOrgGoal);
+      // this.allOrgGoal= Object.values(response)[0];
+      this.allOrgGoal = response;
+      // console.log(response);
+      // console.log(this.allOrgGoal);
 
     },(error)=>{
       console.error(error);

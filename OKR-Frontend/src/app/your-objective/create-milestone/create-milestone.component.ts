@@ -22,14 +22,15 @@ export class CreateMilestoneComponent implements OnInit {
   @Input() start_date:any
   @Input() end_date:any
   @Input() goal_name:any
+  @Input() isMilestoneVaid:any
 
   allUsers: any = [];
 
   public model: any;
-  myForm!: FormGroup;
+  myForm!: FormGroup; 
   isLoad = false
   show=false;
-  show2=false;
+  show2=false;  
   choice:string = 'boolean';
   successMsg:boolean = false
   errorMsg:boolean = false
@@ -43,7 +44,7 @@ export class CreateMilestoneComponent implements OnInit {
     },(error)=>{
       console.error(error);
     });
-  }
+  } 
 
   // search typehead now start
 
@@ -88,8 +89,10 @@ export class CreateMilestoneComponent implements OnInit {
 
   }
   // for desable min date
-  chooseStartDate(value:string) {
-    this.min_due_date = value > this.end_date?value:this.end_date ;
+  chooseStartDate(cur:string) {
+    // this.min_due_date = cur > this.end_date?cur:this.end_date ;
+    this.min_due_date = cur
+
   }
  
 
@@ -102,7 +105,7 @@ export class CreateMilestoneComponent implements OnInit {
      this.isLoad = true
 
     var postReq:any = {
-      goal_id:  this.goalId  || sessionStorage.getItem("goalId") ,
+      goal_id:  this.goalId ,
       is_active: "1",
       org_id: sessionStorage.getItem("orgDetails_id") || "1", 
       milestone_name: form.value.milestone_name,
