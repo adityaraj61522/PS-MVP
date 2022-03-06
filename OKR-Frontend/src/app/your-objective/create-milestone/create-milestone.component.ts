@@ -39,6 +39,8 @@ export class CreateMilestoneComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private http : HttpClient,private apiData:ApiService,public toastService: ToastService) { 
 
+    
+
     this.apiData.getUsers().subscribe((result)=>{
       this.allUsers = result
     },(error)=>{
@@ -72,6 +74,7 @@ export class CreateMilestoneComponent implements OnInit {
   //search typehead now end
 
   ngOnInit(): void {
+    console.log(this.isMilestoneVaid);
 
     this.myForm = this.fb.group({
       org_id: sessionStorage.getItem('orgDetails_id'),

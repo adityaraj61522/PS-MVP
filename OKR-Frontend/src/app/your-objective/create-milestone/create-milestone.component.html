@@ -1,6 +1,6 @@
-<p class="invalidMilestoneText" *ngIF="!isMilestoneVaid">You cannot unable to create milestone because objective is expired</p>
-<p class="gotaNameTittle" *ngIF="isMilestoneVaid"> NEW KEY RESULT: {{goal_name}}</p>
-<form *ngIF="isMilestoneVaid" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+<p class="invalidMilestoneText" *ngIf="!isMilestoneVaid" >You cannot unable to create milestone because objective is expired</p>
+<p class="gotaNameTittle" *ngIf="isMilestoneVaid"> NEW KEY RESULT: {{goal_name}}</p>
+<form *ngIf="isMilestoneVaid" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
   <p class="successMsg" *ngIf="successMsg" >Milestone has been created successfully</p>
   <p class="errorMsg" *ngIf="errorMsg" >Something went wrong</p>
   <div class="modal-body">
