@@ -226,8 +226,8 @@ outFormatter = (x: {full_name: string}) => x.full_name;
           // console.log(Object.values(response)[0]);
           this.goalData = Object.values(response)[0];
           this.goalCountData = Object.values(response)[1]
-          console.log("goalData:---", this.goalData);
-          console.log("goal Count Data", this.goalCountData);
+          // console.log("goalData:---", this.goalData); 
+          // console.log("goal Count Data", this.goalCountData);
 
           // console.log("goal_DATA:---", this.goalData)
         },

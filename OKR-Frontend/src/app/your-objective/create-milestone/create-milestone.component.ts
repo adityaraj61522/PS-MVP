@@ -29,11 +29,10 @@ export class CreateMilestoneComponent implements OnInit {
   public model: any;
   myForm!: FormGroup; 
   isLoad = false
-  show=false;
-  show2=false;  
+  show=false;  
   choice:string = 'boolean';
-  successMsg:boolean = false
-  errorMsg:boolean = false
+ 
+
 
   min_due_date:string = ''
 
@@ -81,7 +80,7 @@ export class CreateMilestoneComponent implements OnInit {
       org_id: sessionStorage.getItem('orgDetails_id'),
       milestone_name: ['', [Validators.required]],
       milestone_start_date: ['', [Validators.required]],
-      milestone_due_date: ['', [Validators.required]],
+      milestone_due_date: [{ value: '', disabled: true }, [Validators.required]],
       is_active: '1',
       created_by: '1',
       //owner detail
@@ -95,13 +94,17 @@ export class CreateMilestoneComponent implements OnInit {
   // for desable min date
   chooseStartDate(cur:string) {
     // this.min_due_date = cur > this.end_date?cur:this.end_date ;
+    // this.isDeadlineDateValid = false 
     this.min_due_date = cur
+    this.myForm.controls['milestone_due_date'].enable()
+    // this.myForm.controls['milestone_due_date'].disable()
 
   }
  
 
   changeChoice(option: string) {
     this.choice = option;
+
   }
 
   onSubmit(form: FormGroup) {
@@ -148,7 +151,7 @@ export class CreateMilestoneComponent implements OnInit {
       console.log(result);
       if(result){
         this.isLoad = false
-        // this.successMsg = true
+     
         this.toastService.show('milestone has been created successfully', { classname: 'bg-success text-light', delay: 3000 })
         window.location.reload();
         }
@@ -158,7 +161,6 @@ export class CreateMilestoneComponent implements OnInit {
         if (error) {
           this.isLoad = false;
           this.toastService.show('somthing went wrong', { classname: 'bg-danger text-light', delay: 3000 })
-          // this.errorMsg = true;
         }
       }
     );

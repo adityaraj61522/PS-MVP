@@ -27,7 +27,7 @@ export class MilestoneReuseComponent implements OnInit {
     // console.log(sessionStorage.getItem("goalId"));
     console.log(this.cur_goal_id);
     
-       // call single user
+       // call single user 
        this.apiData.getSingleUser(this.cur_goal_id).subscribe((response)=>{
         
          
@@ -37,23 +37,33 @@ export class MilestoneReuseComponent implements OnInit {
         const finish_date = this.apiData.convertToDate(Object.values(response)[0].goal_due_date)
         const cur_date = this.apiData.convertToDate( new Date().toDateString())
 
+        const begin = new Date(Object.values(response)[0].goal_start_date)
+        const finish = new Date(Object.values(response)[0].goal_due_date)
+        const cur = new Date()
+
+        
+
         // this.start_date = firstval > secondval?firstval:secondval;
         // console.log(this.end_date);
-        if(cur_date < begin_date ){
+
+        if(finish < cur){
           this.start_date = begin_date
           this.end_date = finish_date
-          this.isMilestoneVaid = true
+          this.isMilestoneVaid = false
         }
-        else if(begin_date < cur_date && cur_date < finish_date){
+        else if(begin < cur && cur < finish){
           this.start_date = cur_date
           this.end_date = finish_date
           this.isMilestoneVaid = true
+          
         }
         else{
-          this.start_date = '2000-12-11'
-          this.end_date = '2000-12-10'
-          this.isMilestoneVaid = false
+          this.start_date = begin_date
+          this.end_date = finish_date
+          this.isMilestoneVaid = true
+          
         }
+        
 
         
       },(error)=>{

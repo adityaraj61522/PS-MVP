@@ -1,13 +1,12 @@
 <p class="invalidMilestoneText" *ngIf="!isMilestoneVaid" >You cannot unable to create milestone because objective is expired</p>
 <p class="gotaNameTittle" *ngIf="isMilestoneVaid"> NEW KEY RESULT: {{goal_name}}</p>
 <form *ngIf="isMilestoneVaid" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
-  <p class="successMsg" *ngIf="successMsg" >Milestone has been created successfully</p>
-  <p class="errorMsg" *ngIf="errorMsg" >Something went wrong</p>
+
   <div class="modal-body">
     <div class="form-group">
       <label>Milestone name:</label><br>
       <input type="text" class="in-1" formControlName="milestone_name"   >
-    
+     
     </div>
     <div class="in-date">
       <div class="form-group">
@@ -65,7 +64,7 @@
       </div>
       <div class="form-group">
       <label>End Date*  {{end_date}}</label><br>
-      <input type="date"   class="in-d"  formControlName="milestone_due_date" min="{{min_due_date}}" max="{{end_date}}">
+      <input type="date"   class="in-d"   formControlName="milestone_due_date" min="{{min_due_date}}" max="{{end_date}}">
      
       </div>
   </div>
