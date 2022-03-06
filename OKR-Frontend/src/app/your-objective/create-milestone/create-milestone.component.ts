@@ -75,6 +75,7 @@ export class CreateMilestoneComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.isMilestoneVaid);
+    
 
     this.myForm = this.fb.group({
       org_id: sessionStorage.getItem('orgDetails_id'),
@@ -148,18 +149,15 @@ export class CreateMilestoneComponent implements OnInit {
       if(result){
         this.isLoad = false
         // this.successMsg = true
-        this.toastService.show('milestone has been created successfully', { classname: 'bg-success text-light', delay: 10000 })
-
-        setInterval(() => {
-          window.location.reload();
-          }, 1000);
+        this.toastService.show('milestone has been created successfully', { classname: 'bg-success text-light', delay: 3000 })
+        window.location.reload();
         }
       },
       (error) => {
         console.error(error);
         if (error) {
           this.isLoad = false;
-          this.toastService.show('somthing went wrong', { classname: 'bg-danger text-light', delay: 10000 })
+          this.toastService.show('somthing went wrong', { classname: 'bg-danger text-light', delay: 3000 })
           // this.errorMsg = true;
         }
       }

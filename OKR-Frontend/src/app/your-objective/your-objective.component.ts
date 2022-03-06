@@ -43,6 +43,10 @@ export class YourObjectiveComponent implements OnInit {
     goal_id:"",
     org_id:"",
   }
+  sendForClosureReq ={
+    goal_id:"",
+    org_id:"",
+  }
   getGoal={
     org_id:"",
     goal_owner_id:""
@@ -121,20 +125,43 @@ export class YourObjectiveComponent implements OnInit {
     this.show2=false;
     this.show=true;
   }
-
-  deleteGoal=(goal_name: any, goal_id:any , org_id: any)=>{
+ // Delete Goal fucntionality
+  deleteGoal=(goal_name: any, goal_id:any , org_id: any, todo: any)=>{
     this.deleteGoalReq.goal_id= goal_id;
     this.deleteGoalReq.org_id = org_id;
     // console.log(this.deleteGoalReq)
-    if(confirm("Are you sure want to delete "+goal_name)){
-      this.http.put(`/api/v1/employee/deletegoal`, {goal_id,org_id} , this.requestOptions).subscribe((response)=>{
+    if(todo=='DELETE'){
+      if(confirm("Are you sure want to delete "+goal_name)){
+        this.http.put(`/api/v1/employee/deletegoal`, {goal_id,org_id} , this.requestOptions).subscribe((response)=>{
         // console.log("delete goal console:---", response);
         window.location.reload();
-      },(error)=>{
+        },(error)=>{
         // console.error(error);
-      })
+       })
+      }
+    }
+    if(todo=='CLOSURE'){
+      if(confirm("Are you sure want to close goal "+ goal_name)){
+        console.log(goal_name , goal_id, org_id, todo);
+        this.http.put(`api/v1/employee/closegoal`, {goal_id, org_id}, this.requestOptions).subscribe((response)=>{
+        console.log("delete goal console:---", response);
+        //Toaster
+        window.location.reload();
+        },(error)=>{
+        // console.error(error);
+        //toaster
+       })
+      }
+      else {
+        console.log("Running")
+      }
     }
   }
+  // Send for Closure
+  
+
+
+
   // create Objective content
 
 inFormatter = (x: {goal_name: string}) => x.goal_name;
@@ -239,10 +266,8 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     // Get Orginizational goal
     await this.http.post(`/api/v1/employee/getorganizationgoals`, this.getUser, this.requestOptions).subscribe((response)=>{
       
-      // this.allOrgGoal= Object.values(response)[0];
-      this.allOrgGoal = response;
-      // console.log(response);
-      // console.log(this.allOrgGoal);
+      this.allOrgGoal=response;
+      console.log("Org goals:---",this.allOrgGoal);
 
     },(error)=>{
       console.error(error);

@@ -1,134 +1,85 @@
 <ul class="nav side">
-  <li class="nav-item">
-    <!--   Edit Objective   -->
-    <div
-      class="modal fade show"
-      *ngIf="show3"
-      id="exampleModalToggle"
-      aria-hidden="false"
-      style="display: block !important"
-      aria-labelledby="exampleModalToggleLabel"
-      tabindex="-1"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalToggleLabel">
-              UPDATE OBJECTIVE: YOUR AREA OF FOCUS
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              (click)="objectiveHide()"
-              aria-label="Close"
-            ></button>
-          </div>
-          <app-edit-goal [goalData]="goalDetails"></app-edit-goal>
+    <li class="nav-item">
+        <!--   Edit Objective   -->
+        <div class="modal fade show" *ngIf="show3" id="exampleModalToggle" aria-hidden="false" style="display: block !important" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalToggleLabel">
+                            UPDATE OBJECTIVE: YOUR AREA OF FOCUS
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button>
+                    </div>
+                    <app-edit-goal [goalData]="goalDetails"></app-edit-goal>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </li>
+    </li>
 </ul>
 <div class="list-card row shadow-lg">
-  <div class="col-sm-1 progress-percent">
-    <circle-progress
-      [percent]="goalDetails.goal_progress"
-      [radius]="30"
-      [outerStrokeWidth]="6"
-      [innerStrokeWidth]="4"
-      [outerStrokeColor]="'#3d54ae'"
-      [innerStrokeColor]="'#7db4e8'"
-      [animation]="true"
-      [animationDuration]="300"
-    ></circle-progress>
-  </div>
-  <div class="col-sm-8 task-details" (click)="getGoalDetails()">
-    <strong>{{ goalDetails.goal_name }}</strong>
-    <ul class="nav">
-      <li class="nav-item">
-        <div class="nav-link active" aria-current="page">
-          <div class="dropdown">
-            <button
-              class="btn btn-default dropdown-toggle"
-              style="color: #0d8ebb; padding-top: 0px"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+    <div class="col-sm-1 progress-percent">
+        <circle-progress [percent]="goalDetails.goal_progress" [radius]="30" [outerStrokeWidth]="6" [innerStrokeWidth]="4" [outerStrokeColor]="'#3d54ae'" [innerStrokeColor]="'#7db4e8'" [animation]="true" [animationDuration]="300"></circle-progress>
+    </div>
+    <div class="col-sm-8 task-details" (click)="getGoalDetails()">
+        <strong>{{ goalDetails.goal_name }}</strong>
+        <ul class="nav">
+            <li class="nav-item">
+                <div class="nav-link active" aria-current="page">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" style="color: #0d8ebb; padding-top: 0px" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
               Key Results
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item">Action</a></li>
-              <li><a class="dropdown-item">Another action</a></li>
-              <li><a class="dropdown-item">Something else here</a></li>
-            </ul>
-          </div>
-        </div>
-      </li>
-      <li class="nav-item">
-        <div class="nav-link">
-          Due Date: {{ goalDetails.goal_due_date | date: "dd-MMM" }}
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">{{ goalDetails.linked_org_goal_name }}</a>
-      </li>
-    </ul>
-  </div>
-  <div class="col-sm-2 options">
-    <ul class="nav">
-      <li class="nav-item">
-        <p class="status-waiting shadow" *ngIf="(goalDetails.goal_status=='WAITING_FOR_APPROVAL')">Waiting for approval</p>
-        <p class="status-active shadow" *ngIf="(goalDetails.goal_status=='APPROVED')">Active</p>
-        <p class="status-closed shadow" *ngIf="(goalDetails.goal_status=='CLOSED')">Closed</p>
-        <p class="status-rejected shadow" *ngIf="(goalDetails.goal_status=='REJECTED')">Rejected</p>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item">Action</a></li>
+                            <li><a class="dropdown-item">Another action</a></li>
+                            <li><a class="dropdown-item">Something else here</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link">
+                    Due Date: {{ goalDetails.goal_due_date | date: "dd-MMM" }}
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">{{ goalDetails.linked_org_goal_name }}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-2 options">
+        <ul class="nav">
+            <li class="nav-item">
+                <p class="status-waiting shadow" *ngIf="(goalDetails.goal_status=='WAITING_FOR_APPROVAL')">Waiting for approval</p>
+                <p class="status-active shadow" *ngIf="(goalDetails.goal_status=='IN_PROGRESS')">Active</p>
+                <p class="status-closed shadow" *ngIf="(goalDetails.goal_status=='CLOSED')">Closed</p>
+                <p class="status-closed shadow" *ngIf="(goalDetails.goal_status=='WAITING_FOR_CLOSURE')">Waiting for Review and Closure</p>
+                <p class="status-rejected shadow" *ngIf="(goalDetails.goal_status=='REJECTED')">Rejected</p>
 
-      </li>
-      <li class="nav-item">
-        <div class="dropdown">
-          <button
-            class="btn btn-default dropdown"
-            (click)="showDp()"
-            type="button"
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
+            </li>
+            <li class="nav-item">
+                <div class="dropdown" *ngIf="!(goalDetails.goal_status=='WAITING_FOR_CLOSURE')">
+                    <button class="btn btn-default dropdown" (click)="showDp()" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png" />
           </button>
-          <ul
-            class="dropdown-menu"
-            *ngIf="dp"
-            style="display: block"
-            aria-labelledby="dropdownMenuButton1"
-          >
-            <li (click)="openUpdateDp()">
-              <a class="dropdown-item">Update Goal</a>
+                    <ul class="dropdown-menu" *ngIf="dp" style="display: block" aria-labelledby="dropdownMenuButton1">
+                        <li (click)="openUpdateDp()" *ngIf="!(goalDetails.goal_status=='REJECTED')">
+                            <a class="dropdown-item">Update Goal</a>
+                        </li>
+                        <li *ngIf="!(goalDetails.goal_status=='REJECTED')">
+                            <a class="dropdown-item">
+                                <app-milestone-reuse [goalId]="goalDetails.goal_id" [refFrom]="'listPage'"></app-milestone-reuse>
+                            </a>
+                        </li>
+                        <li (click)="deleteGoal(goalDetails.goal_name, goalDetails.goal_id,goalDetails.org_id,'DELETE')">
+                            <a class="dropdown-item"> Delete Goal</a>
+                        </li>
+                        <li (click)="deleteGoal(goalDetails.goal_name, goalDetails.goal_id,goalDetails.org_id,'CLOSURE')" *ngIf="!(goalDetails.goal_status=='REJECTED')">
+                            <a class="dropdown-item"> Send for Review and Close</a>
+                        </li>
+                    </ul>
+                </div>
             </li>
-            <li>
-              <a class="dropdown-item">
-                <app-milestone-reuse
-                  [goalId]="goalDetails.goal_id"
-                  [refFrom]="'listPage'"
-                ></app-milestone-reuse>
-              </a>
-            </li>
-            <li
-              (click)="
-                deleteGoal(
-                  goalDetails.goal_name,
-                  goalDetails.goal_id,
-                  goalDetails.org_id
-                )
-              "
-            >
-              <a class="dropdown-item"> Delete Goal</a>
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </div>
+        </ul>
+    </div>
 </div>
