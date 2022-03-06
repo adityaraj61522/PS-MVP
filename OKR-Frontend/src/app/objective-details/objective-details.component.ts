@@ -11,13 +11,19 @@ export class ObjectiveDetailsComponent implements OnInit {
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
 
+  onManagerDecisionReq={
+    goal_id:"",
+    decision:"",
+    reqType:"",
+  }
   Id={
-    goal_id:""
+    goal_id:"",
   }
   org_id:any;
   goal_data:any;
   milestone_data:any;
-  goalStatus: string = 'WAITING_FOR_APPROVAL';
+  goalStatus: any;
+  showButtons:any;
 
   user_id: any;
   line_manager_id: any;
@@ -68,25 +74,23 @@ export class ObjectiveDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.Id.goal_id = params['ID'];
+      this.onManagerDecisionReq.goal_id =  params['ID'];
 
       //  const myorgid = sessionStorage.getItem('orgDetails_id');
       // console.log(myorgid)
     });
     this.getGoalDetails();
     this.getGoalMilestones();
-   console.log('goal data here......',this.goal_data)
 
    this.user_id = sessionStorage.getItem("user_id")
    this.line_manager_id = sessionStorage.getItem("userData")
    this.line_manager_id = JSON.stringify(JSON.parse(this.line_manager_id)[0].line_manager_id);
-   console.log("########",this.user_id, this.line_manager_id)
+  //  console.log("########",this.user_id, this.line_manager_id)
 
   }
 
   getGoalDetails(){
   // Get Goals
-
-  
   return this.http.post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions).subscribe((response)=>{
    
     this.goal_data=response;
@@ -99,17 +103,17 @@ export class ObjectiveDetailsComponent implements OnInit {
       console.error(error);
     })
 
-    return this.http
-      .post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions)
-      .subscribe(
-        (response) => {
-          this.goal_data = response;
-          console.log(this.goal_data);
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
+    // return this.http
+    //   .post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions)
+    //   .subscribe(
+    //     (response) => {
+    //       this.goal_data = response;
+    //       console.log(this.goal_data);
+    //     },
+    //     (error) => {
+    //       console.error(error);
+    //     }
+    //   );
   }
 
   getGoalMilestones(){
@@ -125,29 +129,24 @@ export class ObjectiveDetailsComponent implements OnInit {
 
   }
 
-  onApprove(){
-    this.http.post(`/api/v1/employee/approve-goal`, this.Id, this.requestOptions).subscribe((response)=>{
-      console.log(response)
-      let parsed_res = JSON.parse(JSON.stringify(response));
-      // console.log(parsed_res);
-      if(parsed_res.status === 'SUCCESS'){
-        this.goalStatus = 'APPROVED';
+  onManagerDecision(decision: any, reqType:any){
+    this.onManagerDecisionReq.decision = decision;
+    this.onManagerDecisionReq.reqType= reqType;
+    console.log(reqType);
+      if(confirm('Are you sure you want to '+ decision + ' this request?')){
+        this.http.post(`/api/v1/employee/managerdecision`, this.onManagerDecisionReq, this.requestOptions).subscribe((response)=>{
+          console.log(response);
+          let parsed_res = JSON.parse(JSON.stringify(response));
+          console.log(parsed_res);
+          if(parsed_res.status === 'SUCCESS'){
+            this.showButtons = 'false'
+            this.goalStatus=decision;
+            console.log(this.showButtons,'dfafasfas')
+          }
+        },(error)=>{
+          console.error(error);
+        })
       }
-    },(error)=>{
-      console.error(error);
-    })
+    
   }
-  onReject(){
-    this.http.post(`/api/v1/employee/reject-goal`, this.Id, this.requestOptions).subscribe((response)=>{
-      let parsed_res = JSON.parse(JSON.stringify(response));
-      console.log(parsed_res);
-      if(parsed_res.status === 'SUCCESS'){
-        this.goalStatus = 'REJECTED';
-      }
-    },(error)=>{
-      console.error(error);
-    })
-  }
-  
-
 }
