@@ -84,9 +84,9 @@ export class CheckinPopupComponent implements OnInit {
   checkiGoal(){
       this.checkinFormSubmit.org_id=this.checkinForm.value.org_id;
       this.checkinFormSubmit.goal_id=this.checkinForm.value.goal_id;
-      this.checkinFormSubmit.metric_start_value=this.checkinForm.value.metric_start_value;
-      this.checkinFormSubmit.metric_target_value=this.checkinForm.value.metric_target_value;
-      this.checkinFormSubmit.metric_curr_value=this.checkinForm.value.metric_curr_value;
+      this.checkinFormSubmit.metric_start_value=this.milestoneDetails['metric_start_value'];
+      this.checkinFormSubmit.metric_target_value=this.milestoneDetails['metric_target_value'];
+      this.checkinFormSubmit.metric_curr_value=this.milestoneDetails['metric_curr_value'];
       this.checkinFormSubmit.metric_value_new=this.checkinForm.value.metric_value_new;
       this.checkinFormSubmit.check_in_status=this.checkinForm.value.dob;
       this.checkinFormSubmit.milestone_progress=this.progress;

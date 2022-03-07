@@ -20,7 +20,7 @@
     <div class="col-sm-1 progress-percent">
         <circle-progress [percent]="goalDetails.goal_progress" [radius]="30" [outerStrokeWidth]="6" [innerStrokeWidth]="4" [outerStrokeColor]="'#3d54ae'" [innerStrokeColor]="'#7db4e8'" [animation]="true" [animationDuration]="300"></circle-progress>
     </div>
-    <div class="col-sm-8 task-details" (click)="getGoalDetails()">
+    <div class="col-sm-9 task-details" (click)="getGoalDetails()">
         <strong>{{ goalDetails.goal_name }}</strong>
         <ul class="nav">
             <li class="nav-item">

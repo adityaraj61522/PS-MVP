@@ -20,8 +20,15 @@
             </div>
 
             <div class="col-sm-2 options">
-                <app-milestone-reuse [goalId]="goal_data[0].goal_id" [refFrom]="'detailsPage'"></app-milestone-reuse>
+                <div *ngIf="goalStatus!=='REJECTED'">
+                    <app-milestone-reuse [goalId]="goal_data[0].goal_id" [refFrom]="'detailsPage'"></app-milestone-reuse>
+
+                </div>
                 <div>
+                    <!-- <p class="status-waiting shadow" >Waiting for approval</p> -->
+                    <p class="status-waiting" *ngIf="goalStatus=='WAITING_FOR_APPROVAL'">Waiting for approval</p>
+                    <p class="status-closed" *ngIf="goalStatus=='WAITING_FOR_CLOSURE' "><strong>waiting for Closure</strong></p>
+
                     <div class="flex" *ngIf="goalStatus=='WAITING_FOR_APPROVAL' || goalStatus=='WAITING_FOR_CLOSURE' ">
                         <button class="btn btn-success shadow ml-20" (click)="onManagerDecision('APPROVE', goalStatus)" type="button">Approve</button>
                         <button class="btn btn-danger shadow ml-20" (click)="onManagerDecision('REJECT' ,goalStatus)" type="button">Reject</button>
