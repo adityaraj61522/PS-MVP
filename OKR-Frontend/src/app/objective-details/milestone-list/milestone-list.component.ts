@@ -14,6 +14,9 @@ export class MilestoneListComponent implements OnInit {
     goal_id: any
   ) => void;
   @Input() milestoneDetails: any;
+  
+  showForm = false;
+
   dp = false;
   check = false;
   checkin() {
@@ -30,6 +33,16 @@ export class MilestoneListComponent implements OnInit {
       this.dp = false;
     }
   }
+
+  showUpdateMilestone(){
+    this.showForm = true;
+    console.log("update milestone showForm :---", this.showForm)
+  }
+  hideUpdateMilestone(){
+    this.showForm = false;
+    console.log("update milestone showForm :---", this.showForm)
+  }
+
   completed=false
   ngOnInit(): void {
     console.log(this.milestoneDetails.milestone_status, 'hjdsbfjchsdjh');

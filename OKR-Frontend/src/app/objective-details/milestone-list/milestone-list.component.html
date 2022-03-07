@@ -1,3 +1,32 @@
+<!--   Update Milestone   -->
+<div
+  class="modal fade show"
+  *ngIf="showForm"
+  id="exampleModalToggle"
+  aria-hidden="false"
+  style="display: block !important"
+  aria-labelledby="exampleModalToggleLabel"
+  tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">
+          UPDATE MILESTONE: YOUR AREA OF FOCUS
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="hideUpdateMilestone()"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <app-update-milestone [milestoneData]="milestoneDetails"></app-update-milestone>
+    </div>
+  </div>
+</div>
+
+
 <div class="list-card row">
   <div class="col-sm-1 progress-percent">
     <circle-progress
@@ -56,14 +85,17 @@
           >
             <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png" />
           </button>
-          <ul
+          <ul 
             class="dropdown-menu"
             *ngIf="dp"
             style="display: block"
             aria-labelledby="dropdownMenuButton1"
           >
-            <li><a class="dropdown-item">Update Milestone</a></li>
-            <li><a class="dropdown-item">Another actions</a></li>
+            <li (click)="showUpdateMilestone()">
+              <a class="dropdown-item">Update Milestone</a>
+            </li>
+            <li>
+              <a class="dropdown-item">Another actions</a></li>
             <li
               (click)="
                 deleteMilestone(

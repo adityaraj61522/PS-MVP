@@ -1,0 +1,83 @@
+<mat-spinner *ngIf="isLoad" [diameter]="40" style="margin-left: auto; margin-right: auto; margin-top: 150px; margin-bottom: 150px;"></mat-spinner>
+<form *ngIf="!isLoad" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+  <p class="successMsg" *ngIf="successMsg" >Milestone has been created successfully</p>
+  <p class="errorMsg" *ngIf="errorMsg" >Something went wrong</p>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Milestone name:</label><br>
+      <input type="text" class="in-1" formControlName="milestone_name">  
+    </div>
+    <div class="in-date">
+      <div class="form-group">
+        <label>Which Type of OKR you are Creating?:</label><br>
+        <select class="form-select in-2"  aria-label="Default select example"  #mySelect   (change)='changeChoice(mySelect.value)'>
+          <!-- <option selected>Open this select menu</option> -->
+          <option selected value="boolean">boolean</option>
+          <option value="progress">progress</option>
+          <option value="metric">metric</option>
+        </select>
+      </div>
+
+      <!-- <div class="form-group" *ngIf="choice=='boolean'">
+        <label>milestone status*</label><br>
+        <select class="form-select in-d"  aria-label="Default select example" formControlName="milestone_status">
+          <option selected value="not completed">Not Completed</option>
+          <option  value="completed">Completed</option>
+        </select>
+      </div>
+      <div class="form-group" *ngIf="choice=='progress'">
+        <label>Milestone progress status* (%)</label><br>
+        <input type="number" class="in-d" formControlName="milestone_progress"   >
+      </div> -->
+
+      <div class="form-group" *ngIf="choice=='metric'">
+        <label>Metric start value*</label><br>
+        <input type="number" class="in-d" formControlName="metric_start_value"   >
+      </div>
+      &nbsp;&nbsp;
+      <div class="form-group ml-3" *ngIf="choice=='metric'">
+        <label>Metric target value</label><br>
+        <input type="number" class="in-d" formControlName="metric_target_value"   >
+      </div>
+      &nbsp;&nbsp;
+    </div>
+    
+    <div class="in-date">
+      <div class="form-group">
+        <label>Owner:</label><br>
+        <!-- <label for="typeahead-basic">Search for a state:</label> -->
+        <input type="text" class="in-2" [(ngModel)]="model" [ngbTypeahead]="search"  formControlName="ownerObj" 
+        [resultFormatter]="inFormatter"
+        [inputFormatter]="outFormatter"/>
+        <!-- <input  type="text" class="form-control" /> -->
+      </div>
+      <br>
+      <div class="form-group"> 
+        <label>Start Date*</label><br> 
+        <input type="date"  class="in-d" formControlName="milestone_start_date"  #dateStartSelect   (change)='chooseDate(dateStartSelect.value)'>
+      </div>
+      <div class="form-group">
+        <label>End Date*</label><br>
+        <input type="date"   class="in-d"  formControlName="milestone_due_date" min="{{min_due_date}}">
+      </div>
+    </div>
+
+    <!-- <div class="in-date">
+      <div class="form-group">
+        <label>Which period is the objectiveRunning in?*</label><br>
+        <select class="form-select in-2"  aria-label="Default select example" name="goal_quater">
+          <option value="1">Q1</option>
+          <option value="2">Q2</option>
+          <option value="3">Q3</option> 
+          <option value="4">Q4</option>
+        </select>
+      </div>
+    </div> -->
+  </div>
+  <div class="modal-footer">
+    <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal"   aria-label="Close"> Cancel </button><br> -->
+    <button class="btn btn-primary" type="submit" 
+    [disabled]="myForm.invalid"
+    data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Add Key  Result</button>
+  </div>
+</form>

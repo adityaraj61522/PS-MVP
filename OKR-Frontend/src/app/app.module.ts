@@ -35,6 +35,7 @@ import { MilestoneReuseComponent } from './milestone/milestone-reuse/milestone-r
 
 // loader
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { UpdateMilestoneComponent } from './milestone/update-milestone/update-milestone.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     EditUsersComponent,
     CheckinPopupComponent,
     MilestoneReuseComponent,
+    UpdateMilestoneComponent,
   ],
   imports: [
     BrowserModule,
