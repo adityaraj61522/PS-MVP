@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,8 +14,7 @@ export class CheckinPopupComponent implements OnInit {
   constructor( private http : HttpClient,  private router : Router, private toastr:ToastrService ) { }
 
   @Input() milestoneDetails:any;
-  showTargetFiledError:boolean = false
- 
+
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     'Accept': 'application/json',
@@ -34,7 +33,7 @@ checked=false
     goal_id:new FormControl(''),
     metric_start_value:new FormControl(''),
     metric_target_value:new FormControl(''),
-    metric_curr_value:new FormControl( ''),
+    metric_curr_value:new FormControl(''),
     metric_value_new:new FormControl(''),
     milestone_progress:new FormControl(''),
     check_in_status:new FormControl(''),
@@ -117,7 +116,7 @@ checked=false
       this.checked=true;
       setTimeout(() => {
       window.location.reload();
-      }, 1000);
+      }, 2000);
     },(error)=>{
       console.error(error);
       this.toastr.error("Something went wrong!!!", 'Error');

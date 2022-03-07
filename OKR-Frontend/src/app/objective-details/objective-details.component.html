@@ -42,7 +42,7 @@
             <div class="col-sm-12 task-details">
                 <ul class="nav">
                     <li class="nav-item details">
-                        <strong>Owner:</strong>{{ goal_data.goal_owner_name }}
+                        <strong>Owner:</strong>{{ goal_data[0].goal_owner_name }}
                     </li>
                     <li class="nav-item details">
                         <strong>Start Date: </strong> {{ goal_data[0].goal_start_date | date:'dd-MMM-YY'}}

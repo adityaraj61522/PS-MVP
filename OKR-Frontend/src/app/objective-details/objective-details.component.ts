@@ -86,7 +86,7 @@ export class ObjectiveDetailsComponent implements OnInit {
    this.user_id = sessionStorage.getItem("user_id")
    this.line_manager_id = sessionStorage.getItem("userData")
    this.line_manager_id = JSON.stringify(JSON.parse(this.line_manager_id)[0].line_manager_id);
-
+// console.log(this.user_id,"user",this.line_manager_id,"line")
   }
 
   getGoalDetails(){
@@ -120,7 +120,7 @@ export class ObjectiveDetailsComponent implements OnInit {
     this.toastr.success("Approved Successfully...", 'Approved');
   }
   showRejected() {
-    this.toastr.error("Rejected Successfully...", 'Rejected');
+    this.toastr.success("Rejected Successfully...", 'Rejected');
   }
   showError() {
     this.toastr.error("Something went wrong", 'Error');
