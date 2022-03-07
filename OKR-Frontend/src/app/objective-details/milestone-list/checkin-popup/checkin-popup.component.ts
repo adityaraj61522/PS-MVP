@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-checkin-popup',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CheckinPopupComponent implements OnInit {
 
-  constructor( private http : HttpClient,  private router : Router ) { }
+  constructor( private http : HttpClient,  private router : Router, private toastr:ToastrService ) { }
 
   @Input() milestoneDetails:any;
 
@@ -26,7 +27,7 @@ export class CheckinPopupComponent implements OnInit {
     headers: new HttpHeaders(this.headers),
   };
   disabled=true;
-
+checked=false
   checkinForm = new FormGroup ({
     org_id:new FormControl(''),
     goal_id:new FormControl(''),
@@ -68,6 +69,7 @@ export class CheckinPopupComponent implements OnInit {
   }
 
   progress:any;
+  bool:any;
 
   formatLabel(value: number) {
     if (value >= 10) {
@@ -105,20 +107,26 @@ export class CheckinPopupComponent implements OnInit {
   ).subscribe((result:any)=>{
       console.log(result);
       sessionStorage.setItem("goalId",result.goalId);
+      this.toastr.success("Checked In Successfully...", 'Success');
+      this.ngOnInit();
       // this.router.navigate(
       //   ['/objective-deatils'],
       //   { queryParams: { ID: `${this.milestoneDetails.goal_id }`} }
       // );
+      this.checked=true;
+      setTimeout(() => {
       window.location.reload();
+      }, 1000);
     },(error)=>{
       console.error(error);
-
+      this.toastr.error("Something went wrong!!!", 'Error');
     });
     console.log(this.checkinForm.value);
   }
 
   ngOnInit(): void {
     this.progress=this.milestoneDetails.milestone_progress;
+    this.bool=JSON.stringify(this.milestoneDetails.milestone_progress);
 
     this.checkinForm = new FormGroup ({
       org_id:new FormControl(this.milestoneDetails['org_id']),
@@ -127,7 +135,7 @@ export class CheckinPopupComponent implements OnInit {
       metric_target_value:new FormControl(this.milestoneDetails['metric_target_value']),
       metric_curr_value:new FormControl(this.milestoneDetails['metric_curr_value']),
       metric_value_new:new FormControl(),
-      check_in_status:new FormControl(this.milestoneDetails['dob']),
+      check_in_status:new FormControl(),
       milestone_progress:new FormControl(this.progress),
       milestone_id:new FormControl(this.milestoneDetails['milestone_id']),
       milestone_progress_old:new FormControl(this.milestoneDetails['milestone_progress_old']),
@@ -135,7 +143,7 @@ export class CheckinPopupComponent implements OnInit {
       close_checkin_old_value:new FormControl(this.milestoneDetails['conf_password']),
       close_checkin_new_value:new FormControl(this.milestoneDetails['conf_password']),
       milestone_type:new FormControl(this.milestoneDetails['milestone_type']),
-      boolean_status:new FormControl(),
+      boolean_status:new FormControl(this.bool),
       checin_comment:new FormControl()
     })
 

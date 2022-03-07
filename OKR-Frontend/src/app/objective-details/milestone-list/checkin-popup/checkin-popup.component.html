@@ -37,8 +37,8 @@
         <div class="form-group">
             <label>Have You Acheived This?
                 <br><br>
-            <input type="radio" class="" formControlName="boolean_status" value="100" required> <strong class="yes-no" > Yes</strong>
-            <input type="radio" class="radio-btn" formControlName="boolean_status" value="0" required> <strong class="yes-no"> No</strong>
+            <input type="radio" class="" value="100" formControlName="boolean_status"> <strong class="yes-no" > Yes</strong>
+            <input type="radio" class="radio-btn" value="0" formControlName="boolean_status"> <strong class="yes-no"> No</strong>
         </label>
         </div>
       </div>
@@ -77,6 +77,9 @@
     <div class="modal-footer">
       <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal" (click)="objectiveHide()"  aria-label="Close"> Cancel </button><br> -->
       <button class="btn btn-primary" type="submit" 
-      data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Checkin</button>
+      data-bs-target="#exampleModalToggle2" *ngIf="!checked" style="background-color: #0D8EBB;" data-bs-toggle="modal">Checkin</button>
+      <button class="btn btn-primary" type="submit"  *ngIf="checked"
+      data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 85px;" data-bs-toggle="modal">
+      <mat-spinner [diameter]="23" style="margin-left: 20px;"></mat-spinner></button>
     </div>
   </form>
