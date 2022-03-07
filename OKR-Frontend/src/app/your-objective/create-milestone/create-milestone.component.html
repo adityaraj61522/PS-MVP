@@ -1,18 +1,12 @@
-
-  <mat-spinner *ngIf="isLoad" [diameter]="40" style="margin-left: auto; margin-right: auto; margin-top: 150px; margin-bottom: 150px;"></mat-spinner>
-<form *ngIf="!isLoad" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
-  <p class="successMsg" *ngIf="successMsg" >Milestone has been created successfully</p>
-  <p class="errorMsg" *ngIf="errorMsg" >Something went wrong</p>
-
-
-
-
+<p class="invalidMilestoneText" *ngIf="!isMilestoneVaid" >You cannot unable to create milestone because objective is expired</p>
+<p class="gotaNameTittle" *ngIf="isMilestoneVaid"> NEW KEY RESULT: {{goal_name}}</p>
+<form *ngIf="isMilestoneVaid" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
 
   <div class="modal-body">
     <div class="form-group">
       <label>Milestone name:</label><br>
       <input type="text" class="in-1" formControlName="milestone_name"   >
-   
+     
     </div>
     <div class="in-date">
       <div class="form-group">
@@ -50,7 +44,7 @@
 
      
     </div>
-    
+     
   <div class="in-date">
     <div class="form-group">
     <label>Owner:</label><br>
@@ -65,12 +59,12 @@
     </div>
      <div class="form-group"> 
       <label>Start Date*</label><br> 
-      <input type="date"  class="in-d" formControlName="milestone_start_date"  #dateStartSelect   (change)='chooseDate(dateStartSelect.value)'>
+      <input type="date"  class="in-d" formControlName="milestone_start_date" min="{{start_date}}" max="{{end_date}}" #dateStartSelect   (change)='chooseStartDate(dateStartSelect.value)' >
      
       </div>
       <div class="form-group">
-      <label>End Date*</label><br>
-      <input type="date"   class="in-d"  formControlName="milestone_due_date" min="{{min_due_date}}">
+      <label>End Date*  {{end_date}}</label><br>
+      <input type="date"   class="in-d"   formControlName="milestone_due_date" min="{{min_due_date}}" max="{{end_date}}">
      
       </div>
   </div>
@@ -92,7 +86,8 @@
   </div>
   <div class="modal-footer">
     <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal"   aria-label="Close"> Cancel </button><br> -->
-    <button class="btn btn-primary" type="submit" 
+    <mat-spinner  *ngIf="isLoad" [diameter]="30" ></mat-spinner>
+    <button  *ngIf="!isLoad" class="btn btn-primary" type="submit" 
     [disabled]="myForm.invalid"
     data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Add Key  Result</button>
   </div>

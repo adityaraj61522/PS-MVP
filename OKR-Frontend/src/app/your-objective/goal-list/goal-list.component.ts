@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class GoalListComponent implements OnInit {
 
   @Input() goalDetails:any;
-  @Input() public deleteGoal !: (goal_name: any, goal_id:any , org_id: any) => void;
+  @Input() public deleteGoal !: (goal_name: any, goal_id:any , org_id: any, todo: any) => void;
   
   constructor( private http : HttpClient, private router : Router) {
     
