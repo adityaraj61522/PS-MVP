@@ -67,6 +67,7 @@ checked=false
     milestone_type:"",
     // milestone_progress_old:new FormControl(''),
   }
+  new_val_error=false;
 
   progress:any;
   bool:any;
@@ -83,7 +84,7 @@ checked=false
     // console.log(this.checkinForm,"checghkjekjkjk")
   }
 
-  checkiGoal(){
+  checkinGoal(){
       this.checkinFormSubmit.org_id=this.checkinForm.value.org_id;
       this.checkinFormSubmit.goal_id=this.checkinForm.value.goal_id;
       this.checkinFormSubmit.metric_start_value=this.milestoneDetails['metric_start_value'];
@@ -101,18 +102,14 @@ checked=false
       this.checkinFormSubmit.boolean_status=this.checkinForm.value.boolean_status;
       this.checkinFormSubmit.checin_comment=this.checkinForm.value.checin_comment;
 
-    console.log(this.checkinForm,"first")
-    console.log(this.checkinFormSubmit,"first")
+      if(this.checkinFormSubmit.metric_value_new>=this.checkinFormSubmit.metric_start_value && this.checkinFormSubmit.metric_value_new<=this.checkinFormSubmit.metric_target_value){
+        this.new_val_error=false;
     this.http.post(`/api/v1/employee/checkin`, this.checkinFormSubmit , this.requestOptions
   ).subscribe((result:any)=>{
       console.log(result);
       sessionStorage.setItem("goalId",result.goalId);
       this.toastr.success("Checked In Successfully...", 'Success');
       this.ngOnInit();
-      // this.router.navigate(
-      //   ['/objective-deatils'],
-      //   { queryParams: { ID: `${this.milestoneDetails.goal_id }`} }
-      // );
       this.checked=true;
       setTimeout(() => {
       window.location.reload();
@@ -121,6 +118,9 @@ checked=false
       console.error(error);
       this.toastr.error("Something went wrong!!!", 'Error');
     });
+  }else{
+    this.new_val_error=true;
+  }
     console.log(this.checkinForm.value);
   }
 

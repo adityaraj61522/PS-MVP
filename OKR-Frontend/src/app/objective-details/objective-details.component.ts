@@ -84,9 +84,6 @@ export class ObjectiveDetailsComponent implements OnInit {
     this.getGoalMilestones();
 
    this.user_id = sessionStorage.getItem("user_id")
-   this.line_manager_id = sessionStorage.getItem("userData")
-   this.line_manager_id = JSON.stringify(JSON.parse(this.line_manager_id)[0].line_manager_id);
-// console.log(this.user_id,"user",this.line_manager_id,"line")
   }
 
   getGoalDetails(){

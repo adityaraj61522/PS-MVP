@@ -1,4 +1,4 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
@@ -14,20 +14,17 @@ export class NavComponent implements OnInit {
   dpshow=false;
 
   teamsmembers:any;
-  // okr(){
-  //   this.employee=true;
-  //   this.admin=false;
-  // }
-  // dashboard(){
-  //   this.admin=true;
-  //   this.employee=false;
-  // }
   dpsh(){
     if(this.dpshow==false){
       this.dpshow=true
     }else{
       this.dpshow=false
     }
+  }
+  manager={
+    line_manager_id:"",
+    user_id:"",
+    org_id:""
   }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -42,14 +39,15 @@ export class NavComponent implements OnInit {
   };
   
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private http:HttpClient) { }
   userdata={
     token:"",
     expires:"",
     user:""
   }
-  userData:any;
+  teamMembers:any;
   orgData:any;
+  sessionData:any;
   ngOnInit(): void {
   
     if(window.location.pathname=='/admin/users'){
@@ -63,24 +61,22 @@ export class NavComponent implements OnInit {
       this.employee=true;
     }
 
-    this.userdata.token=JSON.parse(JSON.stringify(sessionStorage.getItem("token")));
-    this.userdata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
-    this.userdata.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
     // console.log(this.userdata.user[0]);
-    this.userData=this.userdata.user[0]
 
-    this.orgData=sessionStorage.getItem("orgData")
+    this.orgData=sessionStorage.getItem("orgData");
     this.orgData=JSON.parse(this.orgData);
   
+    this.sessionData=JSON.parse(sessionStorage['userData'])[0];
+    this.manager.line_manager_id=this.sessionData.line_manager_id;
+    this.manager.org_id=this.sessionData.org_id;
+    this.manager.user_id=this.sessionData.user_id;
 
-    // this.http.post(`/api/v1/employee/getMyTeam`, this.manager, this.requestOptions).subscribe((response)=>{
-    //   console.log(response);
-    //   this.teamMembers=response;
-    //   console.log("team_DATA:---", this.teamMembers)
+    this.http.post(`/api/v1/employee/getMyTeam`, this.manager, this.requestOptions).subscribe((response)=>{
+      this.teamMembers=response;
       
-    // },(error)=>{
-    //   console.error(error);
-    // })
+    },(error)=>{
+      console.error(error);
+    })
   }
 logout(){
   this.router.navigate(['/']);
