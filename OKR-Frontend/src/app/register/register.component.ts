@@ -129,6 +129,23 @@ export class RegisterComponent implements OnInit {
       }
     });
 
+    }else if(this.actionType=="admin_update"){
+      this.http.post(`api/v1/admin/update-user`,this.userData, this.requestOptions).subscribe((result)=>{
+        console.warn(result); 
+        this.router.navigate(
+          ['/admin/users']
+          );
+    this.toastr.success('User Added Successfully.....', 'Success');
+    },(error)=>{
+      console.error(error);
+      if(error.status==300){
+        this.userExist=true;
+        this.toastr.error('User Already Exist!!!', 'Error!!!');
+      }else{
+        this.toastr.error('Something went wrong!!!', 'Error!!!');
+      }
+    });
+
     }else{
     this.http.post(`http://localhost:9001/register-user`,this.userData).subscribe((result)=>{
       console.warn(result); 
