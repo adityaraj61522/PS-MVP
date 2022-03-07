@@ -44,7 +44,7 @@ export class UsersComponent implements OnInit {
   }
 addUser(){
   this.router.navigate(['/register'], {
-    queryParams: { user: `admin_add` },
+    queryParams: { action: `admin_add` },
   });
 }
 }
