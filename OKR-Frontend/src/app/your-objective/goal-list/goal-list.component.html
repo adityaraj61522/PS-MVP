@@ -74,7 +74,7 @@
                         <li (click)="deleteGoal(goalDetails.goal_name, goalDetails.goal_id,goalDetails.org_id,'DELETE')">
                             <a class="dropdown-item"> Delete Goal</a>
                         </li>
-                        <li (click)="deleteGoal(goalDetails.goal_name, goalDetails.goal_id,goalDetails.org_id,'CLOSURE')" *ngIf="!(goalDetails.goal_status=='REJECTED')">
+                        <li (click)="deleteGoal(goalDetails.goal_name, goalDetails.goal_id,goalDetails.org_id,'CLOSURE')" *ngIf="(goalDetails.goal_status=='IN_PROGRESS')">
                             <a class="dropdown-item"> Send for Review and Close</a>
                         </li>
                     </ul>

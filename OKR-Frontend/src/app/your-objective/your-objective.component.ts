@@ -137,7 +137,9 @@ export class YourObjectiveComponent implements OnInit {
       if(confirm("Are you sure want to delete "+goal_name)){
         this.http.put(`/api/v1/employee/deletegoal`, {goal_id,org_id} , this.requestOptions).subscribe((response)=>{
         // console.log("delete goal console:---", response);
-        window.location.reload();
+        if(response){
+        this.ngOnInit();
+        }
         },(error)=>{
         // console.error(error);
        })
@@ -149,14 +151,9 @@ export class YourObjectiveComponent implements OnInit {
         this.http.put(`api/v1/employee/closegoal`, {goal_id, org_id}, this.requestOptions).subscribe((response)=>{
         console.log("delete goal console:---", response);
         //Toaster
-        window.location.reload();
+        this.ngOnInit();
         },(error)=>{
-        // console.error(error);
-        //toaster
        })
-      }
-      else {
-        console.log("Running")
       }
     }
   }
