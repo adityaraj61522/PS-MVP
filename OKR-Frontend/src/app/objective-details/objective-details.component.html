@@ -1,99 +1,74 @@
 <app-nav></app-nav>
 <section>
-<div class="list">
-    
-  <div class="list-card row">
-    <div class="col-sm-1 progress-percent">
-      <circle-progress
-  [percent]="goal_data[0].goal_progress"
-  [radius]="30"
-  [outerStrokeWidth]="6"
-  [innerStrokeWidth]="4"
-  [outerStrokeColor]="'#3d54ae'"
-  [innerStrokeColor]="'#7db4e8'"
-  [animation]="true"
-  [animationDuration]="300"
-></circle-progress>
-    </div>
-    <div class="col-sm-8 task-details">
-      <strong>{{ goal_data[0].goal_name }}</strong>
-      <ul class="nav">
-        
-        <li class="nav-item">
-          <div class="nav-link">Date: {{ goal_data[0].creation_date  |date:'dd-MMM-YY'}}</div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Learning Path: {{ goal_data[0].goal_type }}</a>
-        </li>
-      </ul>
-    </div>
-    
-    <div class="col-sm-2 options">
-      <app-milestone-reuse [goalId]="goal_data[0].goal_id" [refFrom]="'detailsPage'"></app-milestone-reuse> 
-      <div *ngIf="user_id==line_manager_id">
-        <div class="flex" *ngIf="goalStatus=='WAITING_FOR_APPROVAL'">
-          <button class="btn btn-success shadow ml-20" (click)="onApprove()" type="button">Approve</button>
-          <button class="btn btn-danger shadow ml-20" (click)="onReject()" type="button">Reject</button>
-        </div>
-      </div>
-      
-      <!-- <p class="btn btn-success shadow ml-20" *ngIf="goalStatus=='APPROVED'">Goal Approved</p>
-      <p class="btn btn-danger shadow ml-20" *ngIf="goalStatus=='REJECTED'">Goal Rejected</p> -->
+    <div class="list">
 
-      <!-- <button type="button" class="btn btn-primary addMilestone btn-sm d-md-block">ADD MILESTONE</button> -->
-      <!-- <ul class="nav">
-        <li class="nav-item">
-          <p class="status shadow">Active</p>
-        </li>
-        <li class="nav-item">
-          <div class="dropdown">
-        <button class="btn btn-default dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png"/>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </div>
-        </li>
-      </ul> -->
+        <div class="list-card row">
+            <div class="col-sm-1 progress-percent">
+                <circle-progress [percent]="goal_data[0].goal_progress" [radius]="30" [outerStrokeWidth]="6" [innerStrokeWidth]="4" [outerStrokeColor]="'#3d54ae'" [innerStrokeColor]="'#7db4e8'" [animation]="true" [animationDuration]="300"></circle-progress>
+            </div>
+            <div class="col-sm-8 task-details">
+                <strong>{{ goal_data[0].goal_name }}</strong>
+                <ul class="nav">
+
+                    <li class="nav-item">
+                        <div class="nav-link">Date: {{ goal_data[0].creation_date |date:'dd-MMM-YY'}}</div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Learning Path: {{ goal_data[0].goal_type }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-sm-2 options">
+                <div *ngIf="goalStatus!=='REJECTED'">
+                    <app-milestone-reuse [goalId]="goal_data[0].goal_id" [refFrom]="'detailsPage'"></app-milestone-reuse>
+
+                </div>
+                <div>
+                    <!-- <p class="status-waiting shadow" >Waiting for approval</p> -->
+                    <p class="status-waiting" *ngIf="goalStatus=='WAITING_FOR_APPROVAL'">Waiting for approval</p>
+                    <p class="status-closed" *ngIf="goalStatus=='WAITING_FOR_CLOSURE' "><strong>waiting for Closure</strong></p>
+
+                    <div class="flex" *ngIf="goalStatus=='WAITING_FOR_APPROVAL' || goalStatus=='WAITING_FOR_CLOSURE' ">
+                        <button class="btn btn-success shadow ml-20" (click)="onManagerDecision('APPROVE', goalStatus)" type="button">Approve</button>
+                        <button class="btn btn-danger shadow ml-20" (click)="onManagerDecision('REJECT' ,goalStatus)" type="button">Reject</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="list-card row">
+
+            <div class="col-sm-12 task-details">
+                <ul class="nav">
+                    <li class="nav-item details">
+                        <strong>Owner:</strong>{{ goal_data.goal_owner_name }}
+                    </li>
+                    <li class="nav-item details">
+                        <strong>Start Date: </strong> {{ goal_data[0].goal_start_date | date:'dd-MMM-YY'}}
+                    </li>
+                    <li class="nav-item details">
+                        <strong>Due Date: </strong> {{ goal_data[0].goal_due_date | date:'dd-MMM-YY'}}
+                    </li>
+                </ul>
+                <div>
+                    <p class="btn btn-danger side ml-20" *ngIf="goalStatus=='REJECTED'">Goal Rejected</p>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <hr>
-  <div class="list-card row">
-    
-    <div class="col-sm-12 task-details">
-      <ul class="nav">
-        <li class="nav-item details">
-          <strong>Owner:</strong>{{ goal_data.goal_owner_name }}
-        </li>
-        <li class="nav-item details">
-            <strong>Start Date: </strong> {{ goal_data[0].goal_start_date | date:'dd-MMM-YY'}}
-        </li>
-        <li class="nav-item details">
-            <strong>Due Date: </strong> {{ goal_data[0].goal_due_date | date:'dd-MMM-YY'}}
-        </li>
-        <!-- <li class="nav-item details">
-            <strong>Effort Progress:</strong>
-        </li> -->
-      </ul>
-      <div>
-        <p class="btn btn-success side ml-20" *ngIf="goalStatus=='APPROVED'">Goal Approved</p>
-        <p class="btn btn-danger side ml-20" *ngIf="goalStatus=='REJECTED'">Goal Rejected</p>
-      </div>
-    </div>
-  </div>
-</div>
 </section>
 <section class="active-list">
     <div>
-      <strong>Milestones</strong>
-    </div> 
-
-    <div class="list"*ngFor="let milestone of milestone_data">
-        <app-milestone-list [deleteMilestone]="deleteMilestone" [milestoneDetails]="milestone"></app-milestone-list>
+        <strong>Milestones</strong>
     </div>
-    
-    </section>
-    
+<div *ngIf="milestone_data.length!==0">
+    <div class="list" *ngFor="let milestone of milestone_data">
+        <app-milestone-list [deleteMilestone]="deleteMilestone" [milestoneDetails]="milestone" [goal_data]="goal_data"></app-milestone-list>
+    </div>
+</div>
+<div *ngIf="milestone_data.length==0">
+    <p style="text-align: center;"><strong>No Milestones Yet!!!</strong></p>
+</div>
+
+</section>

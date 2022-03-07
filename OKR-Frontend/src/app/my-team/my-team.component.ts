@@ -12,6 +12,7 @@ export class MyTeamComponent implements OnInit {
 
   manager={
     line_manager_id:"",
+    user_id:"",
     org_id:""
   }
 
@@ -35,6 +36,7 @@ export class MyTeamComponent implements OnInit {
     this.sessionData=JSON.parse(sessionStorage['userData'])[0];
     this.manager.line_manager_id=this.sessionData.line_manager_id;
     this.manager.org_id=this.sessionData.org_id;
+    this.manager.user_id=this.sessionData.user_id;
     console.log(this.manager,12345678)
   
     // Get Goals

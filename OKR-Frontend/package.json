@@ -29,7 +29,9 @@
     "font-awesome": "^4.7.0",
     "ng-bootstrap": "^0.46.0",
     "ng-circle-progress": "^1.6.0",
+    "ngx-toastr": "^14.2.2",
     "rxjs": "~7.4.0",
+    "toastr": "^2.1.4",
     "tslib": "^2.3.0",
     "validator": "^13.7.0",
     "zone.js": "~0.11.4"

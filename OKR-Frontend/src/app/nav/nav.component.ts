@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -12,6 +13,7 @@ export class NavComponent implements OnInit {
   employee=true;
   dpshow=false;
 
+  teamsmembers:any;
   // okr(){
   //   this.employee=true;
   //   this.admin=false;
@@ -27,7 +29,17 @@ export class NavComponent implements OnInit {
       this.dpshow=false
     }
   }
-  
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Headers': '*',
+    'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
+    'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
+    'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
+  }  
+  requestOptions = {
+    headers: new HttpHeaders(this.headers),
+  };
   
 
   constructor() { }
@@ -60,6 +72,15 @@ export class NavComponent implements OnInit {
     this.orgData=sessionStorage.getItem("orgData")
     this.orgData=JSON.parse(this.orgData);
   
+
+    // this.http.post(`/api/v1/employee/getMyTeam`, this.manager, this.requestOptions).subscribe((response)=>{
+    //   console.log(response);
+    //   this.teamMembers=response;
+    //   console.log("team_DATA:---", this.teamMembers)
+      
+    // },(error)=>{
+    //   console.error(error);
+    // })
   }
 
 }

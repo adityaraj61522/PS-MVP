@@ -10,6 +10,7 @@ import {
 import { ApiService } from '../../apiCollection/api.service';
 import { Observable, OperatorFunction } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-milestone',
@@ -18,29 +19,37 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 })
 export class CreateMilestoneComponent implements OnInit {
   @Input() goalId: any;
+  @Input() start_date:any
+  @Input() end_date:any
+  @Input() goal_name:any
+  @Input() isMilestoneVaid:any
 
   allUsers: any = [];
+
   public model: any;
-  myForm!: FormGroup;
+  myForm!: FormGroup; 
   isLoad = false
-  show=false;
-  show2=false;
+  show=false;  
   choice:string = 'boolean';
-  successMsg:boolean = false
-  errorMsg:boolean = false
+  min_target_matrix:number = 1;
+  showTargetFiledError:boolean = false
+ 
+
+
   min_due_date:string = ''
 
-  constructor(private fb: FormBuilder, private http : HttpClient,private apiData:ApiService) { 
+  constructor(private fb: FormBuilder, private http : HttpClient,private apiData:ApiService, private toastr: ToastrService) { 
+
+    
+
     this.apiData.getUsers().subscribe((result)=>{
-      console.log(result);
-      
       this.allUsers = result
     },(error)=>{
       console.error(error);
     });
-  }
+  } 
 
-  // test now start
+  // search typehead now start
 
   inFormatter = (x: { full_name: string }) => x.full_name;
   outFormatter = (x: { full_name: string }) => x.full_name;
@@ -63,51 +72,63 @@ export class CreateMilestoneComponent implements OnInit {
       )
     );
 
-  //test now end
+  //search typehead now end
+  setTarget(value:string){
+    this.min_target_matrix = +value + 1;
+    // this.myForm.controls['metric_target_value']
+  }
+  showTargetError(value:string){
+    var cur_target:number = +value
+    if(cur_target<this.min_target_matrix){
+      this.showTargetFiledError = true
+    }
+    else{
+      this.showTargetFiledError = false
+    }
+  }
 
   ngOnInit(): void {
-    console.log(this.goalId);
+    console.log(this.isMilestoneVaid);
+    
 
     this.myForm = this.fb.group({
       org_id: sessionStorage.getItem('orgDetails_id'),
       milestone_name: ['', [Validators.required]],
       milestone_start_date: ['', [Validators.required]],
-      milestone_due_date: ['', [Validators.required]],
+      milestone_due_date: [{ value: '', disabled: true }, [Validators.required]],
       is_active: '1',
       created_by: '1',
       //owner detail
       ownerObj: {},
-      // milestone_owner_id: '1',
-      // milestone_owner_name: 'ravi',
-      // milestone_owner_email: 'ravi@gmail.com',
-
-      //boolean
-      // milestone_status: ['not completed',[Validators.required]],
-
-      // //progress
-      // milestone_progress: [0,[Validators.required,Validators.min(0),Validators.max(100)]],
-
       // metric
       metric_start_value: [0, [Validators.required, Validators.min(0)]],
-      metric_target_value: [1, [Validators.required, Validators.min(1)]],
+      metric_target_value: [1, [Validators.required, Validators.min(this.min_target_matrix)]],
     });
 
-    // call user api
   }
   // for desable min date
-  chooseDate(value: string) {
-    this.min_due_date = value;
+  chooseStartDate(cur:string) {
+    // this.min_due_date = cur > this.end_date?cur:this.end_date ;
+    // this.isDeadlineDateValid = false 
+    this.min_due_date = cur
+    this.myForm.controls['milestone_due_date'].enable()
+    // this.myForm.controls['milestone_due_date'].disable()
+
   }
+ 
 
   changeChoice(option: string) {
     this.choice = option;
+
   }
+ 
 
   onSubmit(form: FormGroup) {
-    this.isLoad = true
+
+     this.isLoad = true
 
     var postReq:any = {
-      goal_id:  this.goalId  || sessionStorage.getItem("goalId") ,
+      goal_id:  this.goalId ,
       is_active: "1",
       org_id: sessionStorage.getItem("orgDetails_id") || "1", 
       milestone_name: form.value.milestone_name,
@@ -140,23 +161,33 @@ export class CreateMilestoneComponent implements OnInit {
     }
   }
 
+  showSuccess() {
+    this.toastr.success("Milestone Created Successfully...", 'Success');
+  }
+  showError() {
+    this.toastr.error('Something went wrong!!!', 'Error!!!');
+  }
+
 
   postMilestoneReq = (data:any,milestoneType:string)=>{
     this.apiData.createMilestone(data).subscribe((result)=>{
       console.log(result);
       if(result){
         this.isLoad = false
-        this.successMsg = true
+        this.showSuccess();
+        setTimeout(() => {
 
-        setInterval(() => {
-          window.location.reload();
-          }, 1000);
+        window.location.reload();
+          
+        }, 1000);
         }
       },
       (error) => {
         console.error(error);
         if (error) {
-          this.errorMsg = true;
+          this.isLoad = false;
+          this.toastr.error('Something went wrong!!!', 'Error!!!');
+          // this.toastService.show('somthing went wrong', { classname: 'bg-danger text-light', delay: 3000 })
         }
       }
     );

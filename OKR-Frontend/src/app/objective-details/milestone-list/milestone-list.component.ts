@@ -17,6 +17,7 @@ export class MilestoneListComponent implements OnInit {
   
   showForm = false;
 
+  @Input() goal_data: any;
   dp = false;
   check = false;
   checkin() {
@@ -45,7 +46,8 @@ export class MilestoneListComponent implements OnInit {
 
   completed=false
   ngOnInit(): void {
-    console.log(this.milestoneDetails.milestone_status, 'hjdsbfjchsdjh');
+    // console.log(this.milestoneDetails.milestone_status, 'hjdsbfjchsdjh');
+    console.log(this.goal_data[0],"goal")
     if(this.milestoneDetails.milestone_status=="Completed"){
       this.completed=true;
     }else{

@@ -3,8 +3,13 @@
     <div>
       <strong>Team Members</strong>
     </div>
-    <div class="list" *ngFor="let member of teamMembers" style="margin-left: 20px; margin-right: 20px;">
-      <app-team-list [teamMemberDetails]="member"></app-team-list>
-      </div>
+    <div *ngIf="teamMembers.length!==0">
+      <div class="list" *ngFor="let member of teamMembers" style="margin-left: 20px; margin-right: 20px;">
+        <app-team-list [teamMemberDetails]="member"></app-team-list>
+        </div>
+    </div>
+    <div *ngIf="teamMembers.length==0">
+      <p style="text-align: center;"><strong>No Team Members Yet!!!</strong></p>
+    </div>
     
     </section>

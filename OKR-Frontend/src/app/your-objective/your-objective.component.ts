@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 import { Observable,BehaviorSubject, OperatorFunction } from 'rxjs';
 import { debounceTime,switchMap, distinctUntilChanged, map } from 'rxjs/operators';
 import { ApiService } from '../apiCollection/api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-your-objective',
@@ -29,7 +30,7 @@ export class YourObjectiveComponent implements OnInit {
   requestOptions = {
     headers: new HttpHeaders(this.headers),
   };
-  constructor( private http : HttpClient ) { }
+  constructor( private http : HttpClient , private toastr: ToastrService) { }
 
   @ViewChild('ObjForm') ObjFormData!: NgForm;
   isLoad = false
@@ -40,6 +41,10 @@ export class YourObjectiveComponent implements OnInit {
   er=false;
   user_id:any;
   deleteGoalReq={
+    goal_id:"",
+    org_id:"",
+  }
+  sendForClosureReq ={
     goal_id:"",
     org_id:"",
   }
@@ -62,6 +67,8 @@ export class YourObjectiveComponent implements OnInit {
   allUsers:any;
   goalData: any;
   goalCountData: any;
+
+  todayDate = new Date().toISOString().split("T")[0];
 
   model: any;
   modelOrgGoal:any;
@@ -102,11 +109,7 @@ export class YourObjectiveComponent implements OnInit {
   } 
 
   objectiveHide(){
-    // console.log('objective hide',this.show);
     this.show = false
-    // console.log('objective hide',this.show);
-    
-  
   }
 
   keyresultshow(){
@@ -116,25 +119,54 @@ export class YourObjectiveComponent implements OnInit {
     this.show2=false;
   }
 
-
-  previous(){
-    this.show2=false;
-    this.show=true;
+ 
+  showSuccess() {
+    this.toastr.success("Successfully Created...", 'Created');
+  }
+  showSuccessDeleteGoal() {
+    this.toastr.success("Goal Deleted Successfully...", 'Deleted');
+  }
+  showSuccessCloseGoal() {
+    this.toastr.success("Goal sent for Closure Successfully...", 'Success');
+  }
+  showError() {
+    this.toastr.error('Something went wrong!!!', 'Error!!!');
   }
 
-  deleteGoal=(goal_name: any, goal_id:any , org_id: any)=>{
+ // Delete Goal fucntionality
+  deleteGoal=(goal_name: any, goal_id:any , org_id: any, todo: any)=>{
     this.deleteGoalReq.goal_id= goal_id;
     this.deleteGoalReq.org_id = org_id;
     // console.log(this.deleteGoalReq)
-    if(confirm("Are you sure want to delete "+goal_name)){
-      this.http.put(`/api/v1/employee/deletegoal`, {goal_id,org_id} , this.requestOptions).subscribe((response)=>{
-        // console.log("delete goal console:---", response);
-        window.location.reload();
-      },(error)=>{
-        // console.error(error);
-      })
+    if(todo=='DELETE'){
+      if(confirm("Are you sure want to delete "+goal_name)){
+        this.http.put(`/api/v1/employee/deletegoal`, {goal_id,org_id} , this.requestOptions).subscribe((response)=>{
+          this.showSuccessDeleteGoal();
+          this.ngOnInit();
+        },(error)=>{
+          this.showError()
+       })
+      }
+    }
+    if(todo=='CLOSURE'){
+      if(confirm("Are you sure want to close goal "+ goal_name)){
+        console.log(goal_name , goal_id, org_id, todo);
+        this.http.put(`api/v1/employee/closegoal`, {goal_id, org_id}, this.requestOptions).subscribe((response)=>{
+        console.log("delete goal console:---", response);
+        //Toaster
+        this.showSuccessCloseGoal();
+        this.ngOnInit();
+        },(error)=>{
+          this.showError()
+       })
+      }
     }
   }
+  // Send for Closure
+  
+
+
+
   // create Objective content
 
 inFormatter = (x: {goal_name: string}) => x.goal_name;
@@ -152,13 +184,12 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     )
 
   addObjective(){
-    console.log(this.newObjective ,"obj")
+    // console.log(this.newObjective ,"obj")
     this.isLoad = true;
     
     // this.show=false;
     // this.show2=true;
     this.newObjective.goal_name=this.ObjFormData.value.goal_name;
-    // this.newObjective.goal_type=this.ObjFormData.value.goal_type;
     this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
     this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
     this.newObjective.goal_owner_name=this.model.full_name;
@@ -169,24 +200,30 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions
   ).subscribe((result:any)=>{
       // console.log(result:any); 
+      console.log(result);
       this.isLoad = false
       this.show=false;
       this.show2=true;
+      this.showSuccess();
+      this.ngOnInit();
       sessionStorage.setItem("goalId",result.goalId);
     },(error)=>{
       console.error(error);
+      this.showError();
+      this.isLoad = false;
       this.er=true;
-
     });
-    console.log(JSON.stringify(this.newObjective ),"obj")
+    // console.log(JSON.stringify(this.newObjective ),"obj")
   }
 
   session:any;
   async ngOnInit(): Promise<void> {
+    console.log(this.todayDate,"dates");
     this.userdata.token=JSON.parse(JSON.stringify(sessionStorage.getItem("token")));
     this.userdata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
     this.userdata.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
     this.userData=this.userdata.user[0]
+    // this.showSuccess(); 
 
     this.getGoal.org_id=this.userData.org_id;
     this.getGoal.goal_owner_id=this.userData.user_id;
@@ -199,8 +236,8 @@ outFormatter = (x: {full_name: string}) => x.full_name;
           // console.log(Object.values(response)[0]);
           this.goalData = Object.values(response)[0];
           this.goalCountData = Object.values(response)[1]
-          console.log("goalData:---", this.goalData);
-          console.log("goal Count Data", this.goalCountData);
+          // console.log("goalData:---", this.goalData); 
+          // console.log("goal Count Data", this.goalCountData);
 
           // console.log("goal_DATA:---", this.goalData)
         },
@@ -238,8 +275,9 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
     // Get Orginizational goal
     await this.http.post(`/api/v1/employee/getorganizationgoals`, this.getUser, this.requestOptions).subscribe((response)=>{
-
+      
       this.allOrgGoal=response;
+      console.log("Org goals:---",this.allOrgGoal);
 
     },(error)=>{
       console.error(error);

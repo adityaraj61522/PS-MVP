@@ -120,3 +120,19 @@ p.errorMsg {
     font-size: 16px;
     font-weight: 500;
 }
+p.gotaNameTittle {
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+p.invalidMilestoneText {
+    font-size: 16px;
+    color: orangered;
+    padding: 20px;
+}
+.showError{
+    font-size: 10px;
+    color: rgb(179, 6, 6);
+}

@@ -46,7 +46,7 @@ export class TeamListComponent implements OnInit {
     // Get Goals
     this.http.post(`/api/v1/employee/getgoals`, this.getGoal, this.requestOptions).subscribe((response)=>{
       console.log(response);
-      this.goalData=response;
+      this.goalData=Object.values(response)[0];
       console.log("goal_DATA list:---", this.goalData)
       
     },(error)=>{

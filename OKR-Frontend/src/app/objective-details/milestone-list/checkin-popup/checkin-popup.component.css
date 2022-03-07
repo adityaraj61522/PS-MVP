@@ -38,7 +38,7 @@ mat-slider-track-fill{
     transform: rotate(-45deg) !important;
 } */
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
 .modal{
     background-color: rgba(0, 0, 0, 0.5);
 }

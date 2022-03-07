@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-objective-details',
@@ -8,16 +9,23 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./objective-details.component.css'],
 })
 export class ObjectiveDetailsComponent implements OnInit {
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private toastr:ToastrService) {}
 
 
+  onManagerDecisionReq={
+    goal_id:"",
+    decision:"",
+    reqType:"",
+    comment:""
+  }
   Id={
-    goal_id:""
+    goal_id:"",
   }
   org_id:any;
   goal_data:any;
   milestone_data:any;
-  goalStatus: string = 'WAITING_FOR_APPROVAL';
+  goalStatus: any;
+  showButtons:any;
 
   user_id: any;
   line_manager_id: any;
@@ -40,16 +48,11 @@ export class ObjectiveDetailsComponent implements OnInit {
     headers: new HttpHeaders(this.headers),
   };
 
-  deleteMilestone = (
-    milestone_name: any,
-    milestone_id: any,
-    org_id: any,
-    goal_id: any
-  ) => {
+  deleteMilestone = (milestone_name: any, milestone_id: any, org_id: any, goal_id: any) => {
     this.deleteMilestoneReq.milestone_id = milestone_id;
     this.deleteMilestoneReq.org_id = org_id;
     this.deleteMilestoneReq.goal_id = goal_id;
-    console.log('GOal id of milestone:---', this.deleteMilestoneReq.goal_id);
+    console.log('Goal id of milestone:---', this.deleteMilestoneReq.goal_id);
     console.log(this.deleteMilestoneReq);
     if (confirm('Are you sure want to delete ' + milestone_name)) {
       this.http
@@ -61,10 +64,12 @@ export class ObjectiveDetailsComponent implements OnInit {
         .subscribe(
           (response) => {
             console.log('delete goal console:---', response);
-            window.location.reload();
+            this.toastr.success("Deleted Successfully...", 'Deleted');
+            this.ngOnInit();
           },
           (error) => {
             console.error(error);
+            this.toastr.error("Something went wrong", 'Error');
           }
         );
     }
@@ -73,48 +78,28 @@ export class ObjectiveDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.Id.goal_id = params['ID'];
-
-      //  const myorgid = sessionStorage.getItem('orgDetails_id');
-      // console.log(myorgid)
+      this.onManagerDecisionReq.goal_id =  params['ID'];
     });
     this.getGoalDetails();
     this.getGoalMilestones();
-   console.log('goal data here......',this.goal_data)
 
    this.user_id = sessionStorage.getItem("user_id")
    this.line_manager_id = sessionStorage.getItem("userData")
    this.line_manager_id = JSON.stringify(JSON.parse(this.line_manager_id)[0].line_manager_id);
-   console.log("########",this.user_id, this.line_manager_id)
 
   }
 
   getGoalDetails(){
   // Get Goals
-
-  
   return this.http.post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions).subscribe((response)=>{
    
     this.goal_data=response;
-    // this.goal_data=JSON.parse(JSON.stringify(response))[0];
     console.log(this.goal_data);
     this.goalStatus = this.goal_data[0].goal_status;
     console.log('...goal_status...', this.goalStatus)
-    
     },(error)=>{
       console.error(error);
     })
-
-    return this.http
-      .post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions)
-      .subscribe(
-        (response) => {
-          this.goal_data = response;
-          console.log(this.goal_data);
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
   }
 
   getGoalMilestones(){
@@ -130,29 +115,44 @@ export class ObjectiveDetailsComponent implements OnInit {
 
   }
 
-  onApprove(){
-    this.http.post(`/api/v1/employee/approve-goal`, this.Id, this.requestOptions).subscribe((response)=>{
-      console.log(response)
-      let parsed_res = JSON.parse(JSON.stringify(response));
-      // console.log(parsed_res);
-      if(parsed_res.status === 'SUCCESS'){
-        this.goalStatus = 'APPROVED';
-      }
-    },(error)=>{
-      console.error(error);
-    })
+ 
+  showApproved() {
+    this.toastr.success("Approved Successfully...", 'Approved');
   }
-  onReject(){
-    this.http.post(`/api/v1/employee/reject-goal`, this.Id, this.requestOptions).subscribe((response)=>{
-      let parsed_res = JSON.parse(JSON.stringify(response));
-      console.log(parsed_res);
-      if(parsed_res.status === 'SUCCESS'){
-        this.goalStatus = 'REJECTED';
-      }
-    },(error)=>{
-      console.error(error);
-    })
+  showRejected() {
+    this.toastr.error("Rejected Successfully...", 'Rejected');
   }
-  
+  showError() {
+    this.toastr.error("Something went wrong", 'Error');
+  }
 
+  onManagerDecision(decision: any, reqType:any){
+    this.onManagerDecisionReq.decision = decision;
+    this.onManagerDecisionReq.reqType= reqType;
+    this.onManagerDecisionReq.comment=JSON.parse(JSON.stringify(prompt('Are you sure you want to '+ decision + ' this request? \nComment:',"")));
+    console.log(reqType);
+      if(this.onManagerDecisionReq.comment){
+        console.log(this.onManagerDecisionReq.comment)
+        this.http.post(`/api/v1/employee/managerdecision`, this.onManagerDecisionReq, this.requestOptions).subscribe((response)=>{
+          console.log(response);
+          let parsed_res = JSON.parse(JSON.stringify(response));
+          console.log(parsed_res);
+          if(parsed_res.status === 'SUCCESS'){
+            this.showButtons = 'false'
+            this.goalStatus=decision;
+            console.log(this.showButtons,'dfafasfas')
+            if(decision=='APPROVE'){
+              this.showApproved();
+            }else{
+              this.showRejected();
+            }
+            this.ngOnInit();
+          }
+        },(error)=>{
+          console.error(error);
+          this.showError();
+        })
+      }
+    
+  }
 }

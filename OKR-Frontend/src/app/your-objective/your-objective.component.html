@@ -1,28 +1,28 @@
 <app-nav></app-nav>
+
 <section class="active-list">
     <div>
-      <strong>Active({{goalCountData[0].APPROVED  + goalCountData[0].WAITING_FOR_APPROVAL}})</strong>
-      <app-milestone></app-milestone> 
-      <ul class="nav side">  
-        <li class="nav-item">
-          <div class="modal fade show" *ngIf="show"  id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel">NEW KEY RESULT: CREATE YOUR KEY RESULT</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button>
-                  </div> 
-                  
-            <mat-spinner *ngIf="isLoad" [diameter]="40" style="margin-left: auto; margin-right: auto; margin-top: 150px; margin-bottom: 150px;"></mat-spinner>
-            <form *ngIf="!isLoad" (ngSubmit)="addObjective()" #ObjForm="ngForm">
-              <div class="modal-body">
-                <div class="form-group">
-                  <label>Objective:</label><br>
-                  <input type="text" class="in-1" ngModel name="goal_name" #goal_name="ngModel" goal_name required>
-                  <span class="help-block" *ngIf="!goal_name.valid && goal_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
-                </div>
-                <div class="in-date">
-                  <!-- <div class="form-group">
+        <strong *ngIf="(goalCountData[0].IN_PROGRESS + goalCountData[0].WAITING_FOR_CLOSURE  + goalCountData[0].WAITING_FOR_APPROVAL)">Active({{goalCountData[0].IN_PROGRESS  + goalCountData[0].WAITING_FOR_CLOSURE + goalCountData[0].WAITING_FOR_APPROVAL}})</strong>
+        <app-milestone></app-milestone>
+        <ul class="nav side">
+            <li class="nav-item">
+                <div class="modal fade show" *ngIf="show" id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalToggleLabel">NEW KEY RESULT: CREATE YOUR KEY RESULT</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button>
+                            </div>
+
+                            <form (ngSubmit)="addObjective()" #ObjForm="ngForm">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Objective:</label><br>
+                                        <input type="text" class="in-1" ngModel name="goal_name" #goal_name="ngModel" goal_name required>
+                                        <span class="help-block" *ngIf="!goal_name.valid && goal_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+                                    </div>
+                                    <div class="in-date">
+                                        <!-- <div class="form-group">
                     <label>Which period is the objectiveRunning in?*</label><br>
                     <select class="form-select in-2" ngModel aria-label="Default select example" name="goal_quater" #goal_quater="ngModel" goal_quater required>
                   <option value="1">Q1</option>
@@ -32,36 +32,35 @@
                 </select>
                 <span class="help-block" *ngIf="!goal_quater.valid && goal_quater.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                   </div> -->
-                  <div class="form-group">
-                  <label>Start Date*</label><br>
-                  <input type="date" name="goal_start_date" ngModel class="in-d" #goal_start_date="ngModel" goal_start_date required>
-                  <span class="help-block" *ngIf="!goal_start_date.valid && goal_start_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
-                  </div>
-                  <div class="form-group">
-                  <label>End Date*</label><br>
-                  <input type="date" name="goal_due_date" ngModel class="in-d" #goal_due_date="ngModel" goal_due_date required min="{{goal_start_date.value}}">
-                  <span class="help-block" *ngIf="!goal_due_date.valid && goal_due_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
-                  </div>
-                </div>
-              <div class="in-date">
-                <div class="form-group">
-                  <label for="typeahead-basic">Owner:</label>
-                  <input id="typeahead-basic" type="text" class="form-control in-2" ngModel #goal_owner_name="ngModel" goal_owner_name required [(ngModel)]="model" name="goal_owner_name" [ngbTypeahead]="search"
-                  [resultFormatter]="outFormatter"
-                  [inputFormatter]="outFormatter"/>
-                  <span class="help-block" *ngIf="!goal_owner_name.valid && goal_owner_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
-                </div>
-                <!-- <pre>Model: {{ model | json }}</pre> -->
-                <!-- <div class="form-group">
+                                        <div class="form-group">
+                                            <label>Start Date*</label><br>
+                                            <input type="date" name="goal_start_date" ngModel class="in-d" #goal_start_date="ngModel" goal_start_date required min="{{todayDate}}" max="{{goal_due_date.value}}">
+                                            <span class="help-block" *ngIf="!goal_start_date.valid && goal_start_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>End Date*</label><br>
+                                            <input type="date" name="goal_due_date" ngModel class="in-d" #goal_due_date="ngModel" goal_due_date required min="{{goal_start_date.value}}">
+                                            <span class="help-block" *ngIf="!goal_due_date.valid && goal_due_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+                                        </div>
+                                    </div>
+                                    <div class="in-date">
+                                        <div class="form-group">
+                                            <label for="typeahead-basic">Owner:</label>
+                                            <input id="typeahead-basic" type="text" class="form-control in-2" ngModel #goal_owner_name="ngModel" goal_owner_name required [(ngModel)]="model" name="goal_owner_name" [ngbTypeahead]="search" [resultFormatter]="outFormatter" [inputFormatter]="outFormatter"
+                                            />
+                                            <span class="help-block" *ngIf="!goal_owner_name.valid && goal_owner_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+                                        </div>
+                                        <!-- <pre>Model: {{ model | json }}</pre> -->
+                                        <!-- <div class="form-group">
                 <label>To which Company Objective This Objective Align With:</label><br>
                   <input id="typeahead-basic" type="text" class="form-control in-2" ngModel #linked_org_goal_id="ngModel" linked_org_goal_id required [(ngModel)]="modelOrgGoal" name="linked_org_goal_id" [ngbTypeahead]="searchOrgGoal"
                   [resultFormatter]="inFormatter"
                   [inputFormatter]="inFormatter"/>
             <span class="help-block" *ngIf="!linked_org_goal_id.valid && linked_org_goal_id.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                 </div> -->
-              <div class="form-group">
-                <label>To which Company Objective This Objective Align With:</label><br>
-                <select class="form-select in-2" ngModel aria-label="Default select example" name="linked_org_goal_id" #linked_org_goal_id="ngModel" linked_org_goal_id required>
+                                        <div class="form-group">
+                                            <label>To which Company Objective This Objective Align With:</label><br>
+                                            <select class="form-select in-2" ngModel aria-label="Default select example" name="linked_org_goal_id" #linked_org_goal_id="ngModel" linked_org_goal_id required>
                   <option value="">Please select company objective</option>
               <option *ngFor="let item of allOrgGoal" value="{{item.goal_id}}">{{item.goal_name}}</option>
               <!-- <option value="2">Q2</option>
@@ -72,22 +71,14 @@
               </div>
             </div>
               <div class="in-date">
-                <!-- <div class="form-group">
-                <label>Which Type of OKR you are Creating?:</label><br>
-                <select class="form-select in-2" ngModel aria-label="Default select example" name="goal_type" #goal_type="ngModel" goal_type required>
-                  <option value="INDIVIDUAL">INDIVIDUAL</option>
-                  <option value="PUBLIC">PUBLIC</option>
-                  <option value="ORGANIZATIONAL">ORGANIZATIONAL</option>
-            </select>
-            <span class="help-block" *ngIf="!goal_type.valid && goal_type.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
-                </div> -->
               </div>
               </div>
               <div class="modal-footer">
-                <span class="help-block" *ngIf="er"><i class="fas fa-exclamation-circle"></i>Error while creating objective!!!</span>
-                <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal" (click)="objectiveHide()"  aria-label="Close"> Cancel </button><br> -->
-                <button class="btn btn-primary" type="submit" 
+                <button class="btn btn-primary" type="submit"  *ngIf="!isLoad"
                 data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">Add Key Result</button>
+                <button class="btn btn-primary" type="submit"  *ngIf="isLoad"
+                data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 130px;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">
+                <mat-spinner [diameter]="23" style="margin-left: 40px;"></mat-spinner></button>
                 <br>
               </div>
             </form>
@@ -124,93 +115,84 @@
           </div>
         </div>
 
-        <!--   Edit Objective   -->
-        <div
-          class="modal fade show"
-          *ngIf="show3"
-          id="exampleModalToggle"
-          aria-hidden="false"
-          style="display: block !important"
-          aria-labelledby="exampleModalToggleLabel"
-          tabindex="-1"
-        >
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalToggleLabel">
-                  UPDATE OBJECTIVE: YOUR AREA OF FOCUS
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  (click)="objectiveHide()"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <app-edit-goal></app-edit-goal>
-            </div>
-          </div>
-        </div>
-        <a
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          (click)="objectiveShow()"
-          style="background-color: #0d8ebb"
-          role="button"
-          ><img src="https://img.icons8.com/ios/25/000000/add--v2.png" />
-          OBJECTIVE</a
-        >
-      </li>
-    </ul>
-  </div>
+                        
+                <div class="modal fade show" style="display: block" *ngIf="show2" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
 
-  <!--Active Goal List-->
-  <div class="list" *ngFor="let goal of goalData" >
-    <div *ngIf="(goal.goal_status=='WAITING_FOR_APPROVAL' || goal.goal_status=='APPROVED')">
-      <app-goal-list 
-        [deleteGoal]="deleteGoal"
-        [goalDetails]="goal"
-      ></app-goal-list>
-      </div>
-    
-  </div>
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="keyresultHide()"></button>
+                            </div>
+                            <app-milestone-reuse [refFrom]="'createPage'"></app-milestone-reuse>
+                            <!-- <app-create-milestone></app-create-milestone> -->
+                            <!-- <app-milestone [keyresultshow]="keyresultshow"   [keyresultHide]="keyresultHide" ></app-milestone> -->
+                        </div>
+                    </div>
+                </div>
+
+                <!--   Edit Objective   -->
+                <div class="modal fade show" *ngIf="show3" id="exampleModalToggle" aria-hidden="false" style="display: block !important" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalToggleLabel">
+                                    UPDATE OBJECTIVE: YOUR AREA OF FOCUS
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button>
+                            </div>
+                            <app-edit-goal></app-edit-goal>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-primary" data-bs-toggle="modal" (click)="objectiveShow()" style="background-color: #0d8ebb" role="button"><img src="https://img.icons8.com/ios/25/000000/add--v2.png" /> OBJECTIVE
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <!--Active Goal List-->
+    <div style="margin-top:50px;" *ngIf="(goalCountData[0].IN_PROGRESS + goalCountData[0].WAITING_FOR_CLOSURE +goalCountData[0].WAITING_FOR_APPROVAL)">
+        <div class="list" *ngFor="let goal of goalData">
+            <div *ngIf="((goal.goal_status=='WAITING_FOR_APPROVAL' || goal.goal_status=='IN_PROGRESS' || goal.goal_status=='WAITING_FOR_CLOSURE'))">
+                <app-goal-list [deleteGoal]="deleteGoal" [goalDetails]="goal"></app-goal-list>
+            </div>
+        </div>
+    </div>
+    <div class="list" *ngIf="!(goalCountData[0].IN_PROGRESS +goalCountData[0].WAITING_FOR_APPROVAL)" style="display: flex; justify-content: center; font-size: 25px;; text-align: center; color: grey;">
+        You do not have any goal assigned. Please go ahead and create one.
+    </div>
+
 </section>
 
 <!--      Closed Section      -->
 
 
-<section class="active-list">
-  <div>
-    <strong>Closed({{goalCountData[0].CLOSED}})</strong>
-  </div>
-  <div class="list" *ngFor="let goal of goalData" >
-    <div *ngIf="(goal.goal_status=='CLOSED')">
-      <app-goal-list 
-        [deleteGoal]="deleteGoal"
-        [goalDetails]="goal"
-      ></app-goal-list>
-      </div>
-    
-  </div>
+<section class="active-list" *ngIf="goalCountData[0].CLOSED">
+    <div>
+        <strong>Closed({{goalCountData[0].CLOSED}})</strong>
+    </div>
+    <div class="list" *ngFor="let goal of goalData">
+        <div *ngIf="(goal.goal_status=='CLOSED')">
+            <app-goal-list [deleteGoal]="deleteGoal" [goalDetails]="goal"></app-goal-list>
+        </div>
+
+    </div>
 </section>
 
 <!--    Rejected      -->
 
 <!--      Closed Section      -->
 
-<section class="active-list">
-  <div>
-    <strong>Rejected({{goalCountData[0].REJECTED}})</strong>
-  </div>
-  <div class="list" *ngFor="let goal of goalData" >
-    <div *ngIf="(goal.goal_status=='REJECTED')">
-      <app-goal-list 
-        [deleteGoal]="deleteGoal"
-        [goalDetails]="goal"
-      ></app-goal-list>
-      </div>
-    
-  </div>
+<section class="active-list" *ngIf="goalCountData[0].REJECTED">
+    <div>
+        <strong>Rejected({{goalCountData[0].REJECTED}})</strong>
+    </div>
+    <div class="list" *ngFor="let goal of goalData">
+        <div *ngIf="(goal.goal_status=='REJECTED')">
+            <app-goal-list [deleteGoal]="deleteGoal" [goalDetails]="goal"></app-goal-list>
+        </div>
+
+    </div>
 
 </section>
