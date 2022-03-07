@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../apiCollection/api.service';
 import {Observable, OperatorFunction} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { ToastService } from 'src/app/milestone/toast/toast-service';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class EditGoalComponent implements OnInit {
   userdata: any;
   goaldata: any;
   goal_data: any;
-  constructor( private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiData:ApiService) {
+  constructor( private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiData:ApiService, public toastService: ToastService) {
     this.apiData.getUsers().subscribe((result)=>{
       console.log(result);
       
@@ -138,9 +139,14 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.http.post(`/api/v1/employee/update-objective`, this.updateForm.value, this.requestOptions).subscribe((result)=>{
       console.log(result);
       console.log("aaaaaa", this.model);
-      window.location.reload();
+      this.toastService.show('update successfully', { classname: 'bg-success text-light', delay: 3000 })
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+      
     },(error)=>{
       console.error(error);
+      this.toastService.show('somthing went wrong', { classname: 'bg-danger text-light', delay: 3000 })
     });
   }
   
