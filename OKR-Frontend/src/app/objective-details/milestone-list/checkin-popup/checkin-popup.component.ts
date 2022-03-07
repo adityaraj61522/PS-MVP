@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,8 @@ export class CheckinPopupComponent implements OnInit {
   constructor( private http : HttpClient,  private router : Router ) { }
 
   @Input() milestoneDetails:any;
-
+  showTargetFiledError:boolean = false
+ 
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     'Accept': 'application/json',
@@ -27,12 +28,28 @@ export class CheckinPopupComponent implements OnInit {
   };
   disabled=true;
 
+
+  showTargetError(value:string){
+    var cur_target:number = +value
+    var start = this.milestoneDetails['metric_start_value']
+    var end = this.milestoneDetails['metric_target_value'] 
+    console.log(start,cur_target);
+    
+    if( start <= cur_target && cur_target<= end ){
+      this.showTargetFiledError = false
+    }
+    else{
+      this.showTargetFiledError = true
+    }
+  }
+
+
   checkinForm = new FormGroup ({
     org_id:new FormControl(''),
     goal_id:new FormControl(''),
     metric_start_value:new FormControl(''),
     metric_target_value:new FormControl(''),
-    metric_curr_value:new FormControl(''),
+    metric_curr_value:new FormControl( ''),
     metric_value_new:new FormControl(''),
     milestone_progress:new FormControl(''),
     check_in_status:new FormControl(''),
@@ -126,7 +143,7 @@ export class CheckinPopupComponent implements OnInit {
       metric_start_value:new FormControl(this.milestoneDetails['metric_start_value']),
       metric_target_value:new FormControl(this.milestoneDetails['metric_target_value']),
       metric_curr_value:new FormControl(this.milestoneDetails['metric_curr_value']),
-      metric_value_new:new FormControl(),
+      metric_value_new:new FormControl('',[Validators.required,Validators.min(this.milestoneDetails['metric_start_value']),Validators.min(this.milestoneDetails['metric_target_value']) ]),
       check_in_status:new FormControl(this.milestoneDetails['dob']),
       milestone_progress:new FormControl(this.progress),
       milestone_id:new FormControl(this.milestoneDetails['milestone_id']),
