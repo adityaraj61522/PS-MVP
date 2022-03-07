@@ -170,7 +170,8 @@ export class CreateMilestoneComponent implements OnInit {
         console.error(error);
         if (error) {
           this.isLoad = false;
-          this.showError();
+          this.toastr.error('Something went wrong!!!', 'Error!!!');
+          // this.toastService.show('somthing went wrong', { classname: 'bg-danger text-light', delay: 3000 })
         }
       }
     );

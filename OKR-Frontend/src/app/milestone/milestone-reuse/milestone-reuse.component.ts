@@ -35,16 +35,11 @@ export class MilestoneReuseComponent implements OnInit {
         this.goal_name = Object.values(response)[0].goal_name
         const begin_date = this.apiData.convertToDate(Object.values(response)[0].goal_start_date)
         const finish_date = this.apiData.convertToDate(Object.values(response)[0].goal_due_date)
-        const cur_date = this.apiData.convertToDate( new Date().toDateString())
+        const cur_date = new Date().toISOString().split("T")[0];
 
         const begin = new Date(Object.values(response)[0].goal_start_date)
         const finish = new Date(Object.values(response)[0].goal_due_date)
         const cur = new Date()
-
-        
-
-        // this.start_date = firstval > secondval?firstval:secondval;
-        // console.log(this.end_date);
 
         if(finish < cur){
           this.start_date = begin_date
@@ -52,7 +47,7 @@ export class MilestoneReuseComponent implements OnInit {
           this.isMilestoneVaid = false
         }
         else if(begin < cur && cur < finish){
-          this.start_date = cur_date
+          this.start_date = cur>=begin?cur_date:begin_date;
           this.end_date = finish_date
           this.isMilestoneVaid = true
           
