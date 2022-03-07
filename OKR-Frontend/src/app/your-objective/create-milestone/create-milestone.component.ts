@@ -10,7 +10,6 @@ import {
 import { ApiService } from '../../apiCollection/api.service';
 import { Observable, OperatorFunction } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-// import { ToastService } from 'src/app/milestone/toast/toast-service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -39,7 +38,7 @@ export class CreateMilestoneComponent implements OnInit {
 
   min_due_date:string = ''
 
-  constructor(private fb: FormBuilder, private http : HttpClient,private apiData:ApiService,private toastr: ToastrService) { 
+  constructor(private fb: FormBuilder, private http : HttpClient,private apiData:ApiService, private toastr: ToastrService) { 
 
     
 
@@ -162,15 +161,25 @@ export class CreateMilestoneComponent implements OnInit {
     }
   }
 
+  showSuccess() {
+    this.toastr.success("Milestone Created Successfully...", 'Success');
+  }
+  showError() {
+    this.toastr.error('Something went wrong!!!', 'Error!!!');
+  }
+
 
   postMilestoneReq = (data:any,milestoneType:string)=>{
     this.apiData.createMilestone(data).subscribe((result)=>{
       console.log(result);
       if(result){
         this.isLoad = false
-        this.toastr.success("milestone has been created successfully", 'Success');
-        // this.toastService.show('milestone has been created successfully', { classname: 'bg-success text-light', delay: 3000 })
+        this.showSuccess();
+        setTimeout(() => {
+
         window.location.reload();
+          
+        }, 1000);
         }
       },
       (error) => {

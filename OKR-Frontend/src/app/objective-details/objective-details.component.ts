@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-objective-details',
@@ -8,13 +9,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./objective-details.component.css'],
 })
 export class ObjectiveDetailsComponent implements OnInit {
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private toastr:ToastrService) {}
 
 
   onManagerDecisionReq={
     goal_id:"",
     decision:"",
     reqType:"",
+    comment:""
   }
   Id={
     goal_id:"",
@@ -62,10 +64,12 @@ export class ObjectiveDetailsComponent implements OnInit {
         .subscribe(
           (response) => {
             console.log('delete goal console:---', response);
-            window.location.reload();
+            this.toastr.success("Deleted Successfully...", 'Deleted');
+            this.ngOnInit();
           },
           (error) => {
             console.error(error);
+            this.toastr.error("Something went wrong", 'Error');
           }
         );
     }
@@ -111,11 +115,24 @@ export class ObjectiveDetailsComponent implements OnInit {
 
   }
 
+ 
+  showApproved() {
+    this.toastr.success("Approved Successfully...", 'Approved');
+  }
+  showRejected() {
+    this.toastr.error("Rejected Successfully...", 'Rejected');
+  }
+  showError() {
+    this.toastr.error("Something went wrong", 'Error');
+  }
+
   onManagerDecision(decision: any, reqType:any){
     this.onManagerDecisionReq.decision = decision;
     this.onManagerDecisionReq.reqType= reqType;
+    this.onManagerDecisionReq.comment=JSON.parse(JSON.stringify(prompt('Are you sure you want to '+ decision + ' this request? \nComment:',"")));
     console.log(reqType);
-      if(confirm('Are you sure you want to '+ decision + ' this request?')){
+      if(this.onManagerDecisionReq.comment){
+        console.log(this.onManagerDecisionReq.comment)
         this.http.post(`/api/v1/employee/managerdecision`, this.onManagerDecisionReq, this.requestOptions).subscribe((response)=>{
           console.log(response);
           let parsed_res = JSON.parse(JSON.stringify(response));
@@ -124,9 +141,16 @@ export class ObjectiveDetailsComponent implements OnInit {
             this.showButtons = 'false'
             this.goalStatus=decision;
             console.log(this.showButtons,'dfafasfas')
+            if(decision=='APPROVE'){
+              this.showApproved();
+            }else{
+              this.showRejected();
+            }
+            this.ngOnInit();
           }
         },(error)=>{
           console.error(error);
+          this.showError();
         })
       }
     

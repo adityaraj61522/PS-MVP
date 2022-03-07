@@ -109,11 +109,7 @@ export class YourObjectiveComponent implements OnInit {
   } 
 
   objectiveHide(){
-    // console.log('objective hide',this.show);
     this.show = false
-    // console.log('objective hide',this.show);
-    
-  
   }
 
   keyresultshow(){
@@ -123,11 +119,20 @@ export class YourObjectiveComponent implements OnInit {
     this.show2=false;
   }
 
-
-  previous(){
-    this.show2=false;
-    this.show=true;
+ 
+  showSuccess() {
+    this.toastr.success("Successfully Created...", 'Created');
   }
+  showSuccessDeleteGoal() {
+    this.toastr.success("Goal Deleted Successfully...", 'Deleted');
+  }
+  showSuccessCloseGoal() {
+    this.toastr.success("Goal sent for Closure Successfully...", 'Success');
+  }
+  showError() {
+    this.toastr.error('Something went wrong!!!', 'Error!!!');
+  }
+
  // Delete Goal fucntionality
   deleteGoal=(goal_name: any, goal_id:any , org_id: any, todo: any)=>{
     this.deleteGoalReq.goal_id= goal_id;
@@ -136,12 +141,10 @@ export class YourObjectiveComponent implements OnInit {
     if(todo=='DELETE'){
       if(confirm("Are you sure want to delete "+goal_name)){
         this.http.put(`/api/v1/employee/deletegoal`, {goal_id,org_id} , this.requestOptions).subscribe((response)=>{
-        // console.log("delete goal console:---", response);
-        if(response){
-        this.ngOnInit();
-        }
+          this.showSuccessDeleteGoal();
+          this.ngOnInit();
         },(error)=>{
-        // console.error(error);
+          this.showError()
        })
       }
     }
@@ -151,8 +154,10 @@ export class YourObjectiveComponent implements OnInit {
         this.http.put(`api/v1/employee/closegoal`, {goal_id, org_id}, this.requestOptions).subscribe((response)=>{
         console.log("delete goal console:---", response);
         //Toaster
+        this.showSuccessCloseGoal();
         this.ngOnInit();
         },(error)=>{
+          this.showError()
        })
       }
     }
@@ -200,6 +205,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       this.show=false;
       this.show2=true;
       this.showSuccess();
+      this.ngOnInit();
       sessionStorage.setItem("goalId",result.goalId);
     },(error)=>{
       console.error(error);
@@ -209,12 +215,6 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     });
     // console.log(JSON.stringify(this.newObjective ),"obj")
   }
-  showSuccess() {
-    this.toastr.success("Successfully Created...", 'Success');
-  }
-  showError() {
-    this.toastr.error('Something went wrong!!!', 'Error!!!');
-  }
 
   session:any;
   async ngOnInit(): Promise<void> {
@@ -223,6 +223,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.userdata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
     this.userdata.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
     this.userData=this.userdata.user[0]
+    // this.showSuccess(); 
 
     this.getGoal.org_id=this.userData.org_id;
     this.getGoal.goal_owner_id=this.userData.user_id;
