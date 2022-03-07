@@ -62,7 +62,7 @@ export class ObjectiveDetailsComponent implements OnInit {
         .subscribe(
           (response) => {
             console.log('delete goal console:---', response);
-            window.location.reload();
+            this.ngOnInit();
           },
           (error) => {
             console.error(error);

@@ -8,8 +8,8 @@
         <app-team-list [teamMemberDetails]="member"></app-team-list>
         </div>
     </div>
-    <div>
-      <p><strong>No Team Members Yet!!!</strong></p>
+    <div *ngIf="teamMembers.length==0">
+      <p style="text-align: center;"><strong>No Team Members Yet!!!</strong></p>
     </div>
     
     </section>
