@@ -33,12 +33,13 @@
 
         <div class="form-group" *ngIf="choice=='metric'">
           <label>Metric start value*</label><br>
-          <input type="number" class="in-d" formControlName="metric_start_value"   >
+          <input type="number" class="in-d" formControlName="metric_start_value" #startValue (change)='setTarget(startValue.value)'  >
         </div>
         &nbsp;&nbsp;
         <div class="form-group ml-3" *ngIf="choice=='metric'">
           <label>Metric target value</label><br>
-          <input type="number" class="in-d" formControlName="metric_target_value"   >
+          <input type="number" class="in-d" formControlName="metric_target_value"   #targetValue (change)='showTargetError(targetValue.value)'  >
+          <div  class="form-text showError" *ngIf="showTargetFiledError">target value must be greater then start value.</div>
         </div>
         &nbsp;&nbsp;
 

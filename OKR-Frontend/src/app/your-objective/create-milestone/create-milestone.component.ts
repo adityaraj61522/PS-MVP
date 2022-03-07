@@ -32,6 +32,8 @@ export class CreateMilestoneComponent implements OnInit {
   isLoad = false
   show=false;  
   choice:string = 'boolean';
+  min_target_matrix:number = 1;
+  showTargetFiledError:boolean = false
  
 
 
@@ -72,6 +74,19 @@ export class CreateMilestoneComponent implements OnInit {
     );
 
   //search typehead now end
+  setTarget(value:string){
+    this.min_target_matrix = +value + 1;
+    // this.myForm.controls['metric_target_value']
+  }
+  showTargetError(value:string){
+    var cur_target:number = +value
+    if(cur_target<this.min_target_matrix){
+      this.showTargetFiledError = true
+    }
+    else{
+      this.showTargetFiledError = false
+    }
+  }
 
   ngOnInit(): void {
     console.log(this.isMilestoneVaid);
@@ -88,7 +103,7 @@ export class CreateMilestoneComponent implements OnInit {
       ownerObj: {},
       // metric
       metric_start_value: [0, [Validators.required, Validators.min(0)]],
-      metric_target_value: [1, [Validators.required, Validators.min(1)]],
+      metric_target_value: [1, [Validators.required, Validators.min(this.min_target_matrix)]],
     });
 
   }
@@ -107,6 +122,7 @@ export class CreateMilestoneComponent implements OnInit {
     this.choice = option;
 
   }
+ 
 
   onSubmit(form: FormGroup) {
 
