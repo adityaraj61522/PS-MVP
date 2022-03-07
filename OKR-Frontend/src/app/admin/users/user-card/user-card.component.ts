@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-card',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class UserCardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   @Input() allUserDetails:any;
 
@@ -22,21 +23,17 @@ export class UserCardComponent implements OnInit {
     }
   }
 
-  editUser(){
-    if(this.edit==true){
-      this.edit=false;
-    }else{
-    this.edit=true
-  }
-}
-
   getGoal={
     org_id:"",
     goal_owner_id:""
   };
   goalData:any;
 
-
+  editUser(){
+    this.router.navigate(['/register'], {
+      queryParams: { user: `admin_update` },
+    });
+  }
   ngOnInit(): void {
   }
 

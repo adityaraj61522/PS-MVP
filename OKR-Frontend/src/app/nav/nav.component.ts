@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -42,7 +42,7 @@ export class NavComponent implements OnInit {
   };
   
 
-  constructor() { }
+  constructor(private router:Router) { }
   userdata={
     token:"",
     expires:"",
@@ -82,5 +82,8 @@ export class NavComponent implements OnInit {
     //   console.error(error);
     // })
   }
-
+logout(){
+  this.router.navigate(['/']);
+  sessionStorage.clear();
+}
 }
