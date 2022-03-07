@@ -157,7 +157,7 @@ export class CreateMilestoneComponent implements OnInit {
         console.error(error);
         if (error) {
           this.isLoad = false;
-          this.toastService.show('somthing went wrong', { classname: 'bg-danger text-light', delay: 3000 })
+          this.toastService.show('Something went wrong', { classname: 'bg-danger text-light', delay: 3000 })
           // this.errorMsg = true;
         }
       }

@@ -7,7 +7,8 @@ import { NgStyle } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { Observable,BehaviorSubject, OperatorFunction } from 'rxjs';
 import { debounceTime,switchMap, distinctUntilChanged, map } from 'rxjs/operators';
-import { ApiService } from '../apiCollection/api.service';
+import { ToastService } from '../milestone/toast/toast-service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-your-objective',
@@ -29,7 +30,10 @@ export class YourObjectiveComponent implements OnInit {
   requestOptions = {
     headers: new HttpHeaders(this.headers),
   };
-  constructor( private http : HttpClient ) { }
+  // new try::
+  constructor( private http : HttpClient,public toastService: ToastService,private route: ActivatedRoute, private router: Router ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+   }
 
   @ViewChild('ObjForm') ObjFormData!: NgForm;
   isLoad = false
@@ -134,9 +138,13 @@ export class YourObjectiveComponent implements OnInit {
       if(confirm("Are you sure want to delete "+goal_name)){
         this.http.put(`/api/v1/employee/deletegoal`, {goal_id,org_id} , this.requestOptions).subscribe((response)=>{
         // console.log("delete goal console:---", response);
-        window.location.reload();
+        if(response){
+        this.toastService.show('Goal deleted successfully', { classname: 'bg-success text-light', delay: 10000 })
+        this.ngOnInit();
+        }
         },(error)=>{
         // console.error(error);
+        this.toastService.show('Something went wrong', { classname: 'bg-danger text-light', delay: 3000 })
        })
       }
     }
@@ -146,14 +154,11 @@ export class YourObjectiveComponent implements OnInit {
         this.http.put(`api/v1/employee/closegoal`, {goal_id, org_id}, this.requestOptions).subscribe((response)=>{
         console.log("delete goal console:---", response);
         //Toaster
-        window.location.reload();
+        this.toastService.show('Goal sent for Review and closure.', { classname: 'bg-success text-light', delay: 3000 })
+        this.ngOnInit();
         },(error)=>{
-        // console.error(error);
-        //toaster
+          this.toastService.show('Something went wrong', { classname: 'bg-danger text-light', delay: 3000 })
        })
-      }
-      else {
-        console.log("Running")
       }
     }
   }
