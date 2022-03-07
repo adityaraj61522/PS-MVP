@@ -17,34 +17,19 @@
         <li class="nav-item">
           <div class="nav-link">Last Checkin Date: {{teamMemberDetails.last_login_time | date: "dd-MMM-yy" }}</div>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="#">{{teamMemberDetails.goal_type}}</a>
-        </li> -->
       </ul>
     </div>
     <div class="col-sm-2 options">
-      <!-- <ul class="nav">
-        <li class="nav-item">
-          <p class="status shadow">Waiting for approval</p>
-        </li>
-        <li class="nav-item">
-          <div class="dropdown">
-        <button class="btn btn-default dropdown" (click)="showDp()" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png"/>
-        </button>
-        <ul class="dropdown-menu" *ngIf="dp" style="display: block;" aria-labelledby="dropdownMenuButton1">
-          <li (click)="openUpdateDp()"><a class="dropdown-item">Update Goal</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </div>
-        </li>
-      </ul> -->
     </div>
     <div *ngIf="goalShow" style="margin-bottom: 10px; display: block;">
+      <div *ngIf="goalData.length!==0">
         <strong>GOALS:</strong>
         <div class="list" *ngFor="let goal of goalData">
           <app-goal-list [goalDetails]="goal"></app-goal-list>
           </div>
+        </div>
+        <div *ngIf="goalData.length==0">
+          <p style="text-align: center;"><strong>No Goals Yet!!!</strong></p>
+        </div>
     </div>
   </div>

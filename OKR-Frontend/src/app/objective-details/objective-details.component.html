@@ -27,28 +27,6 @@
                         <button class="btn btn-danger shadow ml-20" (click)="onManagerDecision('REJECT' ,goalStatus)" type="button">Reject</button>
                     </div>
                 </div>
-
-                <!-- <p class="btn btn-success shadow ml-20" *ngIf="goalStatus=='APPROVED'">Goal Approved</p>
-      <p class="btn btn-danger shadow ml-20" *ngIf="goalStatus=='REJECTED'">Goal Rejected</p> -->
-
-                <!-- <button type="button" class="btn btn-primary addMilestone btn-sm d-md-block">ADD MILESTONE</button> -->
-                <!-- <ul class="nav">
-        <li class="nav-item">
-          <p class="status shadow">Active</p>
-        </li>
-        <li class="nav-item">
-          <div class="dropdown">
-        <button class="btn btn-default dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png"/>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </div>
-        </li>
-      </ul> -->
             </div>
         </div>
         <hr>
@@ -65,12 +43,8 @@
                     <li class="nav-item details">
                         <strong>Due Date: </strong> {{ goal_data[0].goal_due_date | date:'dd-MMM-YY'}}
                     </li>
-                    <!-- <li class="nav-item details">
-            <strong>Effort Progress:</strong>
-        </li> -->
                 </ul>
                 <div>
-                    <!-- <p class="btn btn-success side ml-20" *ngIf="goalStatus=='APPROVED'">Goal Approved</p> -->
                     <p class="btn btn-danger side ml-20" *ngIf="goalStatus=='REJECTED'">Goal Rejected</p>
                 </div>
             </div>
@@ -81,9 +55,13 @@
     <div>
         <strong>Milestones</strong>
     </div>
-
+<div *ngIf="milestone_data.length!==0">
     <div class="list" *ngFor="let milestone of milestone_data">
-        <app-milestone-list [deleteMilestone]="deleteMilestone" [milestoneDetails]="milestone"></app-milestone-list>
+        <app-milestone-list [deleteMilestone]="deleteMilestone" [milestoneDetails]="milestone" [goal_data]="goal_data"></app-milestone-list>
     </div>
+</div>
+<div *ngIf="milestone_data.length==0">
+    <p style="text-align: center;"><strong>No Milestones Yet!!!</strong></p>
+</div>
 
 </section>

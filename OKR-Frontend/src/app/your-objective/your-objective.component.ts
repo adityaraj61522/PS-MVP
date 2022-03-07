@@ -8,7 +8,7 @@ import { FormControl } from '@angular/forms';
 import { Observable,BehaviorSubject, OperatorFunction } from 'rxjs';
 import { debounceTime,switchMap, distinctUntilChanged, map } from 'rxjs/operators';
 import { ApiService } from '../apiCollection/api.service';
-import { ToastrService } from 'ngx-toastr'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-your-objective',
@@ -67,6 +67,8 @@ export class YourObjectiveComponent implements OnInit {
   allUsers:any;
   goalData: any;
   goalCountData: any;
+
+  todayDate = new Date().toISOString().split("T")[0];
 
   model: any;
   modelOrgGoal:any;
@@ -200,19 +202,26 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       this.isLoad = false
       this.show=false;
       this.show2=true;
+      this.showSuccess();
       sessionStorage.setItem("goalId",result.goalId);
-      this.toastr.success("Data shown successfully !!", "Data shown successfully !!")
     },(error)=>{
       console.error(error);
+      this.showError();
       this.isLoad = false;
       this.er=true;
-      this.toastr.error("Something is wrong", "Something is wrong")
     });
     // console.log(JSON.stringify(this.newObjective ),"obj")
+  }
+  showSuccess() {
+    this.toastr.success("Successfully Created...", 'Success');
+  }
+  showError() {
+    this.toastr.error('Something went wrong!!!', 'Error!!!');
   }
 
   session:any;
   async ngOnInit(): Promise<void> {
+    console.log(this.todayDate,"dates");
     this.userdata.token=JSON.parse(JSON.stringify(sessionStorage.getItem("token")));
     this.userdata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
     this.userdata.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));

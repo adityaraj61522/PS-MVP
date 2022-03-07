@@ -75,9 +75,6 @@ export class ObjectiveDetailsComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.Id.goal_id = params['ID'];
       this.onManagerDecisionReq.goal_id =  params['ID'];
-
-      //  const myorgid = sessionStorage.getItem('orgDetails_id');
-      // console.log(myorgid)
     });
     this.getGoalDetails();
     this.getGoalMilestones();
@@ -85,7 +82,6 @@ export class ObjectiveDetailsComponent implements OnInit {
    this.user_id = sessionStorage.getItem("user_id")
    this.line_manager_id = sessionStorage.getItem("userData")
    this.line_manager_id = JSON.stringify(JSON.parse(this.line_manager_id)[0].line_manager_id);
-  //  console.log("########",this.user_id, this.line_manager_id)
 
   }
 
@@ -94,26 +90,12 @@ export class ObjectiveDetailsComponent implements OnInit {
   return this.http.post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions).subscribe((response)=>{
    
     this.goal_data=response;
-    // this.goal_data=JSON.parse(JSON.stringify(response))[0];
     console.log(this.goal_data);
     this.goalStatus = this.goal_data[0].goal_status;
     console.log('...goal_status...', this.goalStatus)
-    
     },(error)=>{
       console.error(error);
     })
-
-    // return this.http
-    //   .post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions)
-    //   .subscribe(
-    //     (response) => {
-    //       this.goal_data = response;
-    //       console.log(this.goal_data);
-    //     },
-    //     (error) => {
-    //       console.error(error);
-    //     }
-    //   );
   }
 
   getGoalMilestones(){

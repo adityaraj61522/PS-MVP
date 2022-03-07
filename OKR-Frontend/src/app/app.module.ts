@@ -7,6 +7,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -71,7 +72,10 @@ import { ToastsContainer } from './milestone/toast/toasts-container.component';
     HttpClientModule, 
     NgbModule,
     HttpClientModule,
-    // MilestoneModule
+    ToastrModule.forRoot({
+    timeOut: 5000,
+    preventDuplicates: true,
+    }),
     AutocompleteLibModule,
     NgCircleProgressModule.forRoot({
       // set defaults here

@@ -83,7 +83,7 @@
         class="nav-item"
       >
         <ul class="nav">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="goal_data[0].goal_status=='IN_PROGRESS'">
             <div
               class="modal fade show"
               *ngIf="check"
