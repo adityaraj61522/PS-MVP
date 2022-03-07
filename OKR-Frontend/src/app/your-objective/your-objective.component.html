@@ -13,8 +13,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="objectiveHide()" aria-label="Close"></button>
                   </div> 
                   
-            <mat-spinner *ngIf="isLoad" [diameter]="40" style="margin-left: auto; margin-right: auto; margin-top: 150px; margin-bottom: 150px;"></mat-spinner>
-            <form *ngIf="!isLoad" (ngSubmit)="addObjective()" #ObjForm="ngForm">
+            <form (ngSubmit)="addObjective()" #ObjForm="ngForm">
               <div class="modal-body">
                 <div class="form-group">
                   <label>Objective:</label><br>
@@ -72,22 +71,14 @@
               </div>
             </div>
               <div class="in-date">
-                <!-- <div class="form-group">
-                <label>Which Type of OKR you are Creating?:</label><br>
-                <select class="form-select in-2" ngModel aria-label="Default select example" name="goal_type" #goal_type="ngModel" goal_type required>
-                  <option value="INDIVIDUAL">INDIVIDUAL</option>
-                  <option value="PUBLIC">PUBLIC</option>
-                  <option value="ORGANIZATIONAL">ORGANIZATIONAL</option>
-            </select>
-            <span class="help-block" *ngIf="!goal_type.valid && goal_type.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
-                </div> -->
               </div>
               </div>
               <div class="modal-footer">
-                <span class="help-block" *ngIf="er"><i class="fas fa-exclamation-circle"></i>Error while creating objective!!!</span>
-                <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal" (click)="objectiveHide()"  aria-label="Close"> Cancel </button><br> -->
-                <button class="btn btn-primary" type="submit" 
+                <button class="btn btn-primary" type="submit"  *ngIf="!isLoad"
                 data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">Add Key Result</button>
+                <button class="btn btn-primary" type="submit"  *ngIf="isLoad"
+                data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 130px;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">
+                <mat-spinner [diameter]="23" style="margin-left: 40px;"></mat-spinner></button>
                 <br>
               </div>
             </form>

@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 import { Observable,BehaviorSubject, OperatorFunction } from 'rxjs';
 import { debounceTime,switchMap, distinctUntilChanged, map } from 'rxjs/operators';
 import { ApiService } from '../apiCollection/api.service';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-your-objective',
@@ -29,7 +30,7 @@ export class YourObjectiveComponent implements OnInit {
   requestOptions = {
     headers: new HttpHeaders(this.headers),
   };
-  constructor( private http : HttpClient ) { }
+  constructor( private http : HttpClient , private toastr: ToastrService) { }
 
   @ViewChild('ObjForm') ObjFormData!: NgForm;
   isLoad = false
@@ -173,10 +174,12 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       this.show=false;
       this.show2=true;
       sessionStorage.setItem("goalId",result.goalId);
+      this.toastr.success("Data shown successfully !!", "Data shown successfully !!")
     },(error)=>{
       console.error(error);
       this.isLoad = false;
       this.er=true;
+      this.toastr.error("Something is wrong", "Something is wrong")
     });
     console.log(JSON.stringify(this.newObjective ),"obj")
   }
