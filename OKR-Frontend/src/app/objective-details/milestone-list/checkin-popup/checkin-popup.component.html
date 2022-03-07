@@ -11,7 +11,7 @@
               <div type="text" class="in-2" style="border: 1px solid lightgrey;"> {{milestoneDetails.metric_start_value}}</div>
               <!-- <span class="help-block" *ngIf="!goal_name.valid && goal_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
             </div>
-            <div class="form-group">
+            <div class="form-group"> 
               <label>Target Value:</label><br>
               <!-- <input type="text" class="in-2 form-control" formControlName="metric_target_value" required> -->
               <div type="text" class="in-2" style="border: 1px solid lightgrey;"> {{milestoneDetails.metric_target_value}}</div>
@@ -28,7 +28,8 @@
         </div>
         <div class="form-group">
         <label>Enter Target Value Achieved (to date):</label><br>
-        <input type="text" class="in-2 form-control" formControlName="metric_value_new" required>
+        <input type="text" class="in-2 form-control" formControlName="metric_value_new" required   #targetValue>
+        <div  class="form-text showError" *ngIf="showTargetFiledError">Achieved value must be less then start value && greater then target value.</div>
         <!-- <span class="help-block" *ngIf="!goal_due_date.valid && goal_due_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
         </div>
       </div>
@@ -56,7 +57,7 @@
                     max="100"
                     aria-label="units"
                     value="{{milestoneDetails.milestone_progress}}"
-                    style=""
+                    
                     color="primary"
                     (change)="updateProgress($event)" >
                 </mat-slider>
