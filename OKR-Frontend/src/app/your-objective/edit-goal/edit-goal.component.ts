@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../apiCollection/api.service';
 import {Observable, OperatorFunction} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
-import { ToastService } from 'src/app/milestone/toast/toast-service';
 
 
 @Component({
@@ -35,6 +34,8 @@ export class EditGoalComponent implements OnInit {
     goal_start_date:new FormControl(''),
     goal_due_date:new FormControl(''),
     goal_owner_name:new FormControl(''),
+    goal_owner_id:new FormControl(''),
+    goal_owner_email:new FormControl(''),
     linked_org_goal_id:new FormControl(''),
     goal_type:new FormControl('')
   })
@@ -46,7 +47,7 @@ export class EditGoalComponent implements OnInit {
   userdata: any;
   goaldata: any;
   goal_data: any;
-  constructor( private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiData:ApiService, public toastService: ToastService) {
+  constructor( private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiData:ApiService) {
     this.apiData.getUsers().subscribe((result)=>{
       console.log(result);
       
@@ -57,7 +58,7 @@ export class EditGoalComponent implements OnInit {
    }
 
   Id={
-    goal_id:"",
+    goal_id:""
   }
   // goal_data:any;
   goal_id:any;
@@ -83,29 +84,14 @@ outFormatter = (x: {full_name: string}) => x.full_name;
 
   ngOnInit(): void {
     this.getOrgGoal.org_id=JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")));
-    this.route.queryParams.subscribe((params)=>{
-    this.goaldata.token=JSON.parse(JSON.stringify(sessionStorage.getItem("token")));
-    this.goaldata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
-    this.goaldata.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("goalData"))));
-    this.goalData=this.goaldata.user[0]
-      // console.log(this.goal_data,"ABC");
-      // this.Id.goal_id=params["ID"];
-      // console.log(this.Id.goal_id);
-      // this.org_id=sessionStorage['orgDetails.id'];
-      // console.log(this.org_id)
-    })   
-
   console.log(this.goalData)
-
-  this.Id.goal_id=this.goalData.goal_id
-  console.log("idnhjdjhjn",this.Id)
-  this.getGoalDetails();
+    this.Id.goal_id=this.goalData.goal_id
+    console.log("idnhjdjhjn",this.Id)
+    this.getGoalDetails();
 
    // Get Orginizational goal
    this.http.post(`/api/v1/employee/getorganizationgoals`, this.getOrgGoal, this.requestOptions).subscribe((response)=>{
-
     this.allOrgGoal=response;
-
   },(error)=>{
     console.error(error);
   })
@@ -115,10 +101,11 @@ outFormatter = (x: {full_name: string}) => x.full_name;
   getGoalDetails(){
     return this.http.post(`/api/v1/employee/getgoaldetails`, this.Id, this.requestOptions).subscribe((response)=>{
       console.log(response);
-    this.goal_data=response;
-    // this.goal_id=response;
-    // console.log("goal_id:---- ", this.goal_id);
-    // console.log("goal_DATA:---", this.goal_data)
+      this.goalData=response;
+      this.goalData=this.goalData[0];
+      this.goalData.goal_start_date=this.goalData.goal_start_date.split("T")[0];
+      this.goalData.goal_due_date=this.goalData.goal_due_date.split("T")[0];
+    console.log("goal_DATA:---", this.goalData)
       this.updateForm = new FormGroup({
         goal_name:new FormControl(this.goalData['goal_name']),
         goal_start_date:new FormControl(this.goalData['goal_start_date']),
@@ -126,10 +113,12 @@ outFormatter = (x: {full_name: string}) => x.full_name;
         goal_owner_name:new FormControl(this.goalData['goal_owner_name']),
         linked_org_goal_id:new FormControl(this.goalData['linked_org_goal_id']),
         goal_type:new FormControl(this.goalData['goal_type']),
-        goal_id:new FormControl(this.goalData['goal_id'])
+        goal_id:new FormControl(this.goalData['goal_id']),
+        goal_owner_id:new FormControl(this.goalData['goal_owner_id']),
+        goal_owner_email:new FormControl(this.goalData['goal_owner_email']),
       })
   
-      console.log(this.updateForm.value)
+      console.log(this.updateForm.value,"jyhgasjhdjhasvhj")
     },(error)=>{
       console.error(error);
     })
@@ -139,14 +128,9 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.http.post(`/api/v1/employee/update-objective`, this.updateForm.value, this.requestOptions).subscribe((result)=>{
       console.log(result);
       console.log("aaaaaa", this.model);
-      this.toastService.show('update successfully', { classname: 'bg-success text-light', delay: 3000 })
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-      
+      window.location.reload();
     },(error)=>{
       console.error(error);
-      this.toastService.show('somthing went wrong', { classname: 'bg-danger text-light', delay: 3000 })
     });
   }
   
