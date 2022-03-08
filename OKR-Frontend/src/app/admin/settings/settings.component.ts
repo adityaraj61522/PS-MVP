@@ -45,16 +45,16 @@ export class SettingsComponent implements OnInit {
     updated_by:new FormControl('')
   })
 
-  settingsChange(){
-    this.http.post(`/api/v1/admin/updateGoalSettings`,this.settingsForm.value , this.requestOptions
+  async settingsChange(){
+    await this.http.post(`/api/v1/admin/updateGoalSettings`,this.settingsForm.value , this.requestOptions
   ).subscribe((result:any)=>{
+    console.log(this.settingsForm.value,"req")
       console.log(result,"Done");
     },(error)=>{
       console.error(error);
       this.e=true;
 
     });
-    console.log(this.settingsForm.value)
   }
 
   async ngOnInit(): Promise<void> {
@@ -78,7 +78,7 @@ export class SettingsComponent implements OnInit {
         goal_setting_status:new FormControl(this.settingsDetails['goal_setting_status']),
         updated_by:new FormControl(this.user_id)
       })
-      console.log(this.settingsDetails)
+      console.log(this.settingsDetails,"first")
     },(error)=>{
       console.error(error);
 

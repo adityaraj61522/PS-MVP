@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from '../apiCollection/api.service';
 import {Observable, OperatorFunction} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -49,16 +50,13 @@ export class RegisterComponent implements OnInit {
     last_name:"",
     username:"",
     email:"",
-    //mobile:"",
     emp_code:"",
-    //org_id:"",
+    org_id:"",
     line_manager_id:"",
     city:"",
     country:"",
-    //gender:"",
     department:"",
     password:"",
-    //conf_password:""
   }
   userExist=false;
   pwd_matched=true;
@@ -66,11 +64,14 @@ export class RegisterComponent implements OnInit {
 
   registerForm!: FormGroup;
 
+  actionType:any;
+
   constructor( 
     private http : HttpClient, 
     private router : Router, 
     private fb : FormBuilder,
-    private apiData: ApiService) { 
+    private apiData: ApiService,
+    private route : ActivatedRoute, private toastr: ToastrService) { 
       this.apiData.getUsers().subscribe((result)=>{
         this.allUsers = result
       }, (error)=>{
@@ -80,37 +81,71 @@ export class RegisterComponent implements OnInit {
 
   @ViewChild('f') formData!:NgForm;
 
+
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    Accept: 'application/json',
+    'Access-Control-Allow-Headers': '*',
+    'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
+    'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
+    'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
+  }  
+  requestOptions = { 
+    headers: new HttpHeaders(this.headers),
+  };
+
+
   submit(){
     this.userData.first_name=this.formData.value.first_name;
     this.userData.last_name=this.formData.value.last_name;
     this.userData.username=this.formData.value.username;
     this.userData.email=this.formData.value.email;
-    //this.userData.mobile=this.formData.value.mobile;
     this.userData.emp_code=this.formData.value.emp_code;
-    //this.userData.org_id=this.formData.value.org_id;
     this.userData.line_manager_id=this.model.user_id;
-    //this.userData.gender=this.formData.value.gender;
     this.userData.city=this.formData.value.city;
     this.userData.country=this.formData.value.country.name;
     this.userData.password=this.formData.value.password;
     this.userData.department=this.formData.value.department;
     this.conf_password=this.formData.value.conf_password;
-    //console.log(this.userData);
     if(this.userData.password!==this.conf_password){
-      //console.log("Password Not Matched", this.userData.password , this.conf_password)
       this.pwd_matched=false;
       throw Error ("Password Not Matched");
     }
 
+    if(this.actionType=="admin_add"){
+      this.http.post(`api/v1/admin/add-user`,this.userData, this.requestOptions).subscribe((result)=>{
+        console.warn(result); 
+        this.router.navigate(
+          ['/admin/users']
+          );
+    this.toastr.success('User Added Successfully.....', 'Success');
+    },(error)=>{
+      console.error(error);
+      if(error.status==300){
+        this.userExist=true;
+        this.toastr.error('User Already Exist!!!', 'Error!!!');
+      }else{
+        this.toastr.error('Something went wrong!!!', 'Error!!!');
+      }
+    });
+
+    }else{
     this.http.post(`http://localhost:9001/register-user`,this.userData).subscribe((result)=>{
       console.warn(result); 
+      this.toastr.success('Registered Successfully.....', 'Success');
       this.router.navigate(
         ['/login']
         );
   },(error)=>{
     console.error(error);
-    this.userExist=true;
+    if(error.status==300){
+      this.userExist=true;
+      this.toastr.error('User Already Exist!!!', 'Error!!!');
+    }else{
+      this.toastr.error('Something went wrong!!!', 'Error!!!');
+    }
   });
+}
 }
 
 
@@ -127,6 +162,8 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     )
 
   ngOnInit(): void {
+
+    this.userData.org_id=JSON.parse(JSON.stringify(sessionStorage.getItem('orgDetails_id')));
     this.registerForm = this.fb.group({
     first_name: ["", Validators.required],
     last_name: ["", Validators.required],
@@ -139,8 +176,12 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     department: ["", Validators.required],
     password: ["", Validators.required],
     conf_password: ["", Validators.required],
-
     })
+
+    this.route.queryParams.subscribe((params) => {
+      this.actionType = params['action'];
+      console.log(this.actionType,"params");
+    });
   }
 
 }
