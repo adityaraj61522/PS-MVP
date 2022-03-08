@@ -1,8 +1,8 @@
 
 <div class="container">
     <div class="Register-box shadow-lg">
-        <h2 class="reg-logo" *ngIf="actionType!=='admin_add'">Register</h2>
-        <h2 class="reg-logo" *ngIf="actionType=='admin_add'">Add User</h2>
+        <h2 class="reg-logo" *ngIf="actionType!=='addUser'">Register</h2>
+        <h2 class="reg-logo" *ngIf="actionType=='addUser'">Add User</h2>
         <form (ngSubmit)="submit()" #f="ngForm">
             <div class="row">
                 <div class="col-sm-6">
@@ -112,10 +112,10 @@
             <!-- <span class="help-block" *ngIf="!pwd_matched"><i class="fas fa-exclamation-circle"></i>The password does not match!!!</span> -->
             
 
-            <button class="btn btn-success bt-reg" *ngIf="actionType!=='admin_add'" type="submit" [disabled]="!f.valid">Register</button>
-            <button class="btn btn-success bt-reg" *ngIf="actionType=='admin_add'" type="submit" [disabled]="!f.valid">Add User</button>
-            <button class="btn btn-danger bt-reg" *ngIf="actionType=='admin_add'" routerLink="/admin/users" type="button">Cancel</button>
-            <p class="quest" style="text-align: center;" *ngIf="actionType!=='admin_add'">Already have an account?<strong><a routerLink="/"> Login</a></strong></p>
+            <button class="btn btn-success bt-reg" *ngIf="actionType!=='addUser'" type="submit" [disabled]="!f.valid">Register</button>
+            <button class="btn btn-success bt-reg" *ngIf="actionType=='addUser'" type="submit" [disabled]="!f.valid">Add User</button>
+            <button class="btn btn-danger bt-reg" *ngIf="actionType=='addUser'" routerLink="/admin/users" type="button">Cancel</button>
+            <p class="quest" style="text-align: center;" *ngIf="actionType!=='addUser'">Already have an account?<strong><a routerLink="/"> Login</a></strong></p>
         </form>
     </div>
 </div>

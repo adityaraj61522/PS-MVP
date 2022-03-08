@@ -63,15 +63,18 @@ export class YourObjectiveComponent implements OnInit {
     expires:"",
     user:""
   }
+  goal_limit_exceeded=false;
   userData:any;
   allUsers:any;
   goalData: any;
   goalCountData: any;
-
+goalSettings:any;
   todayDate = new Date().toISOString().split("T")[0];
 
   model: any;
   modelOrgGoal:any;
+
+  date_limit:any;
 
   newObjective={
     goal_name: "",
@@ -184,11 +187,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     )
 
   addObjective(){
-    // console.log(this.newObjective ,"obj")
     this.isLoad = true;
-    
-    // this.show=false;
-    // this.show2=true;
     this.newObjective.goal_name=this.ObjFormData.value.goal_name;
     this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
     this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
@@ -197,11 +196,15 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.newObjective.goal_owner_email=this.model.email;
     this.newObjective.linked_org_goal_id=this.ObjFormData.value.linked_org_goal_id;
     
+    if(this.goalSettings.max_goals<this.model.goal_assigned){
+      this.goal_limit_exceeded=true;
+      this.isLoad=false;
+    }else{
     this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions
   ).subscribe((result:any)=>{
       // console.log(result:any); 
       console.log(result);
-      this.isLoad = false
+      this.isLoad = false;
       this.show=false;
       this.show2=true;
       this.showSuccess();
@@ -213,6 +216,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       this.isLoad = false;
       this.er=true;
     });
+  }
     // console.log(JSON.stringify(this.newObjective ),"obj")
   }
 
@@ -223,7 +227,6 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.userdata.expires=JSON.parse(JSON.stringify(sessionStorage.getItem("expires")));
     this.userdata.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
     this.userData=this.userdata.user[0]
-    // this.showSuccess(); 
 
     this.getGoal.org_id=this.userData.org_id;
     this.getGoal.goal_owner_id=this.userData.user_id;
@@ -233,32 +236,21 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       .post(`/api/v1/employee/getgoals`, this.getGoal, this.requestOptions)
       .subscribe(
         (response) => {
-          // console.log(Object.values(response)[0]);
           this.goalData = Object.values(response)[0];
-          this.goalCountData = Object.values(response)[1]
-          // console.log("goalData:---", this.goalData); 
-          // console.log("goal Count Data", this.goalCountData);
-
-          // console.log("goal_DATA:---", this.goalData)
+          this.goalCountData = Object.values(response)[1];
         },
         (error) => {
           console.error(error);
         }
       );
 
-      // if(this.goalData.goal_status=='WAITING_FOR_APPROVAL' || this.goalData.goal_status=='APPROVED'){
-      //   this.active=this.goalData.filter((goal:any)=>goal.goal_status=='WAITING_FOR_APPROVAL'||goal.goal_status=='APPROVED');
-      // // }
-      // console.log(this.active,"active")
 
     // Create-goal content
     this.user=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))));
-    // console.log(this.userdata.user[0],"kjhskjkj");
     this.userData=this.user[0]
     this.newObjective.org_id=this.userData.org_id;
     // this.newObjective.goal_setting_id=this.userData.first_name;
     this.newObjective.created_by=this.userData.user_id;
-    // this.newObjective.updated_by=this.userData.first_name;
     this.getUser.org_id=this.userData.org_id;
   
     this.user_id=JSON.parse(JSON.parse(JSON.stringify(sessionStorage.getItem("userData"))))[0].user_id
@@ -282,7 +274,21 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     },(error)=>{
       console.error(error);
     })
+  
+
+  // Get goal settings
+  this.http.post(`/api/v1/admin/getGoalSettings`, this.getUser , this.requestOptions
+  ).subscribe((result:any)=>{
+      this.goalSettings=JSON.stringify(result[0]);
+      sessionStorage.setItem("goalSettings" , this.goalSettings);
+      this.goalSettings=sessionStorage.getItem("goalSettings");
+      this.goalSettings=JSON.parse(this.goalSettings);
+    },(error)=>{
+      console.error(error);
+
+    });
   }
 
+  
   
 }

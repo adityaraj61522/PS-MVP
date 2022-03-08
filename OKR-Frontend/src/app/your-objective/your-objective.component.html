@@ -23,15 +23,15 @@
                                     </div>
                                     <div class="in-date">
                                         <!-- <div class="form-group">
-                    <label>Which period is the objectiveRunning in?*</label><br>
-                    <select class="form-select in-2" ngModel aria-label="Default select example" name="goal_quater" #goal_quater="ngModel" goal_quater required>
-                  <option value="1">Q1</option>
-                  <option value="2">Q2</option>
-                  <option value="3">Q3</option>
-                  <option value="4">Q4</option>
-                </select>
-                <span class="help-block" *ngIf="!goal_quater.valid && goal_quater.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
-                  </div> -->
+                                            <label>Which period is the objectiveRunning in?*</label><br>
+                                            <select class="form-select in-2" ngModel aria-label="Default select example" name="goal_quater" #goal_quater="ngModel" goal_quater required>
+                                        <option value="1">Q1</option>
+                                        <option value="2">Q2</option>
+                                        <option value="3">Q3</option>
+                                        <option value="4">Q4</option>
+                                        </select>
+                                        <span class="help-block" *ngIf="!goal_quater.valid && goal_quater.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+                                        </div> -->
                                         <div class="form-group">
                                             <label>Start Date*</label><br>
                                             <input type="date" name="goal_start_date" ngModel class="in-d" #goal_start_date="ngModel" goal_start_date required min="{{todayDate}}" max="{{goal_due_date.value}}">
@@ -39,7 +39,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>End Date*</label><br>
-                                            <input type="date" name="goal_due_date" ngModel class="in-d" #goal_due_date="ngModel" goal_due_date required min="{{goal_start_date.value}}">
+                                            <input type="date" name="goal_due_date" ngModel class="in-d" #goal_due_date="ngModel" goal_due_date required min="{{goal_start_date.value}}" max="{{date_limit}}">
                                             <span class="help-block" *ngIf="!goal_due_date.valid && goal_due_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                                         </div>
                                     </div>
@@ -49,30 +49,29 @@
                                             <input id="typeahead-basic" type="text" class="form-control in-2" ngModel #goal_owner_name="ngModel" goal_owner_name required [(ngModel)]="model" name="goal_owner_name" [ngbTypeahead]="search" [resultFormatter]="outFormatter" [inputFormatter]="outFormatter"
                                             />
                                             <span class="help-block" *ngIf="!goal_owner_name.valid && goal_owner_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+                                            <span class="help-block" *ngIf="goal_limit_exceeded"><i class="fas fa-exclamation-circle"></i>Goal limit exceeded for {{model.full_name}}!!!</span>
                                         </div>
-                                        <!-- <pre>Model: {{ model | json }}</pre> -->
-                                        <!-- <div class="form-group">
-                <label>To which Company Objective This Objective Align With:</label><br>
-                  <input id="typeahead-basic" type="text" class="form-control in-2" ngModel #linked_org_goal_id="ngModel" linked_org_goal_id required [(ngModel)]="modelOrgGoal" name="linked_org_goal_id" [ngbTypeahead]="searchOrgGoal"
-                  [resultFormatter]="inFormatter"
-                  [inputFormatter]="inFormatter"/>
-            <span class="help-block" *ngIf="!linked_org_goal_id.valid && linked_org_goal_id.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
-                </div> -->
-                                        <div class="form-group">
-                                            <label>To which Company Objective This Objective Align With:</label><br>
-                                            <select class="form-select in-2" ngModel aria-label="Default select example" name="linked_org_goal_id" #linked_org_goal_id="ngModel" linked_org_goal_id required>
-                  <option value="">Please select company objective</option>
-              <option *ngFor="let item of allOrgGoal" value="{{item.goal_id}}">{{item.goal_name}}</option>
-              <!-- <option value="2">Q2</option>
-              <option value="3">Q3</option>
-              <option value="4">Q4</option> -->
-            </select>
-            <span class="help-block" *ngIf="!linked_org_goal_id.valid && linked_org_goal_id.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
-              </div>
-            </div>
-              <div class="in-date">
-              </div>
-              </div>
+                                        <!--   Mandatory    -->
+                                        <div *ngIf="goalSettings.align_company_objective==1">
+                                            <div class="form-group" *ngIf="goalSettings.mandatory_company_objective==1">
+                                                <label>To which Company Objective This Objective Align With:</label><br>
+                                                <select class="form-select in-2" ngModel aria-label="Default select example" name="linked_org_goal_id" #linked_org_goal_id="ngModel" linked_org_goal_id required>
+                                                    <option value="">Please select company objective</option>
+                                                    <option *ngFor="let item of allOrgGoal" value="{{item.goal_id}}">{{item.goal_name}}</option>
+                                                </select>
+                                                <span class="help-block" *ngIf="!linked_org_goal_id.valid && linked_org_goal_id.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+                                            </div>
+                                            <!--    Not Mandatory    -->
+                                            <div class="form-group"*ngIf="goalSettings.mandatory_company_objective==0">
+                                                <label>To which Company Objective This Objective Align With:</label><br>
+                                                <select class="form-select in-2" ngModel aria-label="Default select example" name="linked_org_goal_id" #linked_org_goal_id="ngModel">
+                                                    <option value="">Please select company objective</option>
+                                                    <option *ngFor="let item of allOrgGoal" value="{{item.goal_id}}">{{item.goal_name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
               <div class="modal-footer">
                 <button class="btn btn-primary" type="submit"  *ngIf="!isLoad"
                 data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">Add Key Result</button>
