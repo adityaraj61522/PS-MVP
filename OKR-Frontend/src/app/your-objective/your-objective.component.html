@@ -1,6 +1,7 @@
 <app-nav></app-nav>
 
 <section class="active-list">
+    <app-objective-upload></app-objective-upload>
     <div>
         <strong *ngIf="(goalCountData[0].IN_PROGRESS + goalCountData[0].WAITING_FOR_CLOSURE  + goalCountData[0].WAITING_FOR_APPROVAL)">Active({{goalCountData[0].IN_PROGRESS  + goalCountData[0].WAITING_FOR_CLOSURE + goalCountData[0].WAITING_FOR_APPROVAL}})</strong>
         <app-milestone></app-milestone>

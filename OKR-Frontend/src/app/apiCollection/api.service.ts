@@ -9,6 +9,7 @@ export class ApiService {
   getUsersUrl = `${this.baseUrl}/api/v1/employee/getusers`;
   getSingleUserUrl = `${this.baseUrl}/api/v1/employee/getgoaldetails`;
   createMilestoneUrl = `${this.baseUrl}/api/v1/employee/create-milestone`;
+  uploadObjectiveUrl = `${this.baseUrl}/api/v1/admin/bulkUpload`;
 
   showObjective:boolean = false;
   showMilestone:boolean = false
@@ -31,7 +32,8 @@ changeShowMilestone=()=>{
   }
   // set headers
   headers = {
-    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Content-Type': 'multipart/form-data',
     'Accept': 'application/json',
     'Access-Control-Allow-Headers': '*',
     // 'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
@@ -53,6 +55,12 @@ changeShowMilestone=()=>{
   }
 
 
+  upload_objective(file:any){
+    const formData = new FormData();
+    formData.append('file', file); 
+    console.log('c2');
+    return this.http.post(this.uploadObjectiveUrl,formData,this.requestOptions)
+  }
  getSingleUser(id:string){
   return this.http.post(this.getSingleUserUrl, {"goal_id":id},this.requestOptions);
  }
