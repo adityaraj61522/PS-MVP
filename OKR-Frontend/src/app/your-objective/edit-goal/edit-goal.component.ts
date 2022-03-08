@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit , Input} from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../apiCollection/api.service';
 import {Observable, OperatorFunction} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -47,7 +48,7 @@ export class EditGoalComponent implements OnInit {
   userdata: any;
   goaldata: any;
   goal_data: any;
-  constructor( private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiData:ApiService) {
+  constructor( private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiData:ApiService, private toastr: ToastrService) {
     this.apiData.getUsers().subscribe((result)=>{
       console.log(result);
       
@@ -123,14 +124,20 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       console.error(error);
     })
   }
+
   
   updateObjective(){
     this.http.post(`/api/v1/employee/update-objective`, this.updateForm.value, this.requestOptions).subscribe((result)=>{
       console.log(result);
       console.log("aaaaaa", this.model);
-      window.location.reload();
+      this.toastr.success("Update Goal Successfully...", 'Success');
+        setTimeout(() => {
+        window.location.reload();
+        }, 1000);
+      //window.location.reload();
     },(error)=>{
       console.error(error);
+      this.toastr.error('Something went wrong!!!', 'Error!!!');
     });
   }
   

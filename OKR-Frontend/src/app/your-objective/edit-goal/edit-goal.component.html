@@ -69,6 +69,6 @@
   <div class="modal-footer">
     <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal" (click)="objectiveHide()"  aria-label="Close"> Cancel </button><br> -->
     <button class="btn btn-primary" type="submit" 
-    data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Update Key Result</button>
+    data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal" [disabled]="updateForm.invalid">Update Key Result</button>
   </div>
 </form>
