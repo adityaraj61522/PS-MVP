@@ -11,7 +11,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalToggleLabel">
-          UPDATE MILESTONE: YOUR AREA OF FOCUS
+          UPDATE MILESTONE: <strong>{{milestoneDetails.milestone_name}}</strong>
         </h5>
         <button
           type="button"
@@ -21,7 +21,7 @@
           aria-label="Close"
         ></button>
       </div>
-      <app-update-milestone [milestoneData]="milestoneDetails"></app-update-milestone>
+      <app-update-milestone [milestoneData]="milestoneDetails" [goalData]="goal_data[0]"></app-update-milestone>
     </div>
   </div>
 </div>
@@ -91,7 +91,8 @@
             style="display: block"
             aria-labelledby="dropdownMenuButton1"
           >
-            <li (click)="showUpdateMilestone()">
+            <li *ngIf="milestoneDetails.milestone_progress == '0'"
+              (click)="showUpdateMilestone()">
               <a class="dropdown-item">Update Milestone</a>
             </li>
             <li>

@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { debounceTime, distinctUntilChanged, map, Observable, OperatorFunction } from 'rxjs';
-import { ApiService } from 'src/app/apiCollection/api.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-update-milestone',
@@ -10,21 +11,24 @@ import { ApiService } from 'src/app/apiCollection/api.service';
   styleUrls: ['./update-milestone.component.css']
 })
 export class UpdateMilestoneComponent implements OnInit {
+
   @Input() goalId: any;
+  @Input() milestoneData: any
+  @Input() goalData: any
 
   allUsers: any = [];
   public model: any;
   myForm!: FormGroup;
-  isLoad = false
-  show=false;
-  show2=false;
   choice:string = 'boolean';
-  successMsg:boolean = false
-  errorMsg:boolean = false
   min_due_date:string = ''
+  toastService: any;
 
-  constructor(private fb: FormBuilder, private http : HttpClient,private apiData:ApiService) { 
-    this.apiData.getUsers().subscribe((result)=>{
+  getUser={
+    org_id:"1"
+  }
+
+  constructor(private fb: FormBuilder, private http : HttpClient,private apiService:ApiService, private toastr: ToastrService) { 
+    this.apiService.post(`/api/v1/employee/getusers`, this.getUser).subscribe((result)=>{
       console.log(result);
       
       this.allUsers = result
@@ -34,29 +38,22 @@ export class UpdateMilestoneComponent implements OnInit {
   }
 
 
-  inFormatter = (x: { full_name: string }) => x.full_name;
-  outFormatter = (x: { full_name: string }) => x.full_name;
+  inFormatter = (x: {full_name: string}) => x.full_name;
+  outFormatter = (x: {full_name: string}) => x.full_name; 
 
-  search: OperatorFunction<string, readonly string[]> = (
-    text$: Observable<string>
-  ) =>
+  search: OperatorFunction<string, readonly string[]> = (text$: 
+    Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
-      map((term) =>
-        term.length < 1
-          ? []
-          : this.allUsers
-              .filter(
-                (v: any) =>
-                  v.full_name.toLowerCase().indexOf(term.toLowerCase()) > -1
-              )
-              .slice(0, 10)
-      )
-    );
+      map(term => term.length < 1 ? []
+        : this.allUsers.filter((v: any) => v.full_name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)),
+    )
+
 
   ngOnInit(): void {
-    console.log(this.goalId);
+    console.log(this.milestoneData)
+    console.log(this.goalData)
 
     this.myForm = this.fb.group({
       org_id: sessionStorage.getItem('orgDetails_id'),
@@ -65,19 +62,7 @@ export class UpdateMilestoneComponent implements OnInit {
       milestone_due_date: ['', [Validators.required]],
       is_active: '1',
       created_by: '1',
-      //owner detail
       ownerObj: {},
-      // milestone_owner_id: '1',
-      // milestone_owner_name: 'ravi',
-      // milestone_owner_email: 'ravi@gmail.com',
-
-      //boolean
-      // milestone_status: ['not completed',[Validators.required]],
-
-      // //progress
-      // milestone_progress: [0,[Validators.required,Validators.min(0),Validators.max(100)]],
-
-      // metric
       metric_start_value: [0, [Validators.required, Validators.min(0)]],
       metric_target_value: [1, [Validators.required, Validators.min(1)]],
     });
@@ -92,13 +77,13 @@ export class UpdateMilestoneComponent implements OnInit {
     this.choice = option;
   }
 
-  onSubmit(form: FormGroup) {
-    this.isLoad = true
-
-    var postReq:any = {
-      goal_id:  this.goalId  || sessionStorage.getItem("goalId") ,
+  onUpdateMilestone(form: FormGroup) {
+    var reqBody:any = {
       is_active: "1",
       org_id: sessionStorage.getItem("orgDetails_id") || "1", 
+      goal_id:  this.goalData.goal_id  || sessionStorage.getItem("goalId"),
+      milestone_id: this.milestoneData.milestone_id,
+      milestone_progress: this.milestoneData.milestone_progress,
       milestone_name: form.value.milestone_name,
       milestone_start_date: form.value.milestone_start_date,
       milestone_due_date: form.value.milestone_due_date,
@@ -111,44 +96,42 @@ export class UpdateMilestoneComponent implements OnInit {
       created_by: sessionStorage.getItem('user_id'),
     };
 
-    console.log(postReq);
+    console.log(reqBody);
 
     if (this.choice == 'boolean') {
-      postReq['milestone_status'] = 'Not Completed';
-      this.postMilestoneReq(postReq, 'boolean');
+      reqBody['metric_start_value'] = 0;
+      reqBody['metric_target_value'] = 0;
+      reqBody['metric_curr_value'] = 0;
+      this.updateMilestoneRequest(reqBody, 'boolean');
     }
     if (this.choice == 'progress') {
-      postReq['milestone_progress'] = 0;
-      this.postMilestoneReq(postReq, 'progress');
+      reqBody['metric_start_value'] = 0;
+      reqBody['metric_target_value'] = 0;
+      reqBody['metric_curr_value'] = 0;
+      this.updateMilestoneRequest(reqBody, 'progress');
     }
     if (this.choice == 'metric') {
-      postReq['metric_start_value'] = form.value.metric_start_value;
-      postReq['metric_target_value'] = form.value.metric_target_value;
-      postReq['metric_curr_value'] = form.value.metric_start_value;
-      this.postMilestoneReq(postReq, 'metric');
+      reqBody['metric_start_value'] = form.value.metric_start_value;
+      reqBody['metric_target_value'] = form.value.metric_target_value;
+      reqBody['metric_curr_value'] = form.value.metric_start_value;
+      this.updateMilestoneRequest(reqBody, 'metric');
     }
+
   }
 
-
-  postMilestoneReq = (data:any,milestoneType:string)=>{
-    this.apiData.createMilestone(data).subscribe((result)=>{
+  updateMilestoneRequest(data:any, milestoneType:string){
+    this.apiService.post(`/api/v1/employee/update-milestone`, data).subscribe((result)=>{
       console.log(result);
-      if(result){
-        this.isLoad = false;
-        this.successMsg = true;
-
-        setInterval(() => {
-          window.location.reload();
-          }, 1000);
-        }
-      },
-      (error) => {
-        console.error(error);
-        if (error) {
-          this.errorMsg = true;
-        }
-      }
-    )
+      // console.log("aaaaaa", this.model);
+      this.toastr.success("Milestone Updated Successfully...", 'Success');
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+      
+    },(error)=>{
+      console.error(error);
+      this.toastr.error('Something went wrong!!!', 'Error!!!');
+    });
   }
 
 }
