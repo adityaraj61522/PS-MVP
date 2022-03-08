@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  constructor( private http:HttpClient) { }
+  constructor( private http:HttpClient, private router:Router) { }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     'Accept': 'application/json',
@@ -41,5 +42,9 @@ export class UsersComponent implements OnInit {
       console.error(error);
     })
   }
-
+addUser(){
+  this.router.navigate(['/register'], {
+    queryParams: { action: `admin_add` },
+  });
+}
 }

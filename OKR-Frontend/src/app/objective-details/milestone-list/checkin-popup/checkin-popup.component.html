@@ -1,4 +1,4 @@
-<form [formGroup]="checkinForm" (ngSubmit)="checkiGoal()">
+<form [formGroup]="checkinForm" (ngSubmit)="checkinGoal()">
     <div>
         <p style="margin-left: 20px;"><strong> Milestone Type: </strong>{{milestoneDetails.milestone_type}}</p>
     </div>
@@ -11,7 +11,7 @@
               <div type="text" class="in-2" style="border: 1px solid lightgrey;"> {{milestoneDetails.metric_start_value}}</div>
               <!-- <span class="help-block" *ngIf="!goal_name.valid && goal_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
             </div>
-            <div class="form-group">
+            <div class="form-group"> 
               <label>Target Value:</label><br>
               <!-- <input type="text" class="in-2 form-control" formControlName="metric_target_value" required> -->
               <div type="text" class="in-2" style="border: 1px solid lightgrey;"> {{milestoneDetails.metric_target_value}}</div>
@@ -22,14 +22,12 @@
       <div class="in-date">
         <div class="form-group">
         <label>Already Acheived Value(To Date):</label><br>
-        <!-- <input type="text" class="in-2 form-control" formControlName="metric_curr_value" required> -->
         <div type="text" class="in-2" style="border: 1px solid lightgrey;"> {{milestoneDetails.metric_curr_value}}</div>
-        <!-- <span class="help-block" *ngIf="!goal_start_date.valid && goal_start_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
         </div>
         <div class="form-group">
         <label>Enter Target Value Achieved (to date):</label><br>
-        <input type="text" class="in-2 form-control" formControlName="metric_value_new" required>
-        <!-- <span class="help-block" *ngIf="!goal_due_date.valid && goal_due_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
+        <input type="text" class="in-2 form-control" formControlName="metric_value_new" required   #targetValue>
+        <span class="help-block" *ngIf="new_val_error"><i class="fas fa-exclamation-circle"></i>Target Acheived Must be between Start and Target Matric Value!!!</span>
         </div>
       </div>
     </div>
@@ -37,8 +35,8 @@
         <div class="form-group">
             <label>Have You Acheived This?
                 <br><br>
-            <input type="radio" class="" formControlName="boolean_status" value="100" required> <strong class="yes-no" > Yes</strong>
-            <input type="radio" class="radio-btn" formControlName="boolean_status" value="0" required> <strong class="yes-no"> No</strong>
+            <input type="radio" class="" value="100" formControlName="boolean_status"> <strong class="yes-no" > Yes</strong>
+            <input type="radio" class="radio-btn" value="0" formControlName="boolean_status"> <strong class="yes-no"> No</strong>
         </label>
         </div>
       </div>
@@ -56,7 +54,7 @@
                     max="100"
                     aria-label="units"
                     value="{{milestoneDetails.milestone_progress}}"
-                    style=""
+                    
                     color="primary"
                     (change)="updateProgress($event)" >
                 </mat-slider>
@@ -77,6 +75,9 @@
     <div class="modal-footer">
       <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal" (click)="objectiveHide()"  aria-label="Close"> Cancel </button><br> -->
       <button class="btn btn-primary" type="submit" 
-      data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Checkin</button>
+      data-bs-target="#exampleModalToggle2" *ngIf="!checked" style="background-color: #0D8EBB;" data-bs-toggle="modal">Checkin</button>
+      <button class="btn btn-primary" type="submit"  *ngIf="checked"
+      data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 85px;" data-bs-toggle="modal">
+      <mat-spinner [diameter]="23" style="margin-left: 20px;"></mat-spinner></button>
     </div>
   </form>

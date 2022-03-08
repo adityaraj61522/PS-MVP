@@ -57,7 +57,7 @@ export class EditGoalComponent implements OnInit {
    }
 
   Id={
-    goal_id:""
+    goal_id:"",
   }
   // goal_data:any;
   goal_id:any;

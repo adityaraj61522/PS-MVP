@@ -39,7 +39,7 @@ export class MyTeamComponent implements OnInit {
     this.manager.user_id=this.sessionData.user_id;
     console.log(this.manager,12345678)
   
-    // Get Goals
+    // Get my team users
     this.http.post(`/api/v1/employee/getMyTeam`, this.manager, this.requestOptions).subscribe((response)=>{
       console.log(response);
       this.teamMembers=response;

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-checkin-popup',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CheckinPopupComponent implements OnInit {
 
-  constructor( private http : HttpClient,  private router : Router ) { }
+  constructor( private http : HttpClient,  private router : Router, private toastr:ToastrService ) { }
 
   @Input() milestoneDetails:any;
 
@@ -26,7 +27,7 @@ export class CheckinPopupComponent implements OnInit {
     headers: new HttpHeaders(this.headers),
   };
   disabled=true;
-
+checked=false
   checkinForm = new FormGroup ({
     org_id:new FormControl(''),
     goal_id:new FormControl(''),
@@ -66,8 +67,10 @@ export class CheckinPopupComponent implements OnInit {
     milestone_type:"",
     // milestone_progress_old:new FormControl(''),
   }
+  new_val_error=false;
 
   progress:any;
+  bool:any;
 
   formatLabel(value: number) {
     if (value >= 10) {
@@ -81,7 +84,7 @@ export class CheckinPopupComponent implements OnInit {
     // console.log(this.checkinForm,"checghkjekjkjk")
   }
 
-  checkiGoal(){
+  checkinGoal(){
       this.checkinFormSubmit.org_id=this.checkinForm.value.org_id;
       this.checkinFormSubmit.goal_id=this.checkinForm.value.goal_id;
       this.checkinFormSubmit.metric_start_value=this.milestoneDetails['metric_start_value'];
@@ -99,26 +102,31 @@ export class CheckinPopupComponent implements OnInit {
       this.checkinFormSubmit.boolean_status=this.checkinForm.value.boolean_status;
       this.checkinFormSubmit.checin_comment=this.checkinForm.value.checin_comment;
 
-    console.log(this.checkinForm,"first")
-    console.log(this.checkinFormSubmit,"first")
+      if(this.checkinFormSubmit.metric_value_new>=this.checkinFormSubmit.metric_start_value && this.checkinFormSubmit.metric_value_new<=this.checkinFormSubmit.metric_target_value){
+        this.new_val_error=false;
     this.http.post(`/api/v1/employee/checkin`, this.checkinFormSubmit , this.requestOptions
   ).subscribe((result:any)=>{
       console.log(result);
       sessionStorage.setItem("goalId",result.goalId);
-      // this.router.navigate(
-      //   ['/objective-deatils'],
-      //   { queryParams: { ID: `${this.milestoneDetails.goal_id }`} }
-      // );
+      this.toastr.success("Checked In Successfully...", 'Success');
+      this.ngOnInit();
+      this.checked=true;
+      setTimeout(() => {
       window.location.reload();
+      }, 2000);
     },(error)=>{
       console.error(error);
-
+      this.toastr.error("Something went wrong!!!", 'Error');
     });
+  }else{
+    this.new_val_error=true;
+  }
     console.log(this.checkinForm.value);
   }
 
   ngOnInit(): void {
     this.progress=this.milestoneDetails.milestone_progress;
+    this.bool=JSON.stringify(this.milestoneDetails.milestone_progress);
 
     this.checkinForm = new FormGroup ({
       org_id:new FormControl(this.milestoneDetails['org_id']),
@@ -127,7 +135,7 @@ export class CheckinPopupComponent implements OnInit {
       metric_target_value:new FormControl(this.milestoneDetails['metric_target_value']),
       metric_curr_value:new FormControl(this.milestoneDetails['metric_curr_value']),
       metric_value_new:new FormControl(),
-      check_in_status:new FormControl(this.milestoneDetails['dob']),
+      check_in_status:new FormControl(),
       milestone_progress:new FormControl(this.progress),
       milestone_id:new FormControl(this.milestoneDetails['milestone_id']),
       milestone_progress_old:new FormControl(this.milestoneDetails['milestone_progress_old']),
@@ -135,7 +143,7 @@ export class CheckinPopupComponent implements OnInit {
       close_checkin_old_value:new FormControl(this.milestoneDetails['conf_password']),
       close_checkin_new_value:new FormControl(this.milestoneDetails['conf_password']),
       milestone_type:new FormControl(this.milestoneDetails['milestone_type']),
-      boolean_status:new FormControl(),
+      boolean_status:new FormControl(this.bool),
       checin_comment:new FormControl()
     })
 

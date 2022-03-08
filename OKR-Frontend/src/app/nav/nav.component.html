@@ -23,13 +23,13 @@
         <li class="nav-item">
           <div class="nav-link active" aria-current="page">
               <div class="dropdown">
-                {{ userData.first_name }}
-                {{ userData.last_name }}
+                {{ sessionData.first_name }}
+                {{ sessionData.last_name }}
               <button class="btn btn-default dropdown-toggle" (click)="dpsh()" style="color: #0D8EBB; padding-top: 0px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://img.icons8.com/ios-filled/25/000000/circled.png"/>
               </button>
               <ul class="dropdown-menu" style="display: block;" *ngIf="dpshow" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" routerLink="/">Logout</a></li>
+                <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
               </ul>
             </div>
           </div>
@@ -52,7 +52,7 @@
       <a class="nav-link">MY IDP</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/my-team" routerLinkActive="active">MY TEAM</a>
+      <a class="nav-link" routerLink="/my-team" *ngIf="teamMembers.length!>0" routerLinkActive="active">MY TEAM</a>
     </li>
   </ul>
   </nav>

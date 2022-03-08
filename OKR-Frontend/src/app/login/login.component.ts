@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-// import * as bcrypt from 'bcryptjs';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +15,7 @@ export class LoginComponent implements OnInit {
   loginData={
     username:"",
     password:"",
-    orgId:1 // hard coded 
+    orgId:""
   };
 
   correctPassword=true;
@@ -67,6 +66,7 @@ export class LoginComponent implements OnInit {
       
       sessionStorage.setItem("orgDetails_id",this.orgData.org_id);
       sessionStorage.setItem("orgData",JSON.stringify(this.orgData));
+      this.loginData.orgId=this.orgData.org_id;
       this.org_logo=sessionStorage.getItem("orgDetails")
       this.org_banner=sessionStorage.getItem("orgDetails.org_corporate_banner_url");
       // this.org_banner="https://logos-world.net/wp-content/uploads/2020/12/Lays-Logo.png";

@@ -1,7 +1,8 @@
 
 <div class="container">
     <div class="Register-box shadow-lg">
-        <h2 class="reg-logo">Register</h2>
+        <h2 class="reg-logo" *ngIf="actionType!=='admin_add'">Register</h2>
+        <h2 class="reg-logo" *ngIf="actionType=='admin_add'">Add User</h2>
         <form (ngSubmit)="submit()" #f="ngForm">
             <div class="row">
                 <div class="col-sm-6">
@@ -18,7 +19,7 @@
                     <div class="form-group">
                         <input type="text" name="username" class="r-in form-control" placeholder="Enter User Name" ngModel #username="ngModel" username required>
 				        <span class="help-block" *ngIf="!username.valid && username.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid Username!</span>
-                        <span class="help-block" *ngIf="userExist"><i class="fas fa-exclamation-circle"></i>Entered Username already exists!</span>
+                        <span class="help-block" *ngIf="userExist"><i class="fas fa-exclamation-circle"></i>User already exists!</span>
                     </div>
                     
                     <!-- <div class="form-group">
@@ -29,7 +30,7 @@
                     <div class="form-group">
                         <input type="email" name="email" class="r-in form-control" placeholder="Enter Email" ngModel #email="ngModel" email required>
 				        <span class="help-block" *ngIf="!email.valid && email.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid email!</span>
-                        <span class="help-block" *ngIf="userExist"><i class="fas fa-exclamation-circle"></i>Entered Email already exists!</span>
+                        <span class="help-block" *ngIf="userExist"><i class="fas fa-exclamation-circle"></i>User already exists!</span>
                     </div>
 
                     <div class="form-group">
@@ -57,6 +58,7 @@
                     <div class="form-group">
                         <input type="text" name="emp_code" class="r-in form-control" placeholder="Enter Emp Code" ngModel #emp_code="ngModel" emp_code required>
 				        <span class="help-block" *ngIf="!emp_code.valid && emp_code.touched"><i class="fas fa-exclamation-circle"></i>Enter Valid Emp Code!</span>
+                        <span class="help-block" *ngIf="userExist"><i class="fas fa-exclamation-circle"></i>User already exists!</span>
                     </div>
 
                     <!-- <div class="form-group">
@@ -110,7 +112,10 @@
             <!-- <span class="help-block" *ngIf="!pwd_matched"><i class="fas fa-exclamation-circle"></i>The password does not match!!!</span> -->
             
 
-            <button class="btn btn-success bt-reg" type="submit" [disabled]="!f.valid">Register</button>
+            <button class="btn btn-success bt-reg" *ngIf="actionType!=='admin_add'" type="submit" [disabled]="!f.valid">Register</button>
+            <button class="btn btn-success bt-reg" *ngIf="actionType=='admin_add'" type="submit" [disabled]="!f.valid">Add User</button>
+            <button class="btn btn-danger bt-reg" *ngIf="actionType=='admin_add'" routerLink="/admin/users" type="button">Cancel</button>
+            <p class="quest" style="text-align: center;" *ngIf="actionType!=='admin_add'">Already have an account?<strong><a routerLink="/"> Login</a></strong></p>
         </form>
     </div>
 </div>
