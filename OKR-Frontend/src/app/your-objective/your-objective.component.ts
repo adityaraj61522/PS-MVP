@@ -93,6 +93,8 @@ goalSettings:any;
   }
   user="";
   allOrgGoal:any;
+  startDate:any;
+  endDate:any;
 
   showDp(){
     if(this.dp == false){
@@ -185,6 +187,35 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       map(term => term.length < 1 ? []
         : this.allUsers.filter((v: any) => v.full_name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)),
     )
+
+      selectQuater(){
+        if(this.ObjFormData.value.goal_quater=="1"){
+          this.startDate="01/01/2022";
+          this.endDate="31/03/2022";
+        }else if(this.ObjFormData.value.goal_quater=="2"){
+          this.startDate="01/04/2022";
+          this.endDate="31/06/2022";
+        }else if(this.ObjFormData.value.goal_quater=="3"){
+          this.startDate="01/07/2022";
+          this.endDate="31/09/22";
+        }else if(this.ObjFormData.value.goal_quater=="4"){
+          this.startDate="01/10/2022"
+          this.endDate="31/12/2022"
+        }
+        this.newObjective.goal_start_date=this.startDate;
+        this.newObjective.goal_due_date=this.endDate;
+      }
+      selectHalfYear(){
+        if(this.ObjFormData.value.goal_quater=="1"){
+          this.startDate="01/01/2022";
+          this.endDate="31/06/2022";
+        }else if(this.ObjFormData.value.goal_quater=="2"){
+          this.startDate="01/07/2022";
+          this.endDate="31/012/2022";
+        }
+        this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
+        this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
+      }
 
   addObjective(){
     this.isLoad = true;
@@ -287,6 +318,11 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       console.error(error);
 
     });
+
+    // if(this.goalSettings.goal_frequency=='QUATERLY'){
+    //   this.startDate="1/2/22"
+    //   this.endDate="1/3/22"
+    // }
   }
 
   
