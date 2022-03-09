@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-card',
@@ -7,13 +9,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-card.component.css']
 })
 export class UserCardComponent implements OnInit {
+  headers = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Accept': 'application/json',
+    'Access-Control-Allow-Headers': '*',
+    // 'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
+    // 'x-key':'1',
+    // 'x-org':'1'
+    'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
+    'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
+    'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
+  }  
+  requestOptions = {
+    headers: new HttpHeaders(this.headers),
+  };
 
-  constructor(private router:Router) { }
+  constructor( private http : HttpClient, private router:Router , private toastr: ToastrService) { }
 
   @Input() allUserDetails:any;
+  @Input() public deleteUser !: (user_id: any, admin_user_id:any)=>void;
+  @Input() isLoad: any;
 
+  admin_user_id=sessionStorage.getItem("user_id");
   edit=false;
-
   goalShow=false;
   showGoal(){
     if(this.goalShow==false){
@@ -34,7 +52,16 @@ export class UserCardComponent implements OnInit {
       queryParams: { action: `admin_update` },
     });
   }
+  show=false;
+  confirmationPopupShow(){
+    this.show=true;
+  }
+  confirmationPopupHide(){
+    this.show=false;
+  }
+  
   ngOnInit(): void {
+
   }
 
 }

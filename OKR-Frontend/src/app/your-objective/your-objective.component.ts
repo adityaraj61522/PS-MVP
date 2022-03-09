@@ -167,13 +167,7 @@ goalSettings:any;
       }
     }
   }
-  // Send for Closure
-  
-
-
-
-  // create Objective content
-
+// create Objective content
 inFormatter = (x: {goal_name: string}) => x.goal_name;
 outFormatter = (x: {full_name: string}) => x.full_name;
 
@@ -231,8 +225,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       this.goal_limit_exceeded=true;
       this.isLoad=false;
     }else{
-    this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions
-  ).subscribe((result:any)=>{
+    this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions).subscribe((result:any)=>{
       // console.log(result:any); 
       console.log(result);
       this.isLoad = false;
