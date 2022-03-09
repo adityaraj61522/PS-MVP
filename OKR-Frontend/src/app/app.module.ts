@@ -38,6 +38,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { UpdateMilestoneComponent } from './milestone/update-milestone/update-milestone.component';
 import { NgbdToastGlobal } from './milestone/toast/toast-global.component';
 import { ToastsContainer } from './milestone/toast/toasts-container.component';
+import { ObjectiveUploadComponent } from './bulkupload/objective-upload/objective-upload.component';
 // import { NgbdToastGlobalModule } from './milestone/toast/toast-global.module';
 
 @NgModule({
@@ -62,7 +63,8 @@ import { ToastsContainer } from './milestone/toast/toasts-container.component';
     MilestoneReuseComponent,
     UpdateMilestoneComponent,
     NgbdToastGlobal,
-    ToastsContainer
+    ToastsContainer,
+    ObjectiveUploadComponent
   ],
   imports: [
     BrowserModule,

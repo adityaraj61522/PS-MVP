@@ -1,0 +1,25 @@
+p.errorMsg {
+    color: darkred;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.uploadBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: royalblue;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px, rgb(0 0 0 / 30%) 0px 1px 3px -1px;
+    border: none;
+}
+input[type=file]::file-selector-button {
+    background-color: skyblue;
+    border: none;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+}
