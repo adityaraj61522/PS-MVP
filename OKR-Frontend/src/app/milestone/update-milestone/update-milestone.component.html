@@ -16,12 +16,13 @@
 
       <div class="form-group" *ngIf="choice=='metric'">
         <label>Metric start value*</label><br>
-        <input type="number" class="in-d" formControlName="metric_start_value"   >
+        <input type="number" class="in-d" formControlName="metric_start_value" #startValue (change)='setTarget(startValue.value)'  >
       </div>
       &nbsp;&nbsp;
       <div class="form-group ml-3" *ngIf="choice=='metric'">
         <label>Metric target value</label><br>
-        <input type="number" class="in-d" formControlName="metric_target_value"   >
+        <input type="number" class="in-d" formControlName="metric_target_value"   #targetValue (change)='showTargetError(targetValue.value)'  >
+        <div  class="form-text showError" *ngIf="showTargetFiledError">target value must be greater then start value.</div>
       </div>
       &nbsp;&nbsp;
     </div>
@@ -31,24 +32,22 @@
         <label>Owner:</label><br>
         <input type="text" class="in-2" [(ngModel)]="model" [ngbTypeahead]="search"  formControlName="ownerObj" 
         [resultFormatter]="inFormatter"
-        [inputFormatter]="outFormatter"/>
+        [inputFormatter]="outFormatter"/><br>
       </div>
-      <br>
       <div class="form-group"> 
-        <label>Start Date*</label><br> 
-        <input type="date"  class="in-d" formControlName="milestone_start_date"  #dateStartSelect   (change)='chooseDate(dateStartSelect.value)'>
+        <label>Start Date* {{start_date}}</label><br> 
+        <input type="date"  class="in-d" formControlName="milestone_start_date" min="{{start_date}}" max="{{end_date}}" #dateStartSelect   (change)='chooseStartDate(dateStartSelect.value)' >
       </div>
       <div class="form-group">
-        <label>End Date*</label><br>
-        <input type="date"   class="in-d"  formControlName="milestone_due_date" min="{{min_due_date}}">
+        <label>End Date*  {{end_date}}</label><br>
+        <input type="date"   class="in-d"   formControlName="milestone_due_date" min="{{min_due_date}}" max="{{end_date}}">
       </div>
     </div>
 
-  </div>
-  <div class="modal-footer">
-    <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal"   aria-label="Close"> Cancel </button><br> -->
-    <button class="btn btn-primary" type="submit" 
-    [disabled]="myForm.invalid"
-    data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Update Key Result</button>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="submit" 
+      [disabled]="myForm.invalid"
+      data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Update Key Result</button>
+    </div>
   </div>
 </form>

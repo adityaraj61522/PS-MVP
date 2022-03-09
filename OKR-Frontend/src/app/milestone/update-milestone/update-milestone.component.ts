@@ -20,8 +20,11 @@ export class UpdateMilestoneComponent implements OnInit {
   public model: any;
   myForm!: FormGroup;
   choice:string = 'boolean';
+  min_target_matrix:number = 1;
+  showTargetFiledError:boolean = false
   min_due_date:string = ''
-  toastService: any;
+  start_date:string = ''
+  end_date:string = ''
 
   getUser={
     org_id:"1"
@@ -50,10 +53,34 @@ export class UpdateMilestoneComponent implements OnInit {
         : this.allUsers.filter((v: any) => v.full_name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10)),
     )
 
+  setTarget(value:string){
+    this.min_target_matrix = +value + 1;
+    // this.myForm.controls['metric_target_value']
+  }
+  showTargetError(value:string){
+    var cur_target:number = +value
+    if(cur_target<this.min_target_matrix){
+      this.showTargetFiledError = true
+    }
+    else{
+      this.showTargetFiledError = false
+    }
+  }
+  // for desable min date
+  chooseStartDate(curr:string) {
+    this.min_due_date = curr;
+    this.myForm.controls['milestone_due_date'].enable()
+  }
+
+  changeChoice(option: string) {
+    this.choice = option;
+  }
 
   ngOnInit(): void {
     console.log(this.milestoneData)
     console.log(this.goalData)
+    this.start_date = new Date(this.goalData.goal_start_date).toISOString().split('T')[0];
+    this.end_date = new Date(this.goalData.goal_due_date).toISOString().split('T')[0];
 
     this.myForm = this.fb.group({
       org_id: sessionStorage.getItem('orgDetails_id'),
@@ -64,17 +91,8 @@ export class UpdateMilestoneComponent implements OnInit {
       created_by: '1',
       ownerObj: {},
       metric_start_value: [0, [Validators.required, Validators.min(0)]],
-      metric_target_value: [1, [Validators.required, Validators.min(1)]],
+      metric_target_value: [1, [Validators.required, Validators.min(this.min_target_matrix)]],
     });
-  }
-  
-  // for desable min date
-  chooseDate(value: string) {
-    this.min_due_date = value;
-  }
-
-  changeChoice(option: string) {
-    this.choice = option;
   }
 
   onUpdateMilestone(form: FormGroup) {
