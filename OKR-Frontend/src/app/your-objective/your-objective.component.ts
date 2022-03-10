@@ -227,10 +227,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
     this.newObjective.goal_owner_email=this.model.email;
     this.newObjective.linked_org_goal_id=this.ObjFormData.value.linked_org_goal_id;
     
-    if(this.goal_limit_exceeded=true){
-      this.goal_limit_exceeded=true;
-      this.isLoad=false;
-    }else{
+    
     this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions
   ).subscribe((result:any)=>{
       // console.log(result:any); 
@@ -247,7 +244,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       this.isLoad = false;
       this.er=true;
     });
-  }
+  
     // console.log(JSON.stringify(this.newObjective ),"obj")
   }
 

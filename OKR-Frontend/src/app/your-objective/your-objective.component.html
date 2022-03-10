@@ -120,7 +120,7 @@
                                 </div>
               <div class="modal-footer">
                 <button class="btn btn-primary" type="submit"  *ngIf="!isLoad"
-                data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">Add Key Result</button>
+                data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" [disabled]="!ObjForm.valid || goal_limit_exceeded" data-bs-toggle="modal">Add Key Result</button>
                 <button class="btn btn-primary" type="submit"  *ngIf="isLoad"
                 data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 130px;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">
                 <mat-spinner [diameter]="23" style="margin-left: 40px;"></mat-spinner></button>
