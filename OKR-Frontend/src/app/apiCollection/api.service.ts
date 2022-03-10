@@ -32,8 +32,8 @@ changeShowMilestone=()=>{
   }
   // set headers
   headers = {
-    // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    'Content-Type': 'multipart/form-data',
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    // 'Content-Type': 'multipart/form-data',
     'Accept': 'application/json',
     'Access-Control-Allow-Headers': '*',
     'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
