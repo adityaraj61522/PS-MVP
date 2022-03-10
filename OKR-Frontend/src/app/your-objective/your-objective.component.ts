@@ -1,14 +1,11 @@
-import { HttpClientModule, HttpEvent, HttpHandler, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
+import {  HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { NgStyle } from '@angular/common';
-import { FormControl } from '@angular/forms';
-import { Observable,BehaviorSubject, OperatorFunction } from 'rxjs';
-import { debounceTime,switchMap, distinctUntilChanged, map } from 'rxjs/operators';
-import { ApiService } from '../apiCollection/api.service';
+import { Observable, OperatorFunction } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { end } from '@popperjs/core';
 
 @Component({
   selector: 'app-your-objective',
@@ -20,9 +17,6 @@ export class YourObjectiveComponent implements OnInit {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     'Accept': 'application/json',
     'Access-Control-Allow-Headers': '*',
-    // 'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
-    // 'x-key':'1',
-    // 'x-org':'1'
     'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
     'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
     'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
@@ -68,13 +62,13 @@ export class YourObjectiveComponent implements OnInit {
   allUsers:any;
   goalData: any;
   goalCountData: any;
-goalSettings:any;
+  goalSettings:any;
   todayDate = new Date().toISOString().split("T")[0];
 
   model: any;
   modelOrgGoal:any;
 
-  date_limit:any;
+  date_limit:Date | undefined;
 
   newObjective={
     goal_name: "",
@@ -86,15 +80,18 @@ goalSettings:any;
     org_id:"",
     goal_owner_id:"",
     goal_owner_email:"",
-    // goal_type:"",
     goal_setting_id:1,
     created_by:'',
-    updated_by:1
+    updated_by:1,
+    goal_approver:""
   }
   user="";
   allOrgGoal:any;
   startDate:any;
   endDate:any;
+  startdateDB:any;
+  endDateDB:any;
+  date_limit_s:any;
 
   showDp(){
     if(this.dp == false){
@@ -108,34 +105,14 @@ goalSettings:any;
   }
 
 
-  // show goal & milestone
   objectiveShow(){
     this.show=true;
   } 
-
   objectiveHide(){
     this.show = false
   }
-
-  keyresultshow(){
-    this.show2=true;
-  }
   keyresultHide(){
     this.show2=false;
-  }
-
- 
-  showSuccess() {
-    this.toastr.success("Successfully Created...", 'Created');
-  }
-  showSuccessDeleteGoal() {
-    this.toastr.success("Goal Deleted Successfully...", 'Deleted');
-  }
-  showSuccessCloseGoal() {
-    this.toastr.success("Goal sent for Closure Successfully...", 'Success');
-  }
-  showError() {
-    this.toastr.error('Something went wrong!!!', 'Error!!!');
   }
 
  // Delete Goal fucntionality
@@ -146,10 +123,10 @@ goalSettings:any;
     if(todo=='DELETE'){
       if(confirm("Are you sure want to delete "+goal_name)){
         this.http.put(`/api/v1/employee/deletegoal`, {goal_id,org_id} , this.requestOptions).subscribe((response)=>{
-          this.showSuccessDeleteGoal();
+          this.toastr.success("Goal Deleted Successfully...", 'Deleted');
           this.ngOnInit();
         },(error)=>{
-          this.showError()
+          this.toastr.error('Something went wrong!!!', 'Error!!!');
        })
       }
     }
@@ -159,19 +136,18 @@ goalSettings:any;
         this.http.put(`api/v1/employee/closegoal`, {goal_id, org_id}, this.requestOptions).subscribe((response)=>{
         console.log("delete goal console:---", response);
         //Toaster
-        this.showSuccessCloseGoal();
+    this.toastr.success("Goal sent for Closure Successfully...", 'Success');
         this.ngOnInit();
         },(error)=>{
-          this.showError()
+          this.toastr.error('Something went wrong!!!', 'Error!!!');
        })
       }
     }
   }
-// create Objective content
+  // create Objective content
+
 inFormatter = (x: {goal_name: string}) => x.goal_name;
 outFormatter = (x: {full_name: string}) => x.full_name;
-
-  d=["abc","abcc","abcd","abcde","abcssss","abcddd"]
 
   search: OperatorFunction<string, readonly string[]> = (text$: 
     Observable<string>) =>
@@ -186,61 +162,89 @@ outFormatter = (x: {full_name: string}) => x.full_name;
         if(this.ObjFormData.value.goal_quater=="1"){
           this.startDate="01/01/2022";
           this.endDate="31/03/2022";
+          this.startdateDB="2022-01-01";
+          this.endDateDB="2022-03-31"
         }else if(this.ObjFormData.value.goal_quater=="2"){
           this.startDate="01/04/2022";
-          this.endDate="31/06/2022";
+          this.endDate="30/06/2022";
+          this.startdateDB="2022-04-01";
+          this.endDateDB="2022-06-30"
         }else if(this.ObjFormData.value.goal_quater=="3"){
           this.startDate="01/07/2022";
-          this.endDate="31/09/22";
+          this.endDate="30/09/2022";
+          this.startdateDB="2022-07-01";
+          this.endDateDB="2022-09-30"
         }else if(this.ObjFormData.value.goal_quater=="4"){
           this.startDate="01/10/2022"
           this.endDate="31/12/2022"
+          this.startdateDB="2022-10-01";
+          this.endDateDB="2022-12-31"
         }
-        this.newObjective.goal_start_date=this.startDate;
-        this.newObjective.goal_due_date=this.endDate;
+        this.newObjective.goal_start_date= this.startdateDB;
+        this.newObjective.goal_due_date=this.endDateDB;
+        console.log(this.newObjective.goal_start_date,"start",this.newObjective.goal_due_date,"end")
       }
       selectHalfYear(){
         if(this.ObjFormData.value.goal_quater=="1"){
           this.startDate="01/01/2022";
-          this.endDate="31/06/2022";
+          this.endDate="30/06/2022";
+          this.startdateDB="2022-01-01";
+          this.endDateDB="2022-06-30"
         }else if(this.ObjFormData.value.goal_quater=="2"){
           this.startDate="01/07/2022";
-          this.endDate="31/012/2022";
+          this.endDate="31/12/2022";
+          this.startdateDB="2022-07-01";
+          this.endDateDB="2022-12-31";
         }
-        this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
-        this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
+        this.newObjective.goal_start_date=this.startdateDB;
+        this.newObjective.goal_due_date=this.endDateDB;
+      }
+
+      checkMaxGoal(){
+        if(this.goalSettings.max_goals<this.model.goal_assigned){
+        this.goal_limit_exceeded=true;
+        this.isLoad=false;
+        }else{
+          this.goal_limit_exceeded=false;
+
+        }
       }
 
   addObjective(){
+    if(this.goalSettings.goal_frequency=="MONTHLY"){
+      this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
+      this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
+    }
+    if(this.goalSettings.goal_frequency=="YEARLY"){
+      this.newObjective.goal_start_date="2022-01-01";
+      this.newObjective.goal_due_date="2022-12-31"
+    }
     this.isLoad = true;
+    this.newObjective.goal_approver=this.goalSettings.goal_approver;
     this.newObjective.goal_name=this.ObjFormData.value.goal_name;
-    this.newObjective.goal_start_date=this.ObjFormData.value.goal_start_date;
-    this.newObjective.goal_due_date=this.ObjFormData.value.goal_due_date;
     this.newObjective.goal_owner_name=this.model.full_name;
     this.newObjective.goal_owner_id=this.model.user_id;
     this.newObjective.goal_owner_email=this.model.email;
     this.newObjective.linked_org_goal_id=this.ObjFormData.value.linked_org_goal_id;
     
-    if(this.goalSettings.max_goals<this.model.goal_assigned){
-      this.goal_limit_exceeded=true;
-      this.isLoad=false;
-    }else{
-    this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions).subscribe((result:any)=>{
+    
+    this.http.post(`/api/v1/employee/create-objective`, this.newObjective , this.requestOptions
+  ).subscribe((result:any)=>{
       // console.log(result:any); 
       console.log(result);
       this.isLoad = false;
       this.show=false;
       this.show2=true;
-      this.showSuccess();
+      this.toastr.success("Successfully Created...", 'Created');
       this.ngOnInit();
       sessionStorage.setItem("goalId",result.goalId);
     },(error)=>{
       console.error(error);
-      this.showError();
+      this.toastr.error('Something went wrong!!!', 'Error!!!');
       this.isLoad = false;
       this.er=true;
     });
-  }
+  
     // console.log(JSON.stringify(this.newObjective ),"obj")
   }
 
@@ -311,11 +315,14 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       console.error(error);
 
     });
+    
+    this.date_limit=new Date();
 
-    // if(this.goalSettings.goal_frequency=='QUATERLY'){
-    //   this.startDate="1/2/22"
-    //   this.endDate="1/3/22"
-    // }
+  this.date_limit.setMonth( this.date_limit.getMonth() + 1 );
+
+  this.date_limit_s=this.date_limit.toISOString().split("T")[0];
+
+
   }
 
   
