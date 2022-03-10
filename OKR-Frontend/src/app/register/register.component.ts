@@ -112,7 +112,7 @@ export class RegisterComponent implements OnInit {
       throw Error ("Password Not Matched");
     }
 
-    if(this.actionType=="admin_add"){
+    if(this.actionType=="addUser"){
       this.http.post(`api/v1/admin/add-user`,this.userData, this.requestOptions).subscribe((result)=>{
         console.warn(result); 
         this.router.navigate(
