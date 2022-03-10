@@ -21,7 +21,7 @@
     </div>
     <div class="col-sm-1 options">
         
-      <button class="btn btn-primary" (click)="editUser()">Edit</button>
+      <button class="btn btn-primary" (click)="updateUser()">Edit</button>
     </div>
     <div *ngIf="goalShow" style="margin-bottom: 10px; display: block;">
         <strong>GOALS:</strong>
@@ -29,5 +29,9 @@
           <app-goal-list [goalDetails]="goal"></app-goal-list>
           </div>
     </div>
+    
+  </div>
+  <div *ngIf="showform">
+    <app-update-user></app-update-user>
   </div>
   

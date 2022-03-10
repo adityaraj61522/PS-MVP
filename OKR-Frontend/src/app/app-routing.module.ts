@@ -7,6 +7,7 @@ import { MyTeamComponent } from './my-team/my-team.component';
 import { ObjectiveDetailsComponent } from './objective-details/objective-details.component';
 import { RegisterComponent } from './register/register.component';
 import { YourObjectiveComponent } from './your-objective/your-objective.component';
+import { UpdateUserComponent } from './admin/users/update-user/update-user.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'my-team', component: MyTeamComponent},
   { path: 'admin/settings', component: SettingsComponent},
   { path: 'admin/users', component: UsersComponent},
+  { path:  'admin/users/update-user', component: UpdateUserComponent}
 ];
 
 @NgModule({
