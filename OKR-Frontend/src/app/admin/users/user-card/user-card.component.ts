@@ -29,10 +29,14 @@ export class UserCardComponent implements OnInit {
   };
   goalData:any;
 
-  editUser(){
-    this.router.navigate(['/register'], {
-      queryParams: { action: `admin_update` },
-    });
+  showform=false;
+
+  updateUser(){
+    this.showform=true;
+    this.router.navigate(['/admin/users/update-user']);
+    // this.router.navigate(['/update-user'], {
+    //   // queryParams: { action: `admin_update` },
+    // });
   }
   ngOnInit(): void {
   }

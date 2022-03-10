@@ -1,0 +1,169 @@
+
+		.Register-box{
+			margin-left: 12%;
+			margin-top: 5%;
+			width: 1000px;
+			padding: 80px;
+		}
+		.reg-logo{
+			margin-left: 40%;
+			margin-bottom: 30px;
+			text-decoration: underline;
+		}
+		.r-in{
+			width: 300px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			margin-right: 10px;
+			border:none;
+			border-bottom: 1px solid grey;
+			outline: none;
+		}
+		.radio{
+			margin-top: 15px;
+			margin-bottom: 15px;
+		}
+		.bt-reg{
+			margin-left: 43%;
+			margin-top: 20px;
+		}
+		.nav-1{
+			background-color: white;
+			border-bottom: 1px solid lightgray;
+		}
+		.modal{
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+		.nav-link{
+			color: grey;
+			box-shadow: none;
+		}
+		.nav-links:hover{
+			text-decoration: none;
+			color: grey;
+		}
+		.btn-check:focus+.btn, .btn:focus {
+		outline: 0;
+		box-shadow: none;
+		}
+		.active{
+			color: #0D8EBB;
+		}
+		.side{
+			position: absolute;
+			right: 20px;
+		}
+		.active-list{
+			padding:20px;
+		}
+		.list{
+			margin-top: 50px;
+			background-color: white;
+		}
+		.list-card{
+			height: 100px;
+			background-color: white;
+			border-radius: 10px;
+			border-left:5px solid red;
+			padding:10px;
+		}
+		.progress-percent{
+			height: 70px;
+			width: 70px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: 50%;
+			color: white;
+		}
+		.task-details{
+			padding: 10px;
+		}
+		.details{
+			margin-right: 50px;
+			margin-left: 50px;
+		}
+		.options{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.status{
+			background-color: #F9ECB4;
+			color: #D2AB0A;
+			border-radius: 10px;
+			text-align: center;
+			padding: 5px;
+		}
+		
+		/*       Popup        */
+		.modal-dialog {
+			max-width: 1300px;
+			margin: 1.75rem auto;
+		}
+		label{
+			color: grey;
+			font-size: 10px;
+		}
+		.in-date{
+			display: flex;
+			align-items: center;
+		}
+		.in-1{
+			width: 1200px;
+			margin-right: 50px;
+		}
+		.in-2{
+			width: 500px;
+			margin-right: 50px;
+			height: 28px;
+			font-size: 12px;
+		}
+		.in-d{
+			width: 300px;
+			margin-right: 50px;
+		}
+		input{
+			border:1px solid lightgrey;
+		}
+		input.ng-invalid.ng-touched, select.ng-invalid.ng-touched{
+			border-bottom: 1px solid red;
+		}
+		span{
+			color: red;
+			font-size: 10px;;
+		}
+		.ml-20{
+			margin-left: 20px;
+		}
+		.flex{
+			display: flex;
+		}
+		.status-waiting{
+			background-color: #F9ECB4;
+			color: #D2AB0A;
+			border-radius: 10px;
+			text-align: center;
+			padding: 5px;
+		}
+		.status-active{
+			background-color: rgb(84, 175, 84);
+			color: white;
+			border-radius: 10px;
+			text-align: center;
+			padding: 5px;
+		}
+		.status-closed{
+			background-color: rgb(180, 170, 170);
+			color: black;
+			border-radius: 10px;
+			text-align: center;
+			padding: 5px;
+		}
+		.status-rejected{
+			background-color: rgb(219, 40, 40);
+			color: white;
+			border-radius: 10px;
+			text-align: center;
+			padding: 5px;
+		}

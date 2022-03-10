@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-users',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
 
-  constructor( private http:HttpClient, private router:Router) { }
+  constructor( private http:HttpClient, private router:Router,private toastr: ToastrService) { }
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     'Accept': 'application/json',
@@ -44,7 +45,7 @@ export class UsersComponent implements OnInit {
   }
 addUser(){
   this.router.navigate(['/register'], {
-    queryParams: { action: `admin_add` },
+    queryParams: { action: `addUser` },
   });
 }
 }

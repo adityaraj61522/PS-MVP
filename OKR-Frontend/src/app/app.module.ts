@@ -39,6 +39,7 @@ import { UpdateMilestoneComponent } from './milestone/update-milestone/update-mi
 import { NgbdToastGlobal } from './milestone/toast/toast-global.component';
 import { ToastsContainer } from './milestone/toast/toasts-container.component';
 import { ObjectiveUploadComponent } from './bulkupload/objective-upload/objective-upload.component';
+import { UpdateUserComponent } from './admin/users/update-user/update-user.component';
 // import { NgbdToastGlobalModule } from './milestone/toast/toast-global.module';
 
 @NgModule({
@@ -64,7 +65,8 @@ import { ObjectiveUploadComponent } from './bulkupload/objective-upload/objectiv
     UpdateMilestoneComponent,
     NgbdToastGlobal,
     ToastsContainer,
-    ObjectiveUploadComponent
+    ObjectiveUploadComponent,
+    UpdateUserComponent
   ],
   imports: [
     BrowserModule,

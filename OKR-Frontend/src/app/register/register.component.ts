@@ -112,8 +112,25 @@ export class RegisterComponent implements OnInit {
       throw Error ("Password Not Matched");
     }
 
-    if(this.actionType=="admin_add"){
+    if(this.actionType=="addUser"){
       this.http.post(`api/v1/admin/add-user`,this.userData, this.requestOptions).subscribe((result)=>{
+        console.warn(result); 
+        this.router.navigate(
+          ['/admin/users']
+          );
+    this.toastr.success('User Added Successfully.....', 'Success');
+    },(error)=>{
+      console.error(error);
+      if(error.status==300){
+        this.userExist=true;
+        this.toastr.error('User Already Exist!!!', 'Error!!!');
+      }else{
+        this.toastr.error('Something went wrong!!!', 'Error!!!');
+      }
+    });
+
+    }else if(this.actionType=="admin_update"){
+      this.http.post(`api/v1/admin/update-user`,this.userData, this.requestOptions).subscribe((result)=>{
         console.warn(result); 
         this.router.navigate(
           ['/admin/users']

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-settings',
@@ -28,7 +29,7 @@ export class SettingsComponent implements OnInit {
   user_id:any;
   e=false;
   settingsDetails:any;
-  constructor( private http : HttpClient,  private router : Router ) { }
+  constructor( private http : HttpClient,  private router : Router ,private toastr: ToastrService) { }
 
   settingsForm = new FormGroup ({
     org_id:new FormControl(''),
@@ -50,9 +51,11 @@ export class SettingsComponent implements OnInit {
   ).subscribe((result:any)=>{
     console.log(this.settingsForm.value,"req")
       console.log(result,"Done");
+      this.toastr.success('Settings updated Successfully.....', 'Success');
     },(error)=>{
       console.error(error);
       this.e=true;
+      this.toastr.success('Something went wrong!!!', 'Error');
 
     });
   }
