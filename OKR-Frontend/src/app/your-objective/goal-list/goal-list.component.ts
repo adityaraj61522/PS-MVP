@@ -11,6 +11,7 @@ export class GoalListComponent implements OnInit {
 
   @Input() goalDetails:any;
   @Input() public deleteGoal !: (goal_name: any, goal_id:any , org_id: any, todo: any) => void;
+  @Input() goalSettings:any;
   
   constructor( private http : HttpClient, private router : Router) {
     
