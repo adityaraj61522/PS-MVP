@@ -54,12 +54,11 @@
             </div> -->
 
 
-            <!-- <div class="form-group opt">
-                <label>Who Can edit OKR After Approval From Manager?</label><br>
-                <input type="radio" formControlName="goal_approver">Employee(Employee + MAnager + HR Admin)<br>
-                <input type="radio" formControlName="goal_approver">Manager And HR Admin<br>
-                <input type="radio" formControlName="goal_approver">Only HR Admin<br>
-            </div> -->
+            <div class="form-group opt">
+                <label>Who Can edit OKR?</label><br>
+                <input type="radio" formControlName="goal_approver">Goal owner<br>
+                <input type="radio" formControlName="goal_approver">Manager <br>
+            </div>
             <span *ngIf="e">Something Went Wrong!!!!!</span>
             <button type="submit" class="btn btn-primary opt" style="margin-left: 600px;"> SAVE</button>
         </form>

@@ -60,8 +60,8 @@
                                         <div class="form-group">
                                             <label>Which period is the objectiveRunning in?*</label><br>
                                             <select class="form-select in-2" (change)="selectHalfYear()" ngModel aria-label="Default select example" name="goal_quater" #goal_quater="ngModel" goal_quater required>
-                                        <option value="1">1st Half</option>
-                                        <option value="2">2nd Half</option>
+                                        <option value="1">H1</option>
+                                        <option value="2">H2</option>
                                         </select>
                                         <span class="help-block" *ngIf="!goal_quater.valid && goal_quater.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                                         </div>
