@@ -15,6 +15,7 @@ import { ApiService } from 'src/app/apiCollection/api.service';
 })
 export class UpdateUserComponent implements OnInit {
 
+  @Input() userDetails:any;
   userData: any;
   Id={
     user_id:""
@@ -72,6 +73,7 @@ export class UpdateUserComponent implements OnInit {
     country:new FormControl(''),
     department:new FormControl(''),
     password:new FormControl(''),
+    conf_password:new FormControl('')
   })
 
   constructor( private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiData:ApiService, private toastr: ToastrService) {
@@ -96,10 +98,13 @@ export class UpdateUserComponent implements OnInit {
     )
 
   ngOnInit(): void {
-  }
-
-  getUsers(){
-    return this.http.post(`/api/v1/employee/getusers`, this.Id, this.requestOptions).subscribe((response)=>{
+    console.log(this.model);
+    
+    this.route.queryParams.subscribe((params) => {
+      this.Id.user_id = params['userid'];
+      console.log(this.Id.user_id,"params");
+    });
+    this.http.post(`/api/v1/employee/getsingleuser`, this.Id, this.requestOptions).subscribe((response)=>{
       console.log(response);
       this.userData=response;
       this.userData=this.userData[0];
@@ -115,20 +120,23 @@ export class UpdateUserComponent implements OnInit {
         city:new FormControl(this.userData['city']),
         country:new FormControl(this.userData['country']),
         department:new FormControl(this.userData['department']),
-        password:new FormControl(this.userData['password']),
+        password:new FormControl(""),
+        conf_password:new FormControl(""),
+        // password:new FormControl(this.userData['password']),
       })
-  
       console.log(this.updateForm.value,"abbbbc")
     },(error)=>{
       console.error(error);
     })
+   
   }
+
+  
 
   updateUser(){
     this.http.post(`/api/v1/admin/update-user`, this.updateForm.value, this.requestOptions).subscribe((result)=>{
       console.log(result);
-      console.log("aaaaaa", this.model);
-      this.toastr.success("Update Successfully...", 'Success');
+      this.toastr.success("Updated Successfully...", 'Success');
         setTimeout(() => {
         window.location.reload();
         }, 1000);

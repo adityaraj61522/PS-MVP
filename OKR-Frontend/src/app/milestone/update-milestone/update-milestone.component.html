@@ -1,4 +1,4 @@
-<form [formGroup]="myForm" (ngSubmit)="onUpdateMilestone(myForm)">
+<form [formGroup]="updateForm" (ngSubmit)="onUpdateMilestone()">
   <div class="modal-body">
     <div class="form-group">
       <label>Milestone name:</label><br>
@@ -7,7 +7,7 @@
     <div class="in-date">
       <div class="form-group">
         <label>Which Type of OKR you are Creating?:</label><br>
-        <select class="form-select in-2"  aria-label="Default select example"  #mySelect   (change)='changeChoice(mySelect.value)'>
+        <select class="form-select in-2" formControlName="milestone_type" aria-label="Default select example"  #mySelect   (change)='changeChoice(mySelect.value)'>
           <option selected value="boolean">boolean</option>
           <option value="progress">progress</option>
           <option value="metric">metric</option>
@@ -30,7 +30,10 @@
     <div class="in-date">
       <div class="form-group">
         <label>Owner:</label><br>
-        <input type="text" class="in-2" [(ngModel)]="model" [ngbTypeahead]="search"  formControlName="ownerObj" 
+        <input type="text" class="in-2" [(ngModel)]="model" [ngbTypeahead]="search" 
+        (change) = "ownerChange()"
+        placeholder="{{milestoneData.milestone_owner_name}}"
+        formControlName="milestone_owner_name" 
         [resultFormatter]="inFormatter"
         [inputFormatter]="outFormatter"/><br>
       </div>
@@ -46,7 +49,7 @@
 
     <div class="modal-footer">
       <button class="btn btn-primary" type="submit" 
-      [disabled]="myForm.invalid"
+      [disabled]="updateForm.invalid"
       data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Update Key Result</button>
     </div>
   </div>

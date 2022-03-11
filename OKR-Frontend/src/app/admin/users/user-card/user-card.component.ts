@@ -10,7 +10,7 @@ export class UserCardComponent implements OnInit {
 
   constructor(private router:Router) { }
 
-  @Input() allUserDetails:any;
+  @Input() userDetails:any;
 
   edit=false;
 
@@ -33,10 +33,10 @@ export class UserCardComponent implements OnInit {
 
   updateUser(){
     this.showform=true;
-    this.router.navigate(['/admin/users/update-user']);
-    // this.router.navigate(['/update-user'], {
-    //   // queryParams: { action: `admin_update` },
-    // });
+    // this.router.navigate(['/admin/users/update-user']);
+    this.router.navigate(['admin/users/update-user'], {
+      queryParams: { userid: this.userDetails.user_id },
+    });
   }
   ngOnInit(): void {
   }
