@@ -47,6 +47,40 @@ export class ObjectiveDetailsComponent implements OnInit {
   requestOptions = { 
     headers: new HttpHeaders(this.headers),
   };
+  resetCheckinReq= {
+    org_id:"",
+    goal_id:"",
+    milestone_id:"",
+    milestone_type:"",
+    milestone_progress:"",
+    metric_start_value:"",
+    metric_curr_value:"",
+    user_id:sessionStorage.getItem("user_id"),
+  }
+  isLoad=false;
+  deleteUserReq = {
+    user_id:"",
+    admin_user_id:""
+  }
+  resetCheckin = ( org_id: any, goal_id:any,milestone_name: any, milestone_id: any,  milestone_type:any,milestone_progress:any, metric_start_value:any, metric_curr_value:any) =>{
+    this.resetCheckinReq.milestone_id=milestone_id;
+    this.resetCheckinReq.goal_id=goal_id;
+    this.resetCheckinReq.org_id=org_id;
+    this.resetCheckinReq.milestone_type= milestone_type;
+    this.resetCheckinReq.metric_start_value= metric_start_value;
+    this.resetCheckinReq.metric_curr_value= metric_curr_value;
+    this.resetCheckinReq.milestone_progress= milestone_progress;
+
+    console.log("rere",milestone_name,this.resetCheckinReq);
+     return this.http.post(`/api/v1/employee/reset-checkin`, this.resetCheckinReq, this.requestOptions).subscribe((response)=>{
+      console.log("response",response);
+      this.toastr.success("Reset Successfully...", 'Checkin reset');
+      this.ngOnInit();
+    },(error)=>{
+       this.toastr.error("Something went wrong", 'Error');
+    })
+  }
+  
 
   deleteMilestone = (milestone_name: any, milestone_id: any, org_id: any, goal_id: any) => {
     this.deleteMilestoneReq.milestone_id = milestone_id;
