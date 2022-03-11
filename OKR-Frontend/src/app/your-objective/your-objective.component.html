@@ -62,8 +62,8 @@
                                         <div class="form-group">
                                             <label>Which period is the objectiveRunning in?*</label><br>
                                             <select class="form-select in-2" (change)="selectHalfYear()" ngModel aria-label="Default select example" name="goal_quater" #goal_quater="ngModel" goal_quater required>
-                                        <option value="1">1st Half</option>
-                                        <option value="2">2nd Half</option>
+                                        <option value="1">H1</option>
+                                        <option value="2">H2</option>
                                         </select>
                                         <span class="help-block" *ngIf="!goal_quater.valid && goal_quater.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                                         </div>
@@ -122,7 +122,7 @@
                                 </div>
               <div class="modal-footer">
                 <button class="btn btn-primary" type="submit"  *ngIf="!isLoad"
-                data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">Add Key Result</button>
+                data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" [disabled]="!ObjForm.valid || goal_limit_exceeded" data-bs-toggle="modal">Add Key Result</button>
                 <button class="btn btn-primary" type="submit"  *ngIf="isLoad"
                 data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 130px;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">
                 <mat-spinner [diameter]="23" style="margin-left: 40px;"></mat-spinner></button>
