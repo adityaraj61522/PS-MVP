@@ -46,19 +46,47 @@
       <li class="nav-item">
         <div class="nav-link">
           Date:{{ milestoneDetails.creation_date | date: "dd-MMM-yy" }}
+<!-- Confirmation popup -->
+<div class="modal fade show" *ngIf="show" id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" style=" width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="font-size: 20px;"><strong>Do you want to reset {{milestoneDetails.milestone_name}} milestone?</strong> </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="confirmationPopupHide()" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" (click)="resetCheckin(milestoneDetails.org_id,milestoneDetails.goal_id, milestoneDetails.milestone_name, milestoneDetails.milestone_id,milestoneDetails.milestone_type ,milestoneDetails.milestone_progress, milestoneDetails.metric_start_value, milestoneDetails.metric_curr_value)"
+                    *ngIf="!isLoad" style="background-color: #0D8EBB; margin:5px; text-align: center;" data-bs-toggle="modal">Yes</button>
+                <button class="btn btn-primary" type="submit" *ngIf="isLoad" data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 130px;" data-bs-toggle="modal">
+                <mat-spinner [diameter]="23" style="margin-left: 40px;"></mat-spinner></button>
+                <button class="btn btn-secondary" (click)="confirmationPopupHide()" style="margin:5px;" data-bs-toggle="modal">Cancel</button>
+            </div>
         </div>
-      </li>
-      <li class="nav-item st">
-            <strong>Owner:</strong>{{milestoneDetails.milestone_owner_name}}
-        </li>
-      <li class="nav-item st">
-        <strong>Type:</strong>{{ milestoneDetails.milestone_type }}
-      </li>
-      <li
-        class="nav-item st"
-        *ngIf="milestoneDetails.milestone_type == 'metric'"
-      >
-        <strong>Target/Acheived:</strong
+    </div>
+</div>
+
+
+
+<div class="list-card row">
+    <div class="col-sm-1 progress-percent">
+        <circle-progress [percent]="milestoneDetails.milestone_progress" [radius]="30" [outerStrokeWidth]="6" [innerStrokeWidth]="4" [outerStrokeColor]="'#3d54ae'" [innerStrokeColor]="'#7db4e8'" [animation]="true" [animationDuration]="300"></circle-progress>
+    </div>
+    <div class="col-sm-8 task-details">
+        <strong>{{ milestoneDetails.milestone_name }}</strong>
+        <ul class="nav">
+            <li class="nav-item">
+                <div class="nav-link">
+                    Date:{{ milestoneDetails.creation_date | date: "dd-MMM-yy" }}
+                </div>
+            </li>
+            <li class="nav-item st">
+                <strong>Owner:</strong>{{milestoneDetails.milestone_owner_name}}
+            </li>
+            <li class="nav-item st">
+                <strong>Type:</strong>{{ milestoneDetails.milestone_type }}
+            </li>
+            <li class="nav-item st" *ngIf="milestoneDetails.milestone_type == 'metric'">
+                <strong>Target/Acheived:</strong
         >{{ milestoneDetails.metric_target_value }}/{{
           milestoneDetails.metric_curr_value
         }}
@@ -109,74 +137,62 @@
             >
               <a class="dropdown-item">Delete Milestone</a>
             </li>
-          </ul>
-        </div>
-      </li>
-      <li
-        class="nav-item"
-      >
+        </ul>
+    </div>
+    <div class="col-sm-2 options">
         <ul class="nav">
-          <li class="nav-item" *ngIf="goal_data[0].goal_status=='IN_PROGRESS'">
-            <div
-              class="modal fade show"
-              *ngIf="check"
-              id="exampleModalToggle"
-              aria-hidden="false"
-              style="display: block !important"
-              aria-labelledby="exampleModalToggleLabel"
-              tabindex="-1"
-            >
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel">
-                      Checkin: {{ milestoneDetails.milestone_name }}
-                    </h5>
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      (click)="checkin()"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <app-checkin-popup
-                    [milestoneDetails]="milestoneDetails"
-                  ></app-checkin-popup>
+            <li class="nav-item">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown" (click)="showDp()" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png" />
+          </button>
+                    <ul class="dropdown-menu" *ngIf="dp" style="display: block" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item">Update Milestone</a></li>
+                        <li><a class="dropdown-item">Another actions</a></li>
+                        <li (click)=" deleteMilestone( milestoneDetails.milestone_name, milestoneDetails.milestone_id,  milestoneDetails.org_id, milestoneDetails.goal_id)">
+                            <a class="dropdown-item">Delete Milestone</a>
+                        </li>
+                        <li *ngIf="milestoneDetails.milestone_progress" (click)="confirmationPopupShow()">
+                            <a class="dropdown-item">Reset Checkin</a>
+                        </li>
+                    </ul>
                 </div>
-              </div>
-            </div>
-            <button
-              *ngIf="!completed"
-              type="button"
-              class="btn btn-default"
-              style="color: #0d8ebb"
-              (click)="checkin()"
-            >
+            </li>
+            <li class="nav-item">
+                <ul class="nav">
+                    <li class="nav-item" *ngIf="goal_data[0].goal_status=='IN_PROGRESS'">
+                        <div class="modal fade show" *ngIf="check" id="exampleModalToggle" aria-hidden="false" style="display: block !important" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalToggleLabel">
+                                            Checkin: {{ milestoneDetails.milestone_name }}
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="checkin()" aria-label="Close"></button>
+                                    </div>
+                                    <app-checkin-popup [milestoneDetails]="milestoneDetails"></app-checkin-popup>
+                                </div>
+                            </div>
+                        </div>
+                        <button *ngIf="!completed" type="button" class="btn btn-default" style="color: #0d8ebb" (click)="checkin()">
               <img
                 src="https://img.icons8.com/ios-filled/20/000000/marker.png"
                 (click)="checkin()"
               />Checkin
             </button>
-            <button
-              *ngIf="completed"
-              type="button"
-              class="btn btn-default"
-              style="color: #0d8ebb"
-              (click)="checkin()"
-            >
+                        <button *ngIf="completed" type="button" class="btn btn-default" style="color: #0d8ebb" (click)="checkin()">
               <img
                 src="https://img.icons8.com/external-royyan-wijaya-detailed-outline-royyan-wijaya/20/000000/external-tick-interface-royyan-wijaya-detailed-outline-royyan-wijaya-4.png"
                 (click)="checkin()"
               />Completed
             </button>
-          </li>
-        </ul>
-      </li>
+                    </li>
+                </ul>
+            </li>
 
-      <!-- <li class="nav-item" >
+            <!-- <li class="nav-item" >
           <button type="button" class="btn btn-default" style="color: #0D8EBB;" ><img src="https://img.icons8.com/ios-filled/20/000000/marker.png" (click)="checkin()"/>Completed</button>
               </li> -->
-    </ul>
-  </div>
+        </ul>
+    </div>
 </div>
