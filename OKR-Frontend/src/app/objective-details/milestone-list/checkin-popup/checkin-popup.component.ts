@@ -94,7 +94,6 @@ checked=false
       this.checkinFormSubmit.check_in_status=this.checkinForm.value.dob;
       this.checkinFormSubmit.milestone_progress=this.progress;
       this.checkinFormSubmit.milestone_id=this.checkinForm.value.milestone_id;
-      //old progress ????
       this.checkinFormSubmit.milestone_progress_old=this.checkinForm.value.milestone_progress;
       this.checkinFormSubmit.metric_already_achieved=this.checkinForm.value.password;
       this.checkinFormSubmit.close_checkin_old_value=this.checkinForm.value.conf_password;
