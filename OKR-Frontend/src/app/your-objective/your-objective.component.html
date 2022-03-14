@@ -202,7 +202,7 @@
     <div style="margin-top:50px;" *ngIf="(goalCountData[0].IN_PROGRESS + goalCountData[0].WAITING_FOR_CLOSURE +goalCountData[0].WAITING_FOR_APPROVAL)">
         <div class="list" *ngFor="let goal of goalData">
             <div *ngIf="((goal.goal_status=='WAITING_FOR_APPROVAL' || goal.goal_status=='IN_PROGRESS' || goal.goal_status=='WAITING_FOR_CLOSURE'))">
-                <app-goal-list [deleteGoal]="deleteGoal" [goalDetails]="goal"></app-goal-list>
+                <app-goal-list [deleteGoal]="deleteGoal" [goalDetails]="goal" [goalSettings]="goalSettings"></app-goal-list>
             </div>
         </div>
     </div>
@@ -221,7 +221,7 @@
     </div>
     <div class="list" *ngFor="let goal of goalData">
         <div *ngIf="(goal.goal_status=='CLOSED')">
-            <app-goal-list [deleteGoal]="deleteGoal" [goalDetails]="goal"></app-goal-list>
+            <app-goal-list [deleteGoal]="deleteGoal" [goalDetails]="goal" [goalSettings]="goalSettings"></app-goal-list>
         </div>
 
     </div>
@@ -237,7 +237,7 @@
     </div>
     <div class="list" *ngFor="let goal of goalData">
         <div *ngIf="(goal.goal_status=='REJECTED')">
-            <app-goal-list [deleteGoal]="deleteGoal" [goalDetails]="goal"></app-goal-list>
+            <app-goal-list [deleteGoal]="deleteGoal" [goalDetails]="goal" [goalSettings]="goalSettings"></app-goal-list>
         </div>
 
     </div>
