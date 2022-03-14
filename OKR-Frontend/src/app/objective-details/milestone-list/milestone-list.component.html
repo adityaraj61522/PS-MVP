@@ -49,9 +49,25 @@
       >
         <strong>Progress:</strong>{{ milestoneDetails.milestone_progress }}
             </li>
+            <li (click)="checkinHistory()">
+                <a class="dropdown-item">Checkin-history</a>
+                <div class="modal fade show" *ngIf="checkin_history" id="exampleModalToggle" aria-hidden="false" style="display: block !important" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalToggleLabel">
+                                    Checkin History: {{ milestoneDetails.milestone_name }}
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="checkin()" aria-label="Close"></button>
+                            </div>
+                            <app-checkin-history [milestoneDetails]="milestoneDetails"></app-checkin-history>
+                        </div>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
-    <div class="col-sm-2 options">
+    <li class="nav-item">
         <ul class="nav">
             <li class="nav-item">
                 <div class="dropdown">
@@ -106,5 +122,4 @@
           <button type="button" class="btn btn-default" style="color: #0D8EBB;" ><img src="https://img.icons8.com/ios-filled/20/000000/marker.png" (click)="checkin()"/>Completed</button>
               </li> -->
         </ul>
-    </div>
 </div>

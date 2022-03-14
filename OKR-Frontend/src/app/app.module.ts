@@ -37,6 +37,9 @@ import { MilestoneReuseComponent } from './milestone/milestone-reuse/milestone-r
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NgbdToastGlobal } from './milestone/toast/toast-global.component';
 import { ToastsContainer } from './milestone/toast/toasts-container.component';
+import { ObjectiveUploadComponent } from './bulkupload/objective-upload/objective-upload.component';
+import { CheckinHistoryComponent } from './objective-details/milestone-list/checkin-history/checkin-history.component';
+import { CheckinHistoryCardComponent } from './objective-details/milestone-list/checkin-history/checkin-history-card/checkin-history-card.component';
 // import { NgbdToastGlobalModule } from './milestone/toast/toast-global.module';
 
 @NgModule({
@@ -60,7 +63,10 @@ import { ToastsContainer } from './milestone/toast/toasts-container.component';
     CheckinPopupComponent,
     MilestoneReuseComponent,
     NgbdToastGlobal,
-    ToastsContainer
+    ToastsContainer,
+    ObjectiveUploadComponent,
+    CheckinHistoryComponent,
+    CheckinHistoryCardComponent
   ],
   imports: [
     BrowserModule,

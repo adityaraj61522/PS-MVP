@@ -1,0 +1,15 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-checkin-history-card',
+  templateUrl: './checkin-history-card.component.html',
+  styleUrls: ['./checkin-history-card.component.css']
+})
+export class CheckinHistoryCardComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
