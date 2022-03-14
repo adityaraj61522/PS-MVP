@@ -17,12 +17,21 @@ export class MilestoneListComponent implements OnInit {
   @Input() goal_data: any;
   dp = false;
   check = false;
+  checkin_history=false;
   checkin() {
     if (this.check == false) {
       this.check = true;
     } else {
       this.check = false;
     }
+  }
+  checkinHistory(){
+    if (this.checkin_history == false) {
+      this.checkin_history = true;
+    } else {
+      this.checkin_history = false;
+    }
+
   }
   showDp() {
     if (this.dp == false) {
