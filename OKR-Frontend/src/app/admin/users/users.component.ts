@@ -28,6 +28,44 @@ export class UsersComponent implements OnInit {
   }
 
   allUsers:any;
+  refreshComponent(){
+    console.log("refresh");
+    this.ngOnInit();
+  }
+
+
+  show=false;
+  isLoad=false;
+  showSuccess() {
+    this.toastr.success("Successfully Created...", 'Created');
+  }
+  showError() {
+    this.toastr.error('Something went wrong!!!', 'Error!!!');
+  }
+  deleteUserReq = {
+    user_id:"",
+    admin_user_id:""
+  }
+  deleteUser=(user_id: any,admin_user_id:any)=>{
+    this.isLoad=true;
+    console.log("Delete User")
+    this.deleteUserReq.user_id= user_id;
+    this.deleteUserReq.admin_user_id=admin_user_id;
+    this.http.post(`/api/v1/admin/delete-user`,this.deleteUserReq, this.requestOptions).subscribe((result:any)=>{
+      // console.log(result:any); 
+      console.log(result);
+      this.isLoad = false;
+      this.show=false;
+      this.showSuccess();
+      this.ngOnInit();
+    },(error)=>{
+      console.error(error);
+      this.showError();
+      this.show=false;
+      this.isLoad = false;
+    });
+    
+  }
 
   ngOnInit(): void {
     this.orgData.org_id=sessionStorage['orgDetails_id']
