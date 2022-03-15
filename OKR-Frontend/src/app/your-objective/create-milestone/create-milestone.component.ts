@@ -140,6 +140,7 @@ export class CreateMilestoneComponent implements OnInit {
       milestone_owner_email: form.value.ownerObj.email,
       milestone_weightage: '60',
       milestone_status: 'Not Completed',
+      milestone_progress: '0',
       created_by: sessionStorage.getItem('user_id'),
     };
 
@@ -150,7 +151,6 @@ export class CreateMilestoneComponent implements OnInit {
       this.postMilestoneReq(postReq, 'boolean');
     }
     if (this.choice == 'progress') {
-      postReq['milestone_progress'] = 0;
       this.postMilestoneReq(postReq, 'progress');
     }
     if (this.choice == 'metric') {

@@ -6,9 +6,9 @@
 				<span class="help-block" *ngIf="!email.valid && email.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid email!!!</span>
 				<input type="password" name="password" class="in" placeholder="Enter Your Password..." ngModel #password="ngModel" password required>
 				<span class="help-block" *ngIf="!password.valid && password.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid password!!!</span>
-				<button type="submit" class="lg-btn btn btn-success" [disabled]="!f.valid">Login</button>
+				<button type="submit" class="lg-btn btn btn-success" [disabled]="!f.valid">Login</button><br>
 				<span class="help-cred" *ngIf="!correctPassword"><i class="fas fa-exclamation-circle"></i><strong>Invalid Credentials!!!</strong></span>
-				<p class="quest"><strong>New User?<a (click)="register()">Register</a></strong></p>
+				<p class="quest"><strong>New User?  <a (click)="register()">Register</a></strong></p>
 			</form>
 		</div>
 	</div>

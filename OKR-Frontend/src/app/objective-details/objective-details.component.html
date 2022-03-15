@@ -61,13 +61,13 @@
     <div>
         <strong>Milestones</strong>
     </div>
-<div *ngIf="milestone_data.length!==0">
-    <div class="list" *ngFor="let milestone of milestone_data">
-        <app-milestone-list [deleteMilestone]="deleteMilestone" [milestoneDetails]="milestone" [goal_data]="goal_data"></app-milestone-list>
+    <div *ngIf="milestone_data.length!==0">
+        <div class="list" *ngFor="let milestone of milestone_data">
+            <app-milestone-list [isLoad]="isLoad" [resetCheckin]="resetCheckin" [deleteMilestone]="deleteMilestone" [milestoneDetails]="milestone" [goal_data]="goal_data"></app-milestone-list>
+        </div>
     </div>
-</div>
-<div *ngIf="milestone_data.length==0">
-    <p style="text-align: center;"><strong>No Milestones Yet!!!</strong></p>
-</div>
+    <div *ngIf="milestone_data.length==0">
+        <p style="text-align: center;"><strong>No Milestones Yet!!!</strong></p>
+    </div>
 
 </section>
