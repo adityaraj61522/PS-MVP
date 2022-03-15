@@ -40,30 +40,6 @@
     <div class="col-sm-1 options">
         
       <button class="btn btn-primary" (click)="updateUser()">Edit</button>
-        <img class="member-pic" src="{{allUserDetails.profile_img_url}}">
-    </div>
-    <div class="col-sm-10 task-details">
-        <strong>{{allUserDetails.full_name}}</strong>
-        <ul class="nav">
-            <li class="nav-item">
-                <div class="nav-link active" aria-current="page">
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" (click)="showGoal()" style="color: #0D8EBB; padding-top: 0px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              View Goals
-            </button>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-item">
-                <div class="nav-link">Last Checkin Date: {{allUserDetails.last_login_time | date: "dd-MMM-yy" }}</div>
-            </li>
-        </ul>
-    </div>
-    <div class="col-sm-1 options">
-
-        <button class="btn btn-primary" (click)="editUser()">Edit</button>
-
-        <button class="btn btn-danger" (click)="confirmationPopupShow()">DELETE</button>
     </div>
     <div *ngIf="goalShow" style="margin-bottom: 10px; display: block;">
         <strong>GOALS:</strong>
@@ -71,13 +47,9 @@
             <app-goal-list [goalDetails]="goal"></app-goal-list>
         </div>
     </div>
-<<<<<<< HEAD
     
   </div>
   <div *ngIf="showform">
     <app-update-user [userDetails]="userDetails"></app-update-user>
   </div>
   
-=======
-</div>
->>>>>>> b28ea465c6bc804394d4c009de66f808b79b7136

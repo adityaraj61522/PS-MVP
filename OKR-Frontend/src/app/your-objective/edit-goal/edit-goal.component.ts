@@ -29,6 +29,8 @@ export class EditGoalComponent implements OnInit {
   };
 
   @Input() goalData:any;
+  @Input() start_date:any
+  @Input() end_date:any
 
   updateForm = new FormGroup({
     goal_name:new FormControl(''),
@@ -68,6 +70,10 @@ export class EditGoalComponent implements OnInit {
     org_id:""
   }
 
+  myForm!: FormGroup;
+
+  min_due_date:string = ''
+
   inFormatter = (x: {full_name: string}) => x.full_name;
 outFormatter = (x: {full_name: string}) => x.full_name; 
 
@@ -96,6 +102,14 @@ outFormatter = (x: {full_name: string}) => x.full_name;
   },(error)=>{
     console.error(error);
   })
+  
+
+
+  }
+  chooseStartDate(cur:string) {
+    this.min_due_date = cur
+    this.myForm.controls['goal_due_date'].enable()
+
   }
 
 
