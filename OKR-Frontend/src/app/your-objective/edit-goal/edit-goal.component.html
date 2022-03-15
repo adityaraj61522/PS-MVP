@@ -30,7 +30,7 @@
   <div class="in-date">
     <div class="form-group">
     <label>Owner:</label><br>
-    <input type="text" class="in-2 form-control" [(ngModel)]="model" [ngbTypeahead]="search" placeholder="{{goalData.goal_owner_name}}" formControlName="goal_owner_name" goal_owner_name required
+    <input type="text" class="in-2 form-control" [(ngModel)]="model" [ngbTypeahead]="search" (change) = "ownerChange()" placeholder="{{goalData.goal_owner_name}}" formControlName="goal_owner_name" goal_owner_name required
     [resultFormatter]="inFormatter"
     [inputFormatter]="outFormatter"/>
     <!-- <div type="text" class="in-2 form-control"  >{{goalData.goal_owner_name}}</div> -->

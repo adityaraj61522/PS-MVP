@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit , Input} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../../apiCollection/api.service';
+import { ApiService } from 'src/app/services/api.service';
 import {Observable, OperatorFunction} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -33,6 +33,7 @@ export class EditGoalComponent implements OnInit {
   @Input() end_date:any
 
   updateForm = new FormGroup({
+    goal_id:new FormControl(''),
     goal_name:new FormControl(''),
     goal_start_date:new FormControl(''),
     goal_due_date:new FormControl(''),
@@ -45,20 +46,20 @@ export class EditGoalComponent implements OnInit {
 
   ID:any;
   userData:any;
-  allUsers: any;
+  allUsers: any = [];
   public model: any;
   userdata: any;
   goaldata: any;
   goal_data: any;
-  constructor( private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiData:ApiService, private toastr: ToastrService) {
-    this.apiData.getUsers().subscribe((result)=>{
+  constructor( private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiService:ApiService, private toastr: ToastrService) {
+    this.apiService.post(`/api/v1/employee/getusers`, this.getUser).subscribe((result)=>{
       console.log(result);
       
       this.allUsers = result
     },(error)=>{
       console.error(error);
     });
-   }
+  }
 
   Id={
     goal_id:""
@@ -68,6 +69,10 @@ export class EditGoalComponent implements OnInit {
   allOrgGoal:any;
   getOrgGoal={
     org_id:""
+  }
+
+  getUser={
+    org_id:"1"
   }
 
   myForm!: FormGroup;
@@ -122,13 +127,13 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       this.goalData.goal_due_date=this.goalData.goal_due_date.split("T")[0];
     console.log("goal_DATA:---", this.goalData)
       this.updateForm = new FormGroup({
+        goal_id:new FormControl(this.goalData['goal_id']),
         goal_name:new FormControl(this.goalData['goal_name']),
         goal_start_date:new FormControl(this.goalData['goal_start_date']),
         goal_due_date:new FormControl(this.goalData['goal_due_date']),
         goal_owner_name:new FormControl(this.goalData['goal_owner_name']),
         linked_org_goal_id:new FormControl(this.goalData['linked_org_goal_id']),
         goal_type:new FormControl(this.goalData['goal_type']),
-        goal_id:new FormControl(this.goalData['goal_id']),
         goal_owner_id:new FormControl(this.goalData['goal_owner_id']),
         goal_owner_email:new FormControl(this.goalData['goal_owner_email']),
       })
@@ -136,6 +141,23 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       console.log(this.updateForm.value,"jyhgasjhdjhasvhj")
     },(error)=>{
       console.error(error);
+    })
+  }
+
+  ownerChange(){
+    this.updateForm = new FormGroup({
+      goal_id:new FormControl(this.goalData['goal_id']),
+      goal_name:new FormControl(this.goalData['goal_name']),
+      goal_start_date:new FormControl(this.goalData['goal_start_date']),
+      goal_due_date:new FormControl(this.goalData['goal_due_date']),
+      // goal_owner_name:new FormControl(this.goalData['goal_owner_name']),
+      linked_org_goal_id:new FormControl(this.goalData['linked_org_goal_id']),
+      goal_type:new FormControl(this.goalData['goal_type']),
+      goal_owner_id:new FormControl(this.model.user_id),
+      goal_owner_name:new FormControl(this.model.full_name),
+      goal_owner_email:new FormControl(this.model.email),
+    
+
     })
   }
 
