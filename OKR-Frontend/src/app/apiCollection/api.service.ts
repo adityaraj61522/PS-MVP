@@ -32,8 +32,8 @@ changeShowMilestone=()=>{
   }
   // set headers
   headers = {
-    // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    'Content-Type': 'multipart/form-data',
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    // 'Content-Type': 'multipart/form-data',
     'Accept': 'application/json',
     'Access-Control-Allow-Headers': '*',
     // 'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
