@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-checkin-history-card',
@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class CheckinHistoryCardComponent implements OnInit {
 
   constructor() { }
+  @Input() checkin_history:any;
+  created_date:any;
 
   ngOnInit(): void {
   }

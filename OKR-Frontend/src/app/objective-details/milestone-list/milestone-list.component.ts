@@ -42,7 +42,6 @@ export class MilestoneListComponent implements OnInit {
     } else {
       this.checkin_history = false;
     }
-
   }
   showDp() {
     if (this.dp == false) {
