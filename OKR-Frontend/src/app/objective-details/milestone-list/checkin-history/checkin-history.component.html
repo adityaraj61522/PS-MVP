@@ -1,4 +1,7 @@
 <div class="list-card row shadow-lg" style="margin-top: 10px; width: 1270px; margin-left: 20px;">
+    <div *ngIf="!checkin_history.length" class="nav-link">
+        No Active Checkin History
+    </div>
     <div class="col-sm-9 task-details">
         <!-- <strong> goalDetails.goal_name</strong> -->
         <ul class="nav">
