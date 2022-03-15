@@ -69,6 +69,9 @@
               ">
                             <a class="dropdown-item">Delete Milestone</a>
                         </li>
+                        <li *ngIf="milestoneDetails.milestone_progress" (click)="confirmationPopupShow()">
+                            <a class="dropdown-item">Reset Checkin</a>
+                        </li>
                         <li (click)="checkinHistory()">
                             <a class="dropdown-item">Checkin-history</a>
                             <div class="modal fade show" *ngIf="checkin_history" id="exampleModalToggle" aria-hidden="false" style="display: block !important" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -78,7 +81,7 @@
                                             <h5 class="modal-title" id="exampleModalToggleLabel">
                                                 Checkin History: {{ milestoneDetails.milestone_name }}
                                             </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="checkinHistory()" aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <app-checkin-history [milestoneDetails]="milestoneDetails"></app-checkin-history>
                                     </div>
