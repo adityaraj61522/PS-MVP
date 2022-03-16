@@ -307,22 +307,22 @@ outFormatter = (x: {full_name: string}) => x.full_name;
   
 
   // Get goal settings
-  // this.http.post(`/api/v1/admin/getGoalSettings`, this.getUser , this.requestOptions
-  // ).subscribe((result:any)=>{
-  //     this.goalSettings=JSON.stringify(result[0]);
-  //     sessionStorage.setItem("goalSettings" , this.goalSettings);
-  //     this.goalSettings=sessionStorage.getItem("goalSettings");
-  //     this.goalSettings=JSON.parse(this.goalSettings);
-  //   },(error)=>{
-  //     console.error(error);
+  this.http.post(`/api/v1/admin/getGoalSettings`, this.getUser , this.requestOptions
+  ).subscribe((result:any)=>{
+      this.goalSettings=JSON.stringify(result[0]);
+      sessionStorage.setItem("goalSettings" , this.goalSettings);
+      this.goalSettings=sessionStorage.getItem("goalSettings");
+      this.goalSettings=JSON.parse(this.goalSettings);
+    },(error)=>{
+      console.error(error);
 
-  //   });
+    });
     
-  //   this.date_limit=new Date();
+    this.date_limit=new Date();
 
-  // this.date_limit.setMonth( this.date_limit.getMonth() + 1 );
+  this.date_limit.setMonth( this.date_limit.getMonth() + 1 );
 
-  // this.date_limit_s=this.date_limit.toISOString().split("T")[0];
+  this.date_limit_s=this.date_limit.toISOString().split("T")[0];
 
 
   }
