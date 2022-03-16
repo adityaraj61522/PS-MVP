@@ -7,9 +7,11 @@ import { Injectable } from '@angular/core';
 export class ApiService {
   baseUrl = 'http://localhost:9001'
   getUsersUrl = `${this.baseUrl}/api/v1/employee/getusers`;
+  getManagers = `${this.baseUrl}/getManagers`;
   getSingleUserUrl = `${this.baseUrl}/api/v1/employee/getgoaldetails`;
   createMilestoneUrl = `${this.baseUrl}/api/v1/employee/create-milestone`;
   uploadObjectiveUrl = `${this.baseUrl}/api/v1/admin/bulkUpload`;
+
 
   showObjective:boolean = false;
   showMilestone:boolean = false
@@ -28,7 +30,7 @@ changeShowMilestone=()=>{
 
   org_id:any = "1"
   getUser={
-    org_id:"1"
+    org_id:JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
   }
   // set headers
   headers = {
@@ -62,7 +64,9 @@ changeShowMilestone=()=>{
   return this.http.post(this.getSingleUserUrl, {"goal_id":id},this.requestOptions);
  }
   getUsers(){
-      return this.http.post(this.getUsersUrl, this.getUser,this.requestOptions);
+    console.log("alsjkhdfgalskhf;ashdf")
+    console.log(this.getManagers, this.getUser)
+      return this.http.post(this.getManagers, this.getUser);
   }
   createMilestone(data:any){
       return this.http.post(this.createMilestoneUrl, data,this.requestOptions);

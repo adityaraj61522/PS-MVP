@@ -71,20 +71,14 @@ export class RegisterComponent implements OnInit {
     private router : Router, 
     private fb : FormBuilder,
     private apiData: ApiService,
-    private route : ActivatedRoute, private toastr: ToastrService) { 
-      this.apiData.getUsers().subscribe((result)=>{
-        this.allUsers = result
-      }, (error)=>{
-        console.error(error);
-      });
-    }
+    private route : ActivatedRoute, private toastr: ToastrService) { }
 
   @ViewChild('f') formData!:NgForm;
 
 
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    Accept: 'application/json',
+    'Accept': 'application/json',
     'Access-Control-Allow-Headers': '*',
     'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
     'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
@@ -199,6 +193,13 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       this.actionType = params['action'];
       console.log(this.actionType,"params");
     });
+    console.log("aldjhfahsjlgf")
+    this.apiData.getUsers().subscribe((result)=>{
+        console.log("USERS:==", result)
+        this.allUsers = result
+      }, (error)=>{
+        console.error(error);
+      });
   }
 
 }
