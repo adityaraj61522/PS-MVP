@@ -139,6 +139,7 @@ export class ObjectiveDetailsComponent implements OnInit {
   return this.http.post(`/api/v1/employee/getgoalmilestones`, this.Id, this.requestOptions).subscribe((response)=>{
    
     this.milestone_data=response;
+    console.log(this.milestone_data[0])
   
     },(error)=>{
       console.error(error);

@@ -54,10 +54,10 @@
 
 <div class="list-card row shadow-lg" style="margin-bottom: 10px;">
     <div class="col-sm-1 progress-percent">
-        <img class="member-pic" src="{{allUserDetails.profile_img_url}}">
+        <img class="member-pic" src="{{userDetails.profile_img_url}}">
     </div>
     <div class="col-sm-10 task-details">
-        <strong>{{allUserDetails.full_name}}</strong>
+        <strong>{{userDetails.full_name}}</strong>
         <ul class="nav">
             <li class="nav-item">
                 <div class="nav-link active" aria-current="page">
@@ -69,7 +69,7 @@
                 </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link">Last Checkin Date: {{allUserDetails.last_login_time | date: "dd-MMM-yy" }}</div>
+                <div class="nav-link">Last Checkin Date: {{userDetails.last_login_time | date: "dd-MMM-yy" }}</div>
             </li>
         </ul>
     </div>
@@ -83,9 +83,9 @@
             <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png" />
           </button>
             <ul class="dropdown-menu" *ngIf="dp" style="display: block" aria-labelledby="dropdownMenuButton1">
-                <li>
+                <!-- <li>
                     <a (click)="editUser()" class="dropdown-item">Edit</a>
-                </li>
+                </li> -->
                 <li>
                     <a (click)="confirmationPopupShow('DELETE')" class="dropdown-item">Delete</a>
                 </li>
@@ -105,4 +105,8 @@
             <app-goal-list [goalDetails]="goal"></app-goal-list>
         </div>
     </div>
+
+</div>
+<div *ngIf="showform">
+    <app-update-user [userDetails]="userDetails"></app-update-user>
 </div>

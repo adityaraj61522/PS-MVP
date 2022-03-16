@@ -26,6 +26,7 @@ export class UserCardComponent implements OnInit {
 
   constructor( private http : HttpClient, private router:Router , private toastr: ToastrService) { }
 
+  @Input() userDetails:any;
   @Input() allUserDetails:any;
   @Input() public adminUserOperation !: (user_id: any, admin_user_id:any,todo:any)=>void;
   @Input() public makeAdmin !: (user_id: any, admin_user_id:any)=>void;
@@ -57,9 +58,13 @@ export class UserCardComponent implements OnInit {
   };
   goalData:any;
 
-  editUser(){
-    this.router.navigate(['/register'], {
-      queryParams: { action: `admin_update` },
+  showform=false;
+
+  updateUser(){
+    this.showform=true;
+    // this.router.navigate(['/admin/users/update-user']);
+    this.router.navigate(['admin/users/update-user'], {
+      queryParams: { userid: this.userDetails.user_id },
     });
   }
   show=false;

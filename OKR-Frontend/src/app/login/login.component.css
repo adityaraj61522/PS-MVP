@@ -2,8 +2,10 @@
 			height: 100%;
 		}
 		.login-body{
-			height: 700px;
-			width: 1440px;
+			/* height: 700px; */
+			/* width: 1440px; */
+			height: 100vh;
+			width: 100%;
 			position: absolute;
 			background-position: center;
 			background-repeat: no-repeat;
@@ -33,12 +35,17 @@
 		}
 		.lg-btn{
 			margin-left: 40%;
+			margin-bottom: 5px;
 		}
 		.quest{
 			margin-left: 25%;
 			margin-top: 10px;
 		}
-
+		.quest a{
+			cursor: pointer;
+			font-size: 1.2em;
+			color: blue;
+		}
 
 		input.ng-invalid.ng-touched, select.ng-invalid.ng-touched{
 			border-bottom: 1px solid red;
@@ -50,5 +57,5 @@
 
 		.help-cred{
 			margin-left: 70px;
-			font-size: 15px;;
+			font-size: 15px;
 		}

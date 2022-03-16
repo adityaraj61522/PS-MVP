@@ -63,7 +63,7 @@
                         </li>
                         <li *ngIf="!(goalDetails.goal_status=='REJECTED')">
                             <a class="dropdown-item">
-                                <app-milestone-reuse [goalId]="goalDetails.goal_id" [refFrom]="'listPage'"></app-milestone-reuse>
+                                <app-milestone-reuse [goalId]="goalDetails.goal_id" [refFrom]="'listPage'">Add Milestone</app-milestone-reuse>
                             </a>
                         </li>
                         <li (click)="deleteGoal(goalDetails.goal_name, goalDetails.goal_id,goalDetails.org_id,'DELETE')">

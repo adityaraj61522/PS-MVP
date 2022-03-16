@@ -16,25 +16,21 @@
     </select>
     <span class="help-block" *ngIf="!goal_quater.valid && goal_quater.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
       </div> -->
-      <div class="form-group">
-      <label>Start Date*</label><br>
-      <input type="date" formControlName="goal_start_date" class="in-d form-control" goal_start_date required>
-
-    <!-- <div type="text" class="in-2 form-control"  >{{goalData.goal_start_date | date: 'dd-MM-yyyy'}}</div> -->
-      <!-- <span class="help-block" *ngIf="!goal_start_date.valid && goal_start_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
-      </div>
-      <div class="form-group">
-      <label>End Date*</label><br>
-      <input type="date"  formControlName="goal_due_date" class="in-d form-control" goal_due_date required>
-
-    <!-- <div type="text" class="in-2 form-control"  >{{goalData.goal_due_date| date: 'dd-MM-yyyy'}}</div> -->
-      <!-- <span class="help-block" *ngIf="!goal_due_date.valid && goal_due_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
-      </div>
+      <div class="form-group"> 
+        <label>Start Date*</label><br> 
+        <input type="date"  class="in-d" formControlName="goal_start_date" min="{{start_date}}" max="{{end_date}}" #dateStartSelect   (change)='chooseStartDate(dateStartSelect.value)' >
+       
+        </div>
+        <div class="form-group">
+        <label>End Date*  {{end_date}}</label><br>
+        <input type="date"   class="in-d"   formControlName="goal_due_date" min="{{min_due_date}}" max="{{end_date}}">
+       
+        </div>
     </div>
   <div class="in-date">
     <div class="form-group">
     <label>Owner:</label><br>
-    <input type="text" class="in-2 form-control" [(ngModel)]="model" [ngbTypeahead]="search" placeholder="{{goalData.goal_owner_name}}" formControlName="goal_owner_name" goal_owner_name required
+    <input type="text" class="in-2 form-control" [(ngModel)]="model" [ngbTypeahead]="search" (change) = "ownerChange()" placeholder="{{goalData.goal_owner_name}}" formControlName="goal_owner_name" goal_owner_name required
     [resultFormatter]="inFormatter"
     [inputFormatter]="outFormatter"/>
     <!-- <div type="text" class="in-2 form-control"  >{{goalData.goal_owner_name}}</div> -->
