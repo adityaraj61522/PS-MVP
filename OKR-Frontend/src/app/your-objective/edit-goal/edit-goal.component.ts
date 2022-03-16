@@ -51,6 +51,7 @@ export class EditGoalComponent implements OnInit {
   userdata: any;
   goaldata: any;
   goal_data: any;
+  todayDate = new Date().toISOString().split("T")[0];
   constructor( private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiService:ApiService, private toastr: ToastrService) {
     this.apiService.post(`/api/v1/employee/getusers`, this.getUser).subscribe((result)=>{
       console.log(result);
@@ -154,7 +155,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       linked_org_goal_id:new FormControl(this.goalData['linked_org_goal_id']),
       goal_type:new FormControl(this.goalData['goal_type']),
       goal_owner_id:new FormControl(this.model.user_id),
-      goal_owner_name:new FormControl(this.model.full_name),
+      goal_owner_name:new FormControl(this.goalData.full_name),
       goal_owner_email:new FormControl(this.model.email),
     
 
@@ -168,7 +169,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       console.log("aaaaaa", this.model);
       this.toastr.success("Update Goal Successfully...", 'Success');
         setTimeout(() => {
-        window.location.reload();
+       // window.location.reload();
         }, 1000);
       //window.location.reload();
     },(error)=>{
