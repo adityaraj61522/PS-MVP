@@ -36,27 +36,40 @@ export class UsersComponent implements OnInit {
 
   show=false;
   isLoad=false;
-  showSuccess() {
-    this.toastr.success("Successfully Created...", 'Created');
+  showSuccess(todo:any) {
+    if(todo=='DELETE') this.toastr.success("User Deleted Successfully...", 'Success');
+    if(todo=='MAKE_ADMIN') this.toastr.success("User set as Admin...", 'Success');
+    if(todo=='DELETE') this.toastr.success("User Removed as Admin...", 'Success');
   }
   showError() {
     this.toastr.error('Something went wrong!!!', 'Error!!!');
   }
-  deleteUserReq = {
+  adminUserOperationReq = {
     user_id:"",
-    admin_user_id:""
+    admin_user_id:"",
+    todo:""
   }
-  deleteUser=(user_id: any,admin_user_id:any)=>{
-    this.isLoad=true;
+  adminUserOperation=(user_id: any,admin_user_id:any , todo:any)=>{
+    console.log(todo);
+    this.isLoad=false; //true
     console.log("Delete User")
-    this.deleteUserReq.user_id= user_id;
-    this.deleteUserReq.admin_user_id=admin_user_id;
-    this.http.post(`/api/v1/admin/delete-user`,this.deleteUserReq, this.requestOptions).subscribe((result:any)=>{
+    this.adminUserOperationReq.user_id= user_id;
+    this.adminUserOperationReq.admin_user_id=admin_user_id;
+    this.adminUserOperationReq.todo=todo;
+    var url="";
+    if(todo=='DELETE'){
+      url=`/api/v1/admin/delete-user`;
+    }
+    if(todo=='MAKE_ADMIN' || todo=='REMOVE_ADMIN'){
+      url=`/api/v1/admin/makeOrRemoveAdmin`
+    }
+    console.log("url==",url)
+    this.http.post(`${url}`,this.adminUserOperationReq, this.requestOptions).subscribe((result:any)=>{
       // console.log(result:any); 
       console.log(result);
       this.isLoad = false;
       this.show=false;
-      this.showSuccess();
+      this.showSuccess(todo);
       this.ngOnInit();
     },(error)=>{
       console.error(error);
@@ -64,8 +77,8 @@ export class UsersComponent implements OnInit {
       this.show=false;
       this.isLoad = false;
     });
-    
   }
+
 
   ngOnInit(): void {
     this.orgData.org_id=sessionStorage['orgDetails_id']

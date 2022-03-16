@@ -5,7 +5,7 @@
         <button class="btn btn-primary side" (click)="addUser()">Add User</button>
     </div>
     <div class="list" *ngFor="let user of allUsers" style="margin-left: 20px; margin-right: 20px;">
-        <app-user-card [isLoad]="isLoad" [deleteUser]="deleteUser" [allUserDetails]="user"></app-user-card>
+        <app-user-card [isLoad]="isLoad" [adminUserOperation]="adminUserOperation" [allUserDetails]="user"></app-user-card>
     </div>
 
 </section>

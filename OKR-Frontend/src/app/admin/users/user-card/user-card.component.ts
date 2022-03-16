@@ -27,12 +27,22 @@ export class UserCardComponent implements OnInit {
   constructor( private http : HttpClient, private router:Router , private toastr: ToastrService) { }
 
   @Input() allUserDetails:any;
-  @Input() public deleteUser !: (user_id: any, admin_user_id:any)=>void;
+  @Input() public adminUserOperation !: (user_id: any, admin_user_id:any,todo:any)=>void;
+  @Input() public makeAdmin !: (user_id: any, admin_user_id:any)=>void;
   @Input() isLoad: any;
 
   admin_user_id=sessionStorage.getItem("user_id");
   edit=false;
   goalShow=false;
+
+  dp=false;
+  showDp(){
+    if(this.dp == false){
+      this.dp=true;
+    }else{
+      this.dp =false;
+    }
+  }
   showGoal(){
     if(this.goalShow==false){
       this.goalShow=true;
@@ -53,11 +63,20 @@ export class UserCardComponent implements OnInit {
     });
   }
   show=false;
-  confirmationPopupShow(){
+  todo='';
+  confirmationPopupShow(todo:any){
     this.show=true;
+    console.log("todododo===" , todo)
+    this.todo=todo;
   }
   confirmationPopupHide(){
     this.show=false;
+  }
+  confirmationMakeAdminPopupShow(){
+
+  }
+  confirmationRemoveAdminPopupShow(){
+
   }
   
   ngOnInit(): void {
