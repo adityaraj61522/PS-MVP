@@ -27,7 +27,7 @@ export class UserCardComponent implements OnInit {
   constructor( private http : HttpClient, private router:Router , private toastr: ToastrService) { }
 
   @Input() userDetails:any;
-  @Input() allUserDetails:any;
+
   @Input() public adminUserOperation !: (user_id: any, admin_user_id:any,todo:any)=>void;
   @Input() public makeAdmin !: (user_id: any, admin_user_id:any)=>void;
   @Input() isLoad: any;

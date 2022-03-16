@@ -9,7 +9,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="confirmationPopupHide()" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" (click)="[adminUserOperation(this.allUserDetails.user_id,admin_user_id ,todo)]" show="false" *ngIf="!isLoad" style="background-color: #0D8EBB; margin:5px; text-align: center;" data-bs-toggle="modal">Yes</button>
+                <button class="btn btn-primary" (click)="[adminUserOperation(this.userDetails.user_id,admin_user_id ,todo)]" show="false" *ngIf="!isLoad" style="background-color: #0D8EBB; margin:5px; text-align: center;" data-bs-toggle="modal">Yes</button>
                 <button class="btn btn-primary" type="submit" *ngIf="isLoad" data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 130px;" data-bs-toggle="modal">
                 <mat-spinner [diameter]="23" style="margin-left: 40px;"></mat-spinner></button>
                 <button class="btn btn-secondary" (click)="confirmationPopupHide()" style="margin:5px;" data-bs-toggle="modal">Cancel</button>
@@ -26,7 +26,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="confirmationPopupHide()" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" (click)="[adminUserOperation(this.allUserDetails.user_id,admin_user_id ,'MAKE_ADMIN')]" *ngIf="!isLoad" style="background-color: #0D8EBB; margin:5px; text-align: center;" data-bs-toggle="modal">Yes</button>
+                <button class="btn btn-primary" (click)="[adminUserOperation(this.userDetails.user_id,admin_user_id ,'MAKE_ADMIN')]" *ngIf="!isLoad" style="background-color: #0D8EBB; margin:5px; text-align: center;" data-bs-toggle="modal">Yes</button>
                 <button class="btn btn-primary" type="submit" *ngIf="isLoad" data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 130px;" data-bs-toggle="modal">
                 <mat-spinner [diameter]="23" style="margin-left: 40px;"></mat-spinner></button>
                 <button class="btn btn-secondary" (click)="confirmationPopupHide()" style="margin:5px;" data-bs-toggle="modal">Cancel</button>
@@ -43,7 +43,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="confirmationPopupHide()" aria-label="Close"></button>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" (click)="[adminUserOperation(this.allUserDetails.user_id,admin_user_id ,'REMOVE_ADMIN')]" *ngIf="!isLoad" style="background-color: #0D8EBB; margin:5px; text-align: center;" data-bs-toggle="modal">Yes</button>
+                <button class="btn btn-primary" (click)="[adminUserOperation(this.userDetails.user_id,admin_user_id ,'REMOVE_ADMIN')]" *ngIf="!isLoad" style="background-color: #0D8EBB; margin:5px; text-align: center;" data-bs-toggle="modal">Yes</button>
                 <button class="btn btn-primary" type="submit" *ngIf="isLoad" data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 130px;" data-bs-toggle="modal">
                 <mat-spinner [diameter]="23" style="margin-left: 40px;"></mat-spinner></button>
                 <button class="btn btn-secondary" (click)="confirmationPopupHide()" style="margin:5px;" data-bs-toggle="modal">Cancel</button>
@@ -89,10 +89,10 @@
                 <li>
                     <a (click)="confirmationPopupShow('DELETE')" class="dropdown-item">Delete</a>
                 </li>
-                <li *ngIf="allUserDetails.role_id==1">
+                <li *ngIf="userDetails.role_id==1">
                     <a (click)="confirmationPopupShow('MAKE_ADMIN')" class="dropdown-item">Make Admin</a>
                 </li>
-                <li *ngIf="allUserDetails.role_id==2">
+                <li *ngIf="userDetails.role_id==2">
                     <a (click)="confirmationPopupShow('REMOVE_ADMIN')" class="dropdown-item">Remove Admin</a>
                 </li>
 
