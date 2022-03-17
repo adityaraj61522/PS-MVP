@@ -10,6 +10,7 @@ export class ApiService {
   getSingleUserUrl = `${this.baseUrl}/api/v1/employee/getgoaldetails`;
   createMilestoneUrl = `${this.baseUrl}/api/v1/employee/create-milestone`;
   uploadObjectiveUrl = `${this.baseUrl}/api/v1/admin/bulkUpload`;
+  updateObjectiveUrl = `${this.baseUrl}/api/v1/employee/update-objective`;
 
   showObjective:boolean = false;
   showMilestone:boolean = false
@@ -67,5 +68,8 @@ changeShowMilestone=()=>{
   createMilestone(data:any){
       return this.http.post(this.createMilestoneUrl, data,this.requestOptions);
   }
+  updateObjective(data:any){
+    return this.http.post(this.updateObjectiveUrl, data,this.requestOptions);
+}
 }
  
