@@ -47,6 +47,7 @@
 
                     <div class="form-group">
                         <input type="text" formControlName="line_manager_id" class="r-in form-control" [ngbTypeahead]="search" [(ngModel)]="model" placeholder="Enter Line Manager" line_manager_id required
+                        (change)="ownerChange()"
                         [resultFormatter]="inFormatter"
                         [inputFormatter]="outFormatter"/>
                     </div>

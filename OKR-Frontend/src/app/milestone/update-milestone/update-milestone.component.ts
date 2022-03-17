@@ -108,9 +108,9 @@ export class UpdateMilestoneComponent implements OnInit {
       milestone_start_date:new FormControl(this.start_date),
       milestone_due_date:new FormControl(this.end_date),
       milestone_type:new FormControl(this.milestoneData.milestone_type),
-      milestone_owner_id:new FormControl(this.milestoneData.milestone_owner_id),
+      // milestone_owner_id:new FormControl(this.milestoneData.milestone_owner_id),
       milestone_owner_name:new FormControl(this.milestoneData.milestone_owner_name),
-      milestone_owner_email:new FormControl(this.milestoneData.milestone_owner_email),
+      // milestone_owner_email:new FormControl(this.milestoneData.milestone_owner_email),
       milestone_weightage:new FormControl(this.milestoneData.milestone_weightage),
       milestone_status:new FormControl(this.milestoneData.milestone_status),
       created_by:new FormControl(this.milestoneData.created_by),
@@ -136,36 +136,47 @@ export class UpdateMilestoneComponent implements OnInit {
 
   }
 
-  ownerChange(){
-    this.updateForm = new FormGroup({
-      milestone_id:new FormControl(this.milestoneData.milestone_id),
-      milestone_name:new FormControl(this.milestoneData.milestone_name),
-      milestone_progress:new FormControl(this.milestoneData.milestone_progress),
-      milestone_start_date:new FormControl(this.milestoneData.milestone_start_date),
-      milestone_due_date:new FormControl(this.milestoneData.milestone_due_date),
-      milestone_type:new FormControl(this.milestoneData.milestone_type),
-      milestone_weightage:new FormControl(this.milestoneData.milestone_weightage),
-      milestone_status:new FormControl(this.milestoneData.milestone_status),
-      created_by:new FormControl(this.milestoneData.created_by),
-      milestone_owner_id:new FormControl(this.model.user_id),
-      milestone_owner_name:new FormControl(this.model.full_name),
-      milestone_owner_email:new FormControl(this.model.email),
-      metric_start_value:new FormControl(this.milestoneData.metric_start_value),
-      metric_target_value:new FormControl(this.milestoneData.metric_target_value),
-      metric_curr_value:new FormControl(this.milestoneData.metric_curr_value),
-
-    })
+  milestoneObj={
+    milestone_id: "",
+    milestone_name : "",
+    milestone_progress : "",
+    milestone_start_date : "",
+    milestone_due_date : "",
+    milestone_type : "",
+    milestone_weightage : "",
+    milestone_status : "",
+    created_by : "",
+    milestone_owner_id: "",
+    milestone_owner_name: "",
+    milestone_owner_email: "",
+    metric_start_value : "",
+    metric_target_value : "",
+    metric_curr_value : "",
   }
 
   // updateMilestoneRequest(data:any, milestoneType:string){
-    onUpdateMilestone(){
-      
+  onUpdateMilestone(){
+    this.milestoneObj.milestone_id = this.updateForm.value.milestone_id;
+    this.milestoneObj.milestone_name = this.updateForm.value.milestone_name;
+    this.milestoneObj.milestone_progress = this.updateForm.value.milestone_progress;
+    this.milestoneObj.milestone_start_date = this.updateForm.value.milestone_start_date;
+    this.milestoneObj.milestone_due_date = this.updateForm.value.milestone_due_date;
+    this.milestoneObj.milestone_type = this.updateForm.value.milestone_type;
+    this.milestoneObj.milestone_weightage = this.updateForm.value.milestone_weightage;
+    this.milestoneObj.milestone_status = this.updateForm.value.milestone_status;
+    this.milestoneObj.created_by = this.updateForm.value.created_by;
+    this.milestoneObj.milestone_owner_id= this.model.user_id;
+    this.milestoneObj.milestone_owner_name= this.model.full_name;
+    this.milestoneObj.milestone_owner_email= this.model.email;
+    this.milestoneObj.metric_start_value = this.updateForm.value.metric_start_value;
+    this.milestoneObj.metric_target_value = this.updateForm.value.metric_target_value;
+    this.milestoneObj.metric_curr_value = this.updateForm.value.metric_curr_value;
     this.apiService.post(`/api/v1/employee/update-milestone`, this.updateForm.value).subscribe((result)=>{
       console.log(result);
       // console.log("aaaaaa", this.model);
       this.toastr.success("Milestone Updated Successfully...", 'Success');
       setTimeout(() => {
-        window.location.reload();
+        // window.location.reload();
       }, 1000);
       
     },(error)=>{
