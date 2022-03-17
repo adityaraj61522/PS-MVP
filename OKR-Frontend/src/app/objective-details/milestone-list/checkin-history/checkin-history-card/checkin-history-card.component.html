@@ -2,28 +2,37 @@
     <div class="col-sm-9 task-details">
         <!-- <strong> goalDetails.goal_name</strong> -->
         <ul class="nav">
-            <li class="nav-item">
+            <li class="nav-item col-sm-2">
                 <div class="nav-link">
-                    Checkin Date: 
+                    {{checkin_history.creation_date| date: "dd-MMM-YYYY" }}
                     <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
                 </div>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item col-sm-2">
                 <div class="nav-link">
-                    Checkin Old Value:
+                    {{checkin_history.milestone_progress_old}}
                     <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
                 </div>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item col-sm-2">
                 <div class="nav-link">
-                    Checkin New Value:
+                    {{checkin_history.milestone_progress_new}}
                     <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
                 </div>
             </li>
-            <li class="nav-item">
-                <!-- <a class="nav-link">{{ goalDetails.linked_org_goal_name }}</a> -->
+            <li class="nav-item col-sm-2">
+                <div class="nav-link">
+                    {{checkin_history.metric_value_old}}
+                    <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
+                </div>
+            </li>
+            <li class="nav-item col-sm-2">
+                <div class="nav-link">
+                    {{checkin_history.metric_value_new}}
+                    <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
+                </div>
             </li>
         </ul>
     </div>

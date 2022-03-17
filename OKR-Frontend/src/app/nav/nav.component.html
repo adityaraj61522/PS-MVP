@@ -2,16 +2,7 @@
   <img class="nav-logo" src="{{orgData.org_logo_url}}">
     <ul class="nav justify-content-center">
       <li class="nav-item">
-        <a class="nav-link " aria-current="page">HOME</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" routerLink="/objectives" routerLinkActive="active">OKR</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">PERFORMANCE REVIEW</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">CONTINIOUS FEEDBACK</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/admin/users"  routerLinkActive="active">DASHBOARD</a>
@@ -43,13 +34,7 @@
   <nav *ngIf="employee">
   <ul class="nav">
     <li class="nav-item">
-      <a class="nav-link" aria-current="page">QUICK CHECK-IN</a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link"routerLink="/objectives" routerLinkActive="active">MY OBJECTIVE</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link">MY IDP</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" routerLink="/my-team" *ngIf="teamMembers.length!>0" routerLinkActive="active">MY TEAM</a>

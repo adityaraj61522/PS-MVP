@@ -29,11 +29,6 @@
                         <!-- <button class="btn btn-default dropdown-toggle" style="color: #0d8ebb; padding-top: 0px" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
               Key Results
             </button> -->
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item">Action</a></li>
-                            <li><a class="dropdown-item">Another action</a></li>
-                            <li><a class="dropdown-item">Something else here</a></li>
-                        </ul>
                     </div>
                 </div>
             </li>
@@ -68,7 +63,7 @@
                         </li>
                         <li *ngIf="!(goalDetails.goal_status=='REJECTED')">
                             <a class="dropdown-item">
-                                <app-milestone-reuse [goalId]="goalDetails.goal_id" [refFrom]="'listPage'"></app-milestone-reuse>
+                                <app-milestone-reuse [goalId]="goalDetails.goal_id" [refFrom]="'listPage'">Add Milestone</app-milestone-reuse>
                             </a>
                         </li>
                         <li (click)="deleteGoal(goalDetails.goal_name, goalDetails.goal_id,goalDetails.org_id,'DELETE')">

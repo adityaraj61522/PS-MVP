@@ -1,7 +1,6 @@
 <app-nav></app-nav>
-
 <section class="active-list">
-    <app-objective-upload></app-objective-upload>
+    <!-- <app-objective-upload></app-objective-upload> -->
     <div>
         <strong *ngIf="(goalCountData[0].IN_PROGRESS + goalCountData[0].WAITING_FOR_CLOSURE  + goalCountData[0].WAITING_FOR_APPROVAL)">Active({{goalCountData[0].IN_PROGRESS  + goalCountData[0].WAITING_FOR_CLOSURE + goalCountData[0].WAITING_FOR_APPROVAL}})</strong>
         <app-milestone></app-milestone>
@@ -46,7 +45,7 @@
                                         <option value="3">Q3</option>
                                         <option value="4">Q4</option>
                                         </select>
-                                        <span class="help-block" *ngIf="!goal_quater.valid && goal_quater.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+                                            <span class="help-block" *ngIf="!goal_quater.valid && goal_quater.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                                         </div>
                                         <div class="form-group">
                                             <label>Start Date*</label><br>
@@ -65,7 +64,7 @@
                                         <option value="1">H1</option>
                                         <option value="2">H2</option>
                                         </select>
-                                        <span class="help-block" *ngIf="!goal_quater.valid && goal_quater.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
+                                            <span class="help-block" *ngIf="!goal_quater.valid && goal_quater.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                                         </div>
                                         <div class="form-group">
                                             <label>Start Date*</label><br>
@@ -93,9 +92,8 @@
                                     <div class="in-date">
                                         <div class="form-group">
                                             <label for="typeahead-basic">Owner:</label>
-                                            <input id="typeahead-basic" type="text" class="form-control in-2" ngModel 
-                                            (change)="checkMaxGoal()" #goal_owner_name="ngModel" goal_owner_name required [(ngModel)]="model" name="goal_owner_name" [ngbTypeahead]="search" [resultFormatter]="outFormatter" [inputFormatter]="outFormatter"
-                                            />
+                                            <input id="typeahead-basic" type="text" class="form-control in-2" ngModel (change)="checkMaxGoal()" #goal_owner_name="ngModel" goal_owner_name required [(ngModel)]="model" name="goal_owner_name" [ngbTypeahead]="search" [resultFormatter]="outFormatter"
+                                                [inputFormatter]="outFormatter" />
                                             <span class="help-block" *ngIf="!goal_owner_name.valid && goal_owner_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                                             <span class="help-block" *ngIf="goal_limit_exceeded"><i class="fas fa-exclamation-circle"></i>Goal limit exceeded for {{model.full_name}}!!!</span>
                                         </div>
@@ -110,7 +108,7 @@
                                                 <span class="help-block" *ngIf="!linked_org_goal_id.valid && linked_org_goal_id.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
                                             </div>
                                             <!--    Not Mandatory    -->
-                                            <div class="form-group"*ngIf="goalSettings.mandatory_company_objective==0">
+                                            <div class="form-group" *ngIf="goalSettings.mandatory_company_objective==0">
                                                 <label>To which Company Objective This Objective Align With:</label><br>
                                                 <select class="form-select in-2" ngModel aria-label="Default select example" name="linked_org_goal_id" #linked_org_goal_id="ngModel">
                                                     <option value="">Please select company objective</option>
@@ -120,49 +118,33 @@
                                         </div>
                                     </div>
                                 </div>
-              <div class="modal-footer">
-                <button class="btn btn-primary" type="submit"  *ngIf="!isLoad"
-                data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" [disabled]="!ObjForm.valid || goal_limit_exceeded" data-bs-toggle="modal">Add Key Result</button>
-                <button class="btn btn-primary" type="submit"  *ngIf="isLoad"
-                data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 130px;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="submit" *ngIf="!isLoad" data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" [disabled]="!ObjForm.valid || goal_limit_exceeded" data-bs-toggle="modal">Add Key Result</button>
+                                    <button class="btn btn-primary" type="submit" *ngIf="isLoad" data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 130px;" [disabled]="!ObjForm.valid" data-bs-toggle="modal">
                 <mat-spinner [diameter]="23" style="margin-left: 40px;"></mat-spinner></button>
-                <br>
-              </div>
-            </form>
-           
-            </div>
-          </div>
-        </div>
-        <div
-          class="modal fade show"
-          style="display: block"
-          *ngIf="show2"
-          id="exampleModalToggle2"
-          aria-hidden="true"
-          aria-labelledby="exampleModalToggleLabel2"
-          tabindex="-1"
-        >
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalToggleLabel2">
-                  ADD KEY RESULT: HOW YOU WILL DO IT
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  (click)="keyresultHide()"
-                ></button>
-              </div>
-              <app-create-milestone></app-create-milestone>
-              <!-- <app-milestone [keyresultshow]="keyresultshow"   [keyresultHide]="keyresultHide" ></app-milestone> -->
-            </div>
-          </div>
-        </div>
+                                    <br>
+                                </div>
+                            </form>
 
-                        
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade show" style="display: block" *ngIf="show2" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalToggleLabel2">
+                                    ADD KEY RESULT: HOW YOU WILL DO IT
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="keyresultHide()"></button>
+                            </div>
+                            <app-create-milestone></app-create-milestone>
+                            <!-- <app-milestone [keyresultshow]="keyresultshow"   [keyresultHide]="keyresultHide" ></app-milestone> -->
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="modal fade show" style="display: block" *ngIf="show2" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -228,8 +210,6 @@
 </section>
 
 <!--    Rejected      -->
-
-<!--      Closed Section      -->
 
 <section class="active-list" *ngIf="goalCountData[0].REJECTED">
     <div>
