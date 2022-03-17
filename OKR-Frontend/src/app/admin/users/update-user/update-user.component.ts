@@ -116,7 +116,7 @@ export class UpdateUserComponent implements OnInit {
         email:new FormControl(this.userData['email']),
         emp_code:new FormControl(this.userData['emp_code']),
         org_id:new FormControl(this.userData['org_id']),
-        line_manager_id:new FormControl(this.userData['line_manager_id']),
+        line_manager_id:new FormControl("1"),
         city:new FormControl(this.userData['city']),
         country:new FormControl(this.userData['country']),
         department:new FormControl(this.userData['department']),
@@ -130,17 +130,35 @@ export class UpdateUserComponent implements OnInit {
     })
    
   }
+  ownerChange(){
+    console.log(this.model)
+    this.updateForm = new FormGroup({
+      first_name:new FormControl(this.userData['first_name']),
+      last_name:new FormControl(this.userData['last_name']),
+      username:new FormControl(this.userData['username']),
+      email:new FormControl(this.userData['email']),
+      emp_code:new FormControl(this.userData['emp_code']),
+      org_id:new FormControl(this.userData['org_id']),
+      line_manager_id:new FormControl(this.model.user_id),
+      city:new FormControl(this.userData['city']),
+      country:new FormControl(this.userData['country']),
+      department:new FormControl(this.userData['department']),
+      password:new FormControl(""),
+      conf_password:new FormControl(""),
+    })
+  }
 
   
 
   updateUser(){
+    console.log(this.model)
     this.http.post(`/api/v1/admin/update-user`, this.updateForm.value, this.requestOptions).subscribe((result)=>{
       console.log(result);
       this.toastr.success("Updated Successfully...", 'Success');
-        setTimeout(() => {
-        window.location.reload();
-        }, 1000);
-      //window.location.reload();
+      this.router.navigate(['admin/users/']);
+        // setTimeout(() => {
+        // window.location.reload();
+        // }, 1000);
     },(error)=>{
       console.error(error);
       this.toastr.error('Something went wrong!!!', 'Error!!!');

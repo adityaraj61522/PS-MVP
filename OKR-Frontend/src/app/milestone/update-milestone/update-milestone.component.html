@@ -31,10 +31,9 @@
       <div class="form-group">
         <label>Owner:</label><br>
         <input type="text" class="in-2" [(ngModel)]="model" [ngbTypeahead]="search" 
-        (change) = "ownerChange()"
+        formControlName="milestone_owner_name"
         placeholder="{{milestoneData.milestone_owner_name}}"
-        formControlName="milestone_owner_name" 
-        [resultFormatter]="inFormatter"
+        [resultFormatter]="outFormatter"
         [inputFormatter]="outFormatter"/><br>
       </div>
       <div class="form-group"> 
