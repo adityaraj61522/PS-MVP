@@ -9,7 +9,8 @@ export class ApiService {
   getUsersUrl = `${this.baseUrl}/api/v1/employee/getusers`;
   getSingleUserUrl = `${this.baseUrl}/api/v1/employee/getgoaldetails`;
   createMilestoneUrl = `${this.baseUrl}/api/v1/employee/create-milestone`;
-  uploadObjectiveUrl = `${this.baseUrl}/api/v1/admin/bulkUpload`;
+  // uploadObjectiveUrl = `${this.baseUrl}/api/v1/admin/bulkUpload`;
+  uploadObjectiveUrl = `${this.baseUrl}/bulkUpload`;
 
   showObjective:boolean = false;
   showMilestone:boolean = false
@@ -27,25 +28,25 @@ changeShowMilestone=()=>{
 
 
   org_id:any = "1"
+  user_id:any = "1"
   getUser={
     org_id:"1"
   }
   // set headers
   headers = {
     // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    'Content-Type': 'multipart/form-data',
-    'Accept': 'application/json',
+    'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryePkpFF7tjBAqx29L',
+    'Content-Disposition': 'form-data; name="excelfile"; ',
     'Access-Control-Allow-Headers': '*',
-    // 'x-access-token' : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDc0OTcyMzA5MTQsImlzcyI6InFpbG8iLCJhdWQiOjF9.Kv9zMVAcDRpCjH3mqxv9tNoFOQoEwJOfOzFWsGyP2hg',
-    // 'x-key':'1',
-    // 'x-org':'1'
     'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
     'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
     'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
   }  
   requestOptions = {
-    headers: new HttpHeaders(this.headers),
+    headers: new HttpHeaders(this.headers)
   };
+
+
 
   constructor(private http: HttpClient) { }
 
@@ -56,10 +57,15 @@ changeShowMilestone=()=>{
 
 
   upload_objective(file:any){
+    this.user_id = sessionStorage.getItem("user_id")
+    this.org_id = sessionStorage.getItem("org_id")
     const formData = new FormData();
-    formData.append('file', file); 
-    console.log('c2');
-    return this.http.post(this.uploadObjectiveUrl,formData,this.requestOptions)
+    formData.append('excelfile', file); 
+    formData.append('org_id', '1'); 
+    formData.append('created_by', this.user_id); 
+    formData.append('settingId', '1');
+
+    return this.http.post<any>(this.uploadObjectiveUrl,formData)
   }
  getSingleUser(id:string){
   return this.http.post(this.getSingleUserUrl, {"goal_id":id},this.requestOptions);
