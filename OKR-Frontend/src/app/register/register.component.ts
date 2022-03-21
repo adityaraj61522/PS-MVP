@@ -71,20 +71,14 @@ export class RegisterComponent implements OnInit {
     private router : Router, 
     private fb : FormBuilder,
     private apiData: ApiService,
-    private route : ActivatedRoute, private toastr: ToastrService) { 
-      this.apiData.getUsers().subscribe((result)=>{
-        this.allUsers = result
-      }, (error)=>{
-        console.error(error);
-      });
-    }
+    private route : ActivatedRoute, private toastr: ToastrService) { }
 
   @ViewChild('f') formData!:NgForm;
 
 
   headers = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    Accept: 'application/json',
+    'Accept': 'application/json',
     'Access-Control-Allow-Headers': '*',
     'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
     'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
@@ -112,8 +106,25 @@ export class RegisterComponent implements OnInit {
       throw Error ("Password Not Matched");
     }
 
-    if(this.actionType=="admin_add"){
+    if(this.actionType=="addUser"){
       this.http.post(`api/v1/admin/add-user`,this.userData, this.requestOptions).subscribe((result)=>{
+        console.warn(result); 
+        this.router.navigate(
+          ['/admin/users']
+          );
+    this.toastr.success('User Added Successfully.....', 'Success');
+    },(error)=>{
+      console.error(error);
+      if(error.status==300){
+        this.userExist=true;
+        this.toastr.error('User Already Exist!!!', 'Error!!!');
+      }else{
+        this.toastr.error('Something went wrong!!!', 'Error!!!');
+      }
+    });
+
+    }else if(this.actionType=="admin_update"){
+      this.http.post(`api/v1/admin/update-user`,this.userData, this.requestOptions).subscribe((result)=>{
         console.warn(result); 
         this.router.navigate(
           ['/admin/users']
@@ -182,6 +193,13 @@ outFormatter = (x: {full_name: string}) => x.full_name;
       this.actionType = params['action'];
       console.log(this.actionType,"params");
     });
+    console.log("aldjhfahsjlgf")
+    this.apiData.getUsers().subscribe((result)=>{
+        console.log("USERS:==", result)
+        this.allUsers = result
+      }, (error)=>{
+        console.error(error);
+      });
   }
 
 }

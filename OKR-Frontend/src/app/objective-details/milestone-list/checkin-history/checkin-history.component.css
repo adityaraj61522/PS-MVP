@@ -1,83 +1,62 @@
-.nav-1 {
+.nav-1{
     background-color: white;
     border-bottom: 1px solid lightgray;
 }
-
-.modal {
+.modal{
     background-color: rgba(0, 0, 0, 0.5);
 }
-
-.modal-dialog {
-    max-width: 1px;
-    margin: 1.75rem auto;
-}
-
-.nav-link {
+.nav-link{
     color: grey;
     box-shadow: none;
 }
-
-.nav-links:hover {
+.nav-links:hover{
     text-decoration: none;
     color: grey;
 }
-
-.btn-check:focus+.btn,
-.btn:focus {
-    outline: 0;
-    box-shadow: none;
+.btn-check:focus+.btn, .btn:focus {
+outline: 0;
+box-shadow: none;
 }
-
-.active {
+.active{
     color: #0D8EBB;
 }
-
-.side {
+.side{
     position: absolute;
     right: 20px;
 }
-
-.active-list {
-    padding: 20px;
+.active-list{
+    padding:20px;
 }
-
-.list {
-    margin-top: 20px;
+.list{
+    margin-top: 10px;
+    background-color: white;
 }
-
-.list-card {
-    /* height: 100px; */
-    position: static;
+.list-card{
+    height: 40px;
     background-color: white;
     border-radius: 10px;
-    border-left: 5px solid #0D8EBB;
-    padding: 10px;
+    /* border-left:5px solid green; */
 }
-
-.progress-percent {
-    height: 80px;
-    width: 80px;
-}
-
-.member-pic {
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    border: 2px solid #0D8EBB;
-}
-
-.task-details {
-    padding: 10px;
-    margin-left: 20px;
-}
-
-.options {
+.progress-percent{
+    height: 70px;
+    width: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-.status {
+.task-details{
+    padding: 0px;
+}
+.details{
+    margin-right: 50px;
+    margin-left: 50px;
+}
+.options{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.status{
     background-color: #F9ECB4;
     color: #D2AB0A;
     border-radius: 10px;
@@ -85,52 +64,44 @@
     padding: 5px;
 }
 
-
 /*       Popup        */
-
 .modal-dialog {
     max-width: 1300px;
     margin: 1.75rem auto;
 }
-
-label {
+label{
     color: grey;
     font-size: 10px;
 }
-
-.in-date {
+.in-date{
     display: flex;
     align-items: center;
 }
-
-.in-1 {
+.in-1{
     width: 1200px;
     margin-right: 50px;
 }
-
-.in-2 {
+.in-2{
     width: 500px;
     margin-right: 50px;
     height: 28px;
     font-size: 12px;
 }
-
-.in-d {
+.in-d{
     width: 300px;
     margin-right: 50px;
 }
-
-input {
-    border: 1px solid lightgrey;
+.st{
+    margin-left: 50px;
+    margin-right: 50px;
 }
-
-input.ng-invalid.ng-touched,
-select.ng-invalid.ng-touched {
+input{
+    border:1px solid lightgrey;
+}
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched{
     border-bottom: 1px solid red;
 }
-
-span {
+span{
     color: red;
-    font-size: 10px;
-    ;
+    font-size: 10px;;
 }

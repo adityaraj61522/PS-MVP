@@ -1,4 +1,4 @@
-<form [formGroup]="updateForm" (ngSubmit)="updateObjective()">
+<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
   <div class="modal-body">
     <div class="form-group">
       <label>Objective:</label><br>
@@ -16,36 +16,33 @@
     </select>
     <span class="help-block" *ngIf="!goal_quater.valid && goal_quater.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span>
       </div> -->
-      <div class="form-group">
-      <label>Start Date*</label><br>
-      <!-- <input type="text" formControlName="goal_start_date" class="in-d form-control" goal_start_date required> -->
-
-    <div type="text" class="in-2 form-control"  >{{goalData.goal_start_date | date: 'dd-MM-yyyy'}}</div>
-      <!-- <span class="help-block" *ngIf="!goal_start_date.valid && goal_start_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
-      </div>
-      <div class="form-group">
-      <label>End Date*</label><br>
-      <!-- <input type="text"  formControlName="goal_due_date" class="in-d form-control" goal_due_date required> -->
-
-    <div type="text" class="in-2 form-control"  >{{goalData.goal_due_date| date: 'dd-MM-yyyy'}}</div>
-      <!-- <span class="help-block" *ngIf="!goal_due_date.valid && goal_due_date.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
-      </div>
+      <div class="form-group"> 
+        <label>Start Date*</label><br> 
+        <input type="date"  class="in-d" formControlName="goal_start_date" min="{{todayDate}}" max="{{end_date}}" #dateStartSelect   (change)='chooseStartDate(dateStartSelect.value)' >
+       
+        </div>
+        <div class="form-group">
+        <label>End Date* </label><br>
+        <input type="date"   class="in-d"   formControlName="goal_due_date" min="{{min_due_date}}" max="{{end_date}}">
+       
+        </div>
     </div>
   <div class="in-date">
     <div class="form-group">
     <label>Owner:</label><br>
-    <!-- <input type="text" class="in-2 form-control" [(ngModel)]="model" [ngbTypeahead]="search"  formControlName="goal_owner_name" goal_owner_name required
-    [resultFormatter]="inFormatter"
-    [inputFormatter]="outFormatter"/> -->
-    <div type="text" class="in-2 form-control"  >{{goalData.goal_owner_name}}</div>
+    <input type="text" class="in-2 form-control" [(ngModel)]="model" [ngbTypeahead]="search"  placeholder="{{goalData.goal_owner_name}}" formControlName="ownerObj" goal_owner_name required
+    [resultFormatter]="outFormatter"
+    [inputFormatter]="outFormatter"/>
+    <!-- <div type="text" class="in-2 form-control"  >{{goalData.goal_owner_name}}</div> -->
     
     <!-- <span class="help-block" *ngIf="!goal_owner_name.valid && goal_owner_name.touched"><i class="fas fa-exclamation-circle"></i>Please enter a valid value!!!</span> -->
     </div>
     <div class="form-group">
       <label>To which Company Objective This Objective Align With:</label><br>
-      <select class="form-select in-2" ngModel aria-label="Default select example" name="linked_org_goal_id" #linked_org_goal_id="ngModel" linked_org_goal_id required>
+      <select class="form-select in-2" ngModel aria-label="Default select example" formControlName="linked_org_goal_id" linked_org_goal_id required>
         <option value="">Please select company objective</option>
-    <option *ngFor="let item of allOrgGoal" value="{{item.goal_id}}">{{item.goal_name}}</option>
+        <!-- <option value="" [selected]="isSelect">aaa</option> -->
+    <option *ngFor="let item of allOrgGoal" [selected]="isSelect" value="{{item.goal_id}}">{{item.goal_name}}</option>
     <!-- <option value="2">Q2</option>
     <option value="3">Q3</option>
     <option value="4">Q4</option> -->
@@ -69,6 +66,6 @@
   <div class="modal-footer">
     <!-- <button type="button" class="btn btn-default" data-bs-dismiss="modal" (click)="objectiveHide()"  aria-label="Close"> Cancel </button><br> -->
     <button class="btn btn-primary" type="submit" 
-    data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Update Key Result</button>
+    data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal" >Update Key Result</button>
   </div>
 </form>

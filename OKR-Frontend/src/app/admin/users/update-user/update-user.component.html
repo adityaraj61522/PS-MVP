@@ -1,0 +1,88 @@
+
+<div class="container">
+    <div class="Register-box shadow-lg">
+        <h2 class="reg-logo">Update User</h2>
+        <form [formGroup]="updateForm" (ngSubmit)="updateUser()">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" formControlName="first_name" class="r-in form-control" placeholder="Enter First Name" firs_tname required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" formControlName="last_name" class="r-in form-control" placeholder="Enter Last Name" last_name required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" formControlName="username" class="r-in form-control" placeholder="Enter User Name" username required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" formControlName="email" class="r-in form-control" placeholder="Enter Email" email required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" formControlName="city" class="r-in form-control" placeholder="Enter City Name" city required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="password" formControlName="password" class="r-in form-control" placeholder="Enter Password" password required>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <select formControlName="department" class="r-in form-control" department required>
+                            <option value="">Select Department</option>
+                            <option value="Human Resource">Human Resource</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Informantion Technology">Informantion Technology</option>
+                            <option value="Finance">Finance</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" formControlName="emp_code" class="r-in form-control" placeholder="Enter Emp Code" emp_code required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input type="text" formControlName="line_manager_id" class="r-in form-control" [ngbTypeahead]="search" [(ngModel)]="model" placeholder="Enter Line Manager" line_manager_id required
+                        (change)="ownerChange()"
+                        [resultFormatter]="inFormatter"
+                        [inputFormatter]="outFormatter"/>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="r-in ng-autocomplete">
+                            <ng-autocomplete #countryList ngModel formControlName="country" [data]="countries" min-length="1" country required
+                            [searchKeyword]="countrykeyword" [initialValue]="countrykeyword"
+                              (selected)='selectEventCountry();onLocationSubmit();' (inputCleared)='onCountryCleared()'
+                              [itemTemplate]="countryListTemplate" [notFoundTemplate]="notFoundTemplate" placeholder="Enter Country"
+                              [customFilter]="customFilter">
+                            </ng-autocomplete>
+                          
+                            <ng-template #countryListTemplate let-item>
+                              <a [innerHTML]="item.name"></a>
+                            </ng-template>
+                          
+                            <ng-template #notFoundTemplate let-notFound>
+                              <div [innerHTML]="notFound"></div>
+                            </ng-template>
+                          </div>
+                        </div>
+                    
+
+                        <div class="form-group">
+                            <input type="password" formControlName="conf_password" ngModel placeholder="Confirm your Password" class="r-in form-control" conf_password required> 
+                            <!-- <span class="help-block" *ngIf="!conf_password.valid && conf_password.touched && conf_password===password"><i class="fas fa-exclamation-circle"></i>The password does not match!!!</span> -->
+                            <!-- <span class="help-block" *ngIf="!pwd_matched"><i class="fas fa-exclamation-circle"></i>The password does not match!!!</span> -->
+                        </div>
+                </div>
+            </div>
+            <!-- <span class="help-block" *ngIf="!pwd_matched"><i class="fas fa-exclamation-circle"></i>The password does not match!!!</span> -->
+            
+
+            <button class="btn btn-success bt-reg" type="submit">Update Register</button>
+        </form>
+    </div>
+</div>

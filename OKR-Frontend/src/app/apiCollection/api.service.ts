@@ -7,10 +7,17 @@ import { Injectable } from '@angular/core';
 export class ApiService {
   baseUrl = 'http://localhost:9001'
   getUsersUrl = `${this.baseUrl}/api/v1/employee/getusers`;
+  getManagers = `${this.baseUrl}/getManagers`;
   getSingleUserUrl = `${this.baseUrl}/api/v1/employee/getgoaldetails`;
   createMilestoneUrl = `${this.baseUrl}/api/v1/employee/create-milestone`;
+<<<<<<< HEAD
   // uploadObjectiveUrl = `${this.baseUrl}/api/v1/admin/bulkUpload`;
   uploadObjectiveUrl = `${this.baseUrl}/bulkUpload`;
+=======
+  uploadObjectiveUrl = `${this.baseUrl}/api/v1/admin/bulkUpload`;
+  updateObjectiveUrl = `${this.baseUrl}/api/v1/employee/update-objective`;
+
+>>>>>>> dc5bbc88bcf43fc06d06710d2c59c622d6e79445
 
   showObjective:boolean = false;
   showMilestone:boolean = false
@@ -30,13 +37,13 @@ changeShowMilestone=()=>{
   org_id:any = "1"
   user_id:any = "1"
   getUser={
-    org_id:"1"
+    org_id:JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
   }
   // set headers
   headers = {
-    // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryePkpFF7tjBAqx29L',
-    'Content-Disposition': 'form-data; name="excelfile"; ',
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    // 'Content-Type': 'multipart/form-data',
+    'Accept': 'application/json',
     'Access-Control-Allow-Headers': '*',
     'x-access-token' : JSON.parse(JSON.stringify(sessionStorage.getItem("token"))),
     'x-key':JSON.parse(JSON.stringify(sessionStorage.getItem("user_id"))),
@@ -71,10 +78,15 @@ changeShowMilestone=()=>{
   return this.http.post(this.getSingleUserUrl, {"goal_id":id},this.requestOptions);
  }
   getUsers(){
-      return this.http.post(this.getUsersUrl, this.getUser,this.requestOptions);
+    console.log("alsjkhdfgalskhf;ashdf")
+    console.log(this.getManagers, this.getUser)
+      return this.http.post(this.getManagers, this.getUser);
   }
   createMilestone(data:any){
       return this.http.post(this.createMilestoneUrl, data,this.requestOptions);
   }
+  updateObjective(data:any){
+    return this.http.post(this.updateObjectiveUrl, data,this.requestOptions);
+}
 }
  
