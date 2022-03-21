@@ -16,6 +16,7 @@ export class ObjectiveUploadComponent implements OnInit {
   show=false;
   errorMsg:boolean = false;
   invalidType:boolean = false
+ 
 
   constructor( private toastr: ToastrService,private apiCall:ApiService) { }
   ngOnInit(): void {
@@ -24,10 +25,10 @@ export class ObjectiveUploadComponent implements OnInit {
 
   // for image update
   onChangeImage(event: any){
+
     let file: File = event.target.files[0];
     this.my_file = file
-    console.log(this.my_file);
-    
+
   }
 
 
@@ -42,14 +43,8 @@ export class ObjectiveUploadComponent implements OnInit {
 
 
   toCheckAndProceed(){
-    var checklist = []
-    // var result = Object.values(this.my_file);
-    // var size = Object.keys(this.my_file).length;
-    // console.log('this is',this.my_file);
-    // checklist.push(this.my_file)
-    console.log(this.my_file.size);
-    
-    if(this.my_file.size==null){
+
+    if(this.my_file.size==undefined || this.my_file.size==null){
       this.errorMsg = true
       this.invalidType = false
     }
@@ -73,7 +68,7 @@ export class ObjectiveUploadComponent implements OnInit {
   }
 
   onSubmit(){
-    // console.log(this.my_file);
+    // console.log('copare', this.my_file,this.uploadForm.controls['testfile'].value);
     this.apiCall.upload_objective(this.my_file).subscribe((result)=>{
       console.log(result);
       this.toastr.success("File upload has been upload Successfully...", 'Success');

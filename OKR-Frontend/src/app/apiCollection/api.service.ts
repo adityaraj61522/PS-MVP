@@ -10,7 +10,8 @@ export class ApiService {
   getManagers = `${this.baseUrl}/getManagers`;
   getSingleUserUrl = `${this.baseUrl}/api/v1/employee/getgoaldetails`;
   createMilestoneUrl = `${this.baseUrl}/api/v1/employee/create-milestone`;
-  uploadObjectiveUrl = `${this.baseUrl}/api/v1/admin/bulkUpload`;
+  // uploadObjectiveUrl = `${this.baseUrl}/api/v1/admin/bulkUpload`;
+  uploadObjectiveUrl = `${this.baseUrl}/bulkUpload`;
   updateObjectiveUrl = `${this.baseUrl}/api/v1/employee/update-objective`;
 
 
@@ -30,6 +31,7 @@ changeShowMilestone=()=>{
 
 
   org_id:any = "1"
+  user_id:any = "1"
   getUser={
     org_id:JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
   }
@@ -44,8 +46,10 @@ changeShowMilestone=()=>{
     'x-org':JSON.parse(JSON.stringify(sessionStorage.getItem("orgDetails_id")))
   }  
   requestOptions = {
-    headers: new HttpHeaders(this.headers),
+    headers: new HttpHeaders(this.headers)
   };
+
+
 
   constructor(private http: HttpClient) { }
 
@@ -56,10 +60,15 @@ changeShowMilestone=()=>{
 
 
   upload_objective(file:any){
+    this.user_id = sessionStorage.getItem("user_id")
+    this.org_id = sessionStorage.getItem("org_id")
     const formData = new FormData();
-    formData.append('file', file); 
-    console.log('c2');
-    return this.http.post(this.uploadObjectiveUrl,formData,this.requestOptions)
+    formData.append('excelfile', file); 
+    formData.append('org_id', '1'); 
+    formData.append('created_by', this.user_id); 
+    formData.append('settingId', '1');
+
+    return this.http.post<any>(this.uploadObjectiveUrl,formData)
   }
  getSingleUser(id:string){
   return this.http.post(this.getSingleUserUrl, {"goal_id":id},this.requestOptions);
