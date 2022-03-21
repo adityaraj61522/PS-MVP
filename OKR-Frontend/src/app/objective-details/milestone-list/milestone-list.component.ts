@@ -33,6 +33,7 @@ export class MilestoneListComponent implements OnInit {
   check = false;
   checkin_history=false;
   checkin() {
+    this.dp=false;
     if (this.check == false) {
       this.check = true;
     } else {
@@ -40,6 +41,7 @@ export class MilestoneListComponent implements OnInit {
     }
   }
   checkinHistory(){
+    this.dp=false;
     if (this.checkin_history == false) {
       this.checkin_history = true;
     } else {
@@ -56,19 +58,23 @@ export class MilestoneListComponent implements OnInit {
 
   showUpdateMilestone(){
     this.showForm = true;
+    this.dp=false;
     console.log("update milestone showForm :---", this.showForm)
   }
   hideUpdateMilestone(){
     this.showForm = false;
+    this.dp=false;
     console.log("update milestone showForm :---", this.showForm)
   }
 
   show=false;
   confirmationPopupShow(){
     this.show=true;
+    this.dp=false;
   }
   confirmationPopupHide(){
     this.show=false;
+    this.dp=false;
   }
   completed=false
   ngOnInit(): void {

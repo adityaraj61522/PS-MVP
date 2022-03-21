@@ -39,10 +39,14 @@
 
 
                     <div class="form-group">
-                        <input type="text" formControlName="line_manager_data" class="r-in form-control" [ngbTypeahead]="search" [(ngModel)]="model" placeholder="{{userDetails.line_manager_id}}" line_manager_id required
+                        <!-- <input type="text" formControlName="line_manager_data" class="r-in form-control" [ngbTypeahead]="search" [(ngModel)]="model" placeholder="{{userDetails.line_manager_name}}" line_manager_id required
                         [resultFormatter]="inFormatter"
                         [inputFormatter]="outFormatter"
-                        value="{{userDetails.line_manager_id}}"/>
+                        value="{{userDetails.line_manager_id}}"/> -->
+                        <select class="form-select r-in" formControlName="line_manager_id">
+                            <option value="">select Line Manager</option>
+                            <option *ngFor="let item of allUsers" value="{{item.user_id}}">{{item.full_name}}</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -51,7 +55,9 @@
                 </div>
             </div>
 
-            <button class="btn btn-success bt-reg" type="submit">Update</button>
+            <button *ngIf="!isload" class="btn btn-success bt-reg" type="submit">Update</button>
+            <button *ngIf="isload" class="btn btn-success bt-reg" type="button" style="width: 100px;">
+                <mat-spinner [diameter]="23" style="margin-left: 30px;"></mat-spinner></button>
         </form>
     </div>
 </div>

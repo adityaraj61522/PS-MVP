@@ -307,7 +307,7 @@ outFormatter = (x: {full_name: string}) => x.full_name;
   
 
   // Get goal settings
-  this.http.post(`/api/v1/admin/getGoalSettings`, this.getUser , this.requestOptions
+  this.http.post(`/api/v1/employee/getGoalSettings`, this.getUser , this.requestOptions
   ).subscribe((result:any)=>{
       this.goalSettings=JSON.stringify(result[0]);
       sessionStorage.setItem("goalSettings" , this.goalSettings);

@@ -25,6 +25,8 @@ export class UpdateMilestoneComponent implements OnInit {
   min_due_date:string = ''
   start_date:string = ''
   end_date:string = ''
+  startvaleempty=false;
+  isEditable=true;
 
   getUser={
     org_id:"1"
@@ -59,6 +61,10 @@ export class UpdateMilestoneComponent implements OnInit {
     });
   }
 
+  editTypeahead(){
+    this.isEditable=!this.isEditable;
+  }
+
 
   inFormatter = (x: {full_name: string}) => x.full_name;
   outFormatter = (x: {full_name: string}) => x.full_name; 
@@ -73,6 +79,7 @@ export class UpdateMilestoneComponent implements OnInit {
     )
 
   setTarget(value:string){
+      this.startvaleempty=false;
     this.min_target_matrix = +value + 1;
     // this.myForm.controls['metric_target_value']
   }
@@ -115,8 +122,8 @@ export class UpdateMilestoneComponent implements OnInit {
       milestone_weightage:new FormControl(this.milestoneData.milestone_weightage),
       milestone_status:new FormControl(this.milestoneData.milestone_status),
       created_by:new FormControl(this.milestoneData.created_by),
-      metric_start_value:new FormControl(this.milestoneData.metric_start_value),
-      metric_target_value:new FormControl(this.milestoneData.metric_target_value),
+      metric_start_value:new FormControl(this.milestoneData.metric_start_value||0),
+      metric_target_value:new FormControl(this.milestoneData.metric_target_value||0),
       metric_curr_value:new FormControl(this.milestoneData.metric_curr_value),
       ownerObj:{}
     })
@@ -125,20 +132,23 @@ export class UpdateMilestoneComponent implements OnInit {
   }
   // updateMilestoneRequest(data:any, milestoneType:string){
   onUpdateMilestone(myForm:any){
+
+    if(this.myForm.controls['metric_start_value'].value!==null){
+      this.startvaleempty=false;
     var postReq:any = {
     milestone_id: myForm.value.milestone_id,
     milestone_name : myForm.value.milestone_name,
     milestone_start_date : myForm.value.milestone_start_date,
     milestone_due_date : myForm.value.milestone_due_date,
     milestone_type : myForm.value.milestone_type,
-    milestone_owner_id: myForm.value.ownerObj.user_id,
-    milestone_owner_name: myForm.value.ownerObj.full_name,
-    milestone_owner_email: myForm.value.ownerObj.email,
+    milestone_owner_id: this.isEditable==false? myForm.value.ownerObj.user_id : this.milestoneData.milestone_owner_id,
+    milestone_owner_name: this.isEditable==false? myForm.value.ownerObj.full_name : this.milestoneData.milestone_owner_name,
+    milestone_owner_email: this.isEditable==false ? myForm.value.ownerObj.email : this.milestoneData.milestone_owner_email,
     metric_start_value : myForm.value.metric_start_value,
     metric_target_value : myForm.value.metric_target_value,
  
     };
-    
+    console.log(postReq,"posthjsjkcks")
     this.apiService.post(`/api/v1/employee/update-milestone`, postReq).subscribe((result)=>{
       console.log(result);
       // console.log("aaaaaa", this.model);
@@ -151,6 +161,11 @@ export class UpdateMilestoneComponent implements OnInit {
       console.error(error);
       this.toastr.error('Something went wrong!!!', 'Error!!!');
     });
+  
+}else{
+  this.startvaleempty=true;
+
+}
   }
 
 }

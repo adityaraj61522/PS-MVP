@@ -20,9 +20,10 @@ export class UpdateUserComponent implements OnInit {
   Id={
     user_id:""
   }
-
+ 
   model: any;
   allUsers: any;
+  isload=false;
 
     headers = {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -82,7 +83,7 @@ export class UpdateUserComponent implements OnInit {
       email:new FormControl(this.userDetails['email']),
       emp_code:new FormControl(this.userDetails['emp_code']),
       org_id:new FormControl(this.userDetails['org_id']),
-      // line_manager_id:new FormControl(this.userDetails['line_manager_id']),
+      line_manager_id:new FormControl(JSON.stringify(this.userDetails['line_manager_id'])),
       city:new FormControl(this.userDetails['city']),
       department:new FormControl(this.userDetails['department']),
       line_manager_data:{}
@@ -100,7 +101,7 @@ export class UpdateUserComponent implements OnInit {
       email : myForm.value.email,
       emp_code : myForm.value.emp_code,
       org_id: myForm.value.org_id,
-      // line_manager_id: myForm.value.line_manager_data.user_id,
+      line_manager_id: myForm.value.line_manager_id,
       department: myForm.value.department,
       city : myForm.value.city,
       user_id:this.userDetails.user_id
@@ -109,11 +110,12 @@ export class UpdateUserComponent implements OnInit {
     this.http.put(`/api/v1/admin/update-user`, postReq, this.requestOptions).subscribe((result)=>{
       console.log(result);
       this.toastr.success("Updated Successfully...", 'Success');
-      // this.router.navigate(['admin/users/']);
-        // setTimeout(() => {
-        // window.location.reload();
-        // }, 1000);
+      this.isload=true;
+        setTimeout(() => {
+        window.location.reload();
+        }, 500);
     },(error)=>{
+      this.isload=false;
       console.error(error);
       this.toastr.error('Something went wrong!!!', 'Error!!!');
     });

@@ -16,12 +16,13 @@
 
       <div class="form-group" *ngIf="choice=='metric'">
         <label>Metric start value*</label><br>
-        <input type="number" class="in-d" formControlName="metric_start_value" #startValue (change)='setTarget(startValue.value)'  required="true" > 
+        <input type="number" min="0" max="metric_target_value" class="in-d" formControlName="metric_start_value" #startValue (change)='setTarget(startValue.value)'  required="true" > 
+        <div  class="form-text showError" *ngIf="startvaleempty" >Start value must not be empty.</div>
       </div>
       &nbsp;&nbsp;
       <div class="form-group ml-3" *ngIf="choice=='metric'">
         <label>Metric target value</label><br>
-        <input type="number" class="in-d" formControlName="metric_target_value"   #targetValue (change)='showTargetError(targetValue.value)'  required="true" >
+        <input type="number" min="metric_start_value" class="in-d" formControlName="metric_target_value"   #targetValue (change)='showTargetError(targetValue.value)'  required="true" >
         <div  class="form-text showError" *ngIf="showTargetFiledError">target value must be greater then start value.</div>
       </div>
       &nbsp;&nbsp;
@@ -29,12 +30,14 @@
     
     <div class="in-date">
       <div class="form-group">
-        <label>Owner:</label><br>
-        <input type="text" class="in-2" [(ngModel)]="model" [ngbTypeahead]="search"
+        <label>Owner:</label> &nbsp;
+        <span style="cursor: pointer;" (click)="editTypeahead()">{{isEditable==true?"Edit":"Cancel"}}</span>
+        <div class="in-2" style="border: 1px solid lightgrey;" *ngIf="isEditable">{{milestoneData.milestone_owner_name}}</div>
+        <input type="text" class="in-2" [(ngModel)]="model" [ngbTypeahead]="search" *ngIf="!isEditable"
         formControlName="ownerObj"
-        placeholder="{{milestoneData.milestone_owner_name}}"
+        value="{{milestoneData.milestone_owner_name}}"
         [resultFormatter]="outFormatter"
-        [inputFormatter]="outFormatter"/><br>
+        [inputFormatter]="outFormatter"/>
       </div>
       <div class="form-group"> 
         <label>Start Date* {{start_date}}</label><br> 
@@ -48,7 +51,7 @@
 
     <div class="modal-footer">
       <button class="btn btn-primary" type="submit" 
-      [disabled]="updateForm.invalid"
+      [disabled]="updateForm.invalid || startvaleempty"
       data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB;" data-bs-toggle="modal">Update Key Result</button>
     </div>
   </div>
