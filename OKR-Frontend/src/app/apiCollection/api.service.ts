@@ -10,14 +10,10 @@ export class ApiService {
   getManagers = `${this.baseUrl}/getManagers`;
   getSingleUserUrl = `${this.baseUrl}/api/v1/employee/getgoaldetails`;
   createMilestoneUrl = `${this.baseUrl}/api/v1/employee/create-milestone`;
-<<<<<<< HEAD
   // uploadObjectiveUrl = `${this.baseUrl}/api/v1/admin/bulkUpload`;
   uploadObjectiveUrl = `${this.baseUrl}/bulkUpload`;
-=======
-  uploadObjectiveUrl = `${this.baseUrl}/api/v1/admin/bulkUpload`;
   updateObjectiveUrl = `${this.baseUrl}/api/v1/employee/update-objective`;
 
->>>>>>> dc5bbc88bcf43fc06d06710d2c59c622d6e79445
 
   showObjective:boolean = false;
   showMilestone:boolean = false
