@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit , Input} from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {Observable, OperatorFunction} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
@@ -21,33 +21,8 @@ export class UpdateUserComponent implements OnInit {
     user_id:""
   }
 
-  countrykeyword = 'name';
-    public countries = [
-      
-      { id: 1, name: 'Albania'},
-      { id: 2, name: 'Belgium'},
-      { id: 3, name: 'Denmark'},
-      { id: 4, name: 'Georgia'},
-      { id: 5, name: 'India'},
-      { id: 6, name: 'Montenegro'},
-      { id: 7, name: 'Macedonia'},
-      { id: 8, name: 'Russia'},
-      { id: 9, name: 'Slovenia'},
-      { id: 10, name: 'Switzerland'},
-      { id: 11, name: 'Turkey'},
-      { id: 12, name: 'Ukraine'},
-    ];
   model: any;
   allUsers: any;
-    selectEvent() {}
-    onChangeSearch(search: string) {}
-    onFocused() {}
-    selectEventCountry() {}
-    onLocationSubmit() {}
-    onCountryCleared() {}
-    customFilter = function(countries: any[], query: string): any[] {
-      return countries.filter(x => x.name.toLowerCase().startsWith(query.toLowerCase()));
-    };
 
     headers = {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -70,13 +45,13 @@ export class UpdateUserComponent implements OnInit {
     org_id:new FormControl(''),
     line_manager_id:new FormControl(''),
     city:new FormControl(''),
-    country:new FormControl(''),
     department:new FormControl(''),
-    password:new FormControl(''),
-    conf_password:new FormControl('')
+    line_manager_data:new FormControl({})
   })
+  
+  myForm!: FormGroup;
 
-  constructor( private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiData:ApiService, private toastr: ToastrService) {
+  constructor(private fb: FormBuilder, private http : HttpClient, private route :ActivatedRoute, private router: Router, private apiData:ApiService, private toastr: ToastrService) {
     this.apiData.getUsers().subscribe((result)=>{
       console.log(result);
       
@@ -100,62 +75,41 @@ export class UpdateUserComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.model);
     
-    this.route.queryParams.subscribe((params) => {
-      this.Id.user_id = params['userid'];
-      console.log(this.Id.user_id,"params");
-    });
-    this.http.post(`/api/v1/employee/getsingleuser`, this.Id, this.requestOptions).subscribe((response)=>{
-      console.log(response);
-      this.userData=response;
-      this.userData=this.userData[0];
-      console.log(this.userData)
-      this.updateForm = new FormGroup({
-        first_name:new FormControl(this.userData['first_name']),
-        last_name:new FormControl(this.userData['last_name']),
-        username:new FormControl(this.userData['username']),
-        email:new FormControl(this.userData['email']),
-        emp_code:new FormControl(this.userData['emp_code']),
-        org_id:new FormControl(this.userData['org_id']),
-        line_manager_id:new FormControl("1"),
-        city:new FormControl(this.userData['city']),
-        country:new FormControl(this.userData['country']),
-        department:new FormControl(this.userData['department']),
-        password:new FormControl(""),
-        conf_password:new FormControl(""),
-        // password:new FormControl(this.userData['password']),
-      })
-      console.log(this.updateForm.value,"abbbbc")
-    },(error)=>{
-      console.error(error);
-    })
-   
-  }
-  ownerChange(){
-    console.log(this.model)
-    this.updateForm = new FormGroup({
-      first_name:new FormControl(this.userData['first_name']),
-      last_name:new FormControl(this.userData['last_name']),
-      username:new FormControl(this.userData['username']),
-      email:new FormControl(this.userData['email']),
-      emp_code:new FormControl(this.userData['emp_code']),
-      org_id:new FormControl(this.userData['org_id']),
-      line_manager_id:new FormControl(this.model.user_id),
-      city:new FormControl(this.userData['city']),
-      country:new FormControl(this.userData['country']),
-      department:new FormControl(this.userData['department']),
-      password:new FormControl(""),
-      conf_password:new FormControl(""),
+    this.myForm = this.fb.group({
+      first_name:new FormControl(this.userDetails['first_name']),
+      last_name:new FormControl(this.userDetails['last_name']),
+      username:new FormControl(this.userDetails['username']),
+      email:new FormControl(this.userDetails['email']),
+      emp_code:new FormControl(this.userDetails['emp_code']),
+      org_id:new FormControl(this.userDetails['org_id']),
+      // line_manager_id:new FormControl(this.userDetails['line_manager_id']),
+      city:new FormControl(this.userDetails['city']),
+      department:new FormControl(this.userDetails['department']),
+      line_manager_data:{}
     })
   }
 
   
 
-  updateUser(){
-    console.log(this.model)
-    this.http.post(`/api/v1/admin/update-user`, this.updateForm.value, this.requestOptions).subscribe((result)=>{
+  updateUser(myForm:any){
+
+    var postReq:any = {
+      first_name: myForm.value.first_name,
+      last_name : myForm.value.last_name,
+      username : myForm.value.username,
+      email : myForm.value.email,
+      emp_code : myForm.value.emp_code,
+      org_id: myForm.value.org_id,
+      // line_manager_id: myForm.value.line_manager_data.user_id,
+      department: myForm.value.department,
+      city : myForm.value.city,
+      user_id:this.userDetails.user_id
+   
+      };
+    this.http.put(`/api/v1/admin/update-user`, postReq, this.requestOptions).subscribe((result)=>{
       console.log(result);
       this.toastr.success("Updated Successfully...", 'Success');
-      this.router.navigate(['admin/users/']);
+      // this.router.navigate(['admin/users/']);
         // setTimeout(() => {
         // window.location.reload();
         // }, 1000);

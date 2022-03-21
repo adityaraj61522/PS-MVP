@@ -194,32 +194,6 @@ checkFun=(event:any)=>{
     })
   }
   onSubmit(form: FormGroup) {
-
-
-  
-
- 
-
-  
-  // updateObjective(form:FormGroup){
-  //   //console.log(this.updateForm);
-  //   console.log(form.value)
-  //   console.log(form.value.ownerObj.full_name)
-  //   var postReq:any = {
-  //     goal_id:  this.goalId ,
-  //     is_active: "1",
-  //     org_id: sessionStorage.getItem("orgDetails_id") || "1", 
-  //     goal_name: form.value.goal_name,
-  //     goal_start_date: form.value.goal_start_date,
-  //     goal_due_date: form.value.goal_due_date,
-  //     goal_owner_id: form.value.ownerObj.user_id,
-  //     goal_owner_name: form.value.ownerObj.full_name,
-  //     goal_owner_email: form.value.ownerObj.email,
-  //     created_by: sessionStorage.getItem('user_id'),
-  //   };
-  //   console.log(postReq);
-    
-    
 console.log(this.currgoalId)
       var postReq:any = {
         goal_id:  this.goalData.goal_id,

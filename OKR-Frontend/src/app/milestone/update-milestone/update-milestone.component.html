@@ -1,13 +1,13 @@
-<form [formGroup]="updateForm" (ngSubmit)="onUpdateMilestone()">
+<form [formGroup]="myForm" (ngSubmit)="onUpdateMilestone(myForm)">
   <div class="modal-body">
     <div class="form-group">
       <label>Milestone name:</label><br>
-      <input type="text" class="in-1" formControlName="milestone_name">  
+      <input type="text" class="in-1" formControlName="milestone_name" required="true">  
     </div>
     <div class="in-date">
       <div class="form-group">
         <label>Which Type of OKR you are Creating?:</label><br>
-        <select class="form-select in-2" formControlName="milestone_type" aria-label="Default select example"  #mySelect   (change)='changeChoice(mySelect.value)'>
+        <select class="form-select in-2" formControlName="milestone_type" aria-label="Default select example"  #mySelect   (change)='changeChoice(mySelect.value)' required="true">
           <option selected value="boolean">boolean</option>
           <option value="progress">progress</option>
           <option value="metric">metric</option>
@@ -16,12 +16,12 @@
 
       <div class="form-group" *ngIf="choice=='metric'">
         <label>Metric start value*</label><br>
-        <input type="number" class="in-d" formControlName="metric_start_value" #startValue (change)='setTarget(startValue.value)'  >
+        <input type="number" class="in-d" formControlName="metric_start_value" #startValue (change)='setTarget(startValue.value)'  required="true" > 
       </div>
       &nbsp;&nbsp;
       <div class="form-group ml-3" *ngIf="choice=='metric'">
         <label>Metric target value</label><br>
-        <input type="number" class="in-d" formControlName="metric_target_value"   #targetValue (change)='showTargetError(targetValue.value)'  >
+        <input type="number" class="in-d" formControlName="metric_target_value"   #targetValue (change)='showTargetError(targetValue.value)'  required="true" >
         <div  class="form-text showError" *ngIf="showTargetFiledError">target value must be greater then start value.</div>
       </div>
       &nbsp;&nbsp;
@@ -30,19 +30,19 @@
     <div class="in-date">
       <div class="form-group">
         <label>Owner:</label><br>
-        <input type="text" class="in-2" [(ngModel)]="model" [ngbTypeahead]="search" 
-        formControlName="milestone_owner_name"
+        <input type="text" class="in-2" [(ngModel)]="model" [ngbTypeahead]="search"
+        formControlName="ownerObj"
         placeholder="{{milestoneData.milestone_owner_name}}"
         [resultFormatter]="outFormatter"
         [inputFormatter]="outFormatter"/><br>
       </div>
       <div class="form-group"> 
         <label>Start Date* {{start_date}}</label><br> 
-        <input type="date"  class="in-d" formControlName="milestone_start_date" min="{{start_date}}" max="{{end_date}}" #dateStartSelect   (change)='chooseStartDate(dateStartSelect.value)' >
+        <input type="date"  class="in-d" formControlName="milestone_start_date" min="{{start_date}}" max="{{end_date}}" #dateStartSelect   (change)='chooseStartDate(dateStartSelect.value)'  required="true">
       </div>
       <div class="form-group">
         <label>End Date*  {{end_date}}</label><br>
-        <input type="date"   class="in-d"   formControlName="milestone_due_date" min="{{min_due_date}}" max="{{end_date}}">
+        <input type="date"   class="in-d"   formControlName="milestone_due_date" min="{{min_due_date}}" max="{{end_date}}" required="true">
       </div>
     </div>
 

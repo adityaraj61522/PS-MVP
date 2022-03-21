@@ -52,7 +52,7 @@
                       <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png" />
                     </button>
                     <ul class="dropdown-menu" *ngIf="dp" style="display: block" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item">Update Milestone</a></li>
+                        <li><a class="dropdown-item" (click)="showUpdateMilestone()">Update Milestone</a></li>
                         <li><a class="dropdown-item">Another actions</a></li>
                         <li (click)="
                 deleteMilestone(

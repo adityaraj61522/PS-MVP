@@ -46,6 +46,7 @@ export class UpdateMilestoneComponent implements OnInit {
     metric_start_value:new FormControl(''),
     metric_target_value:new FormControl(''),
     metric_curr_value:new FormControl(''),
+    ownerObj:new FormControl({})
   })
 
   constructor(private fb: FormBuilder, private http : HttpClient,private apiService:ApiService, private toastr: ToastrService) { 
@@ -101,7 +102,7 @@ export class UpdateMilestoneComponent implements OnInit {
     this.start_date = new Date(this.goalData.goal_start_date).toISOString().split('T')[0];
     this.end_date = new Date(this.goalData.goal_due_date).toISOString().split('T')[0];
 
-    this.updateForm = new FormGroup({
+    this.myForm = this.fb.group({
       milestone_id:new FormControl(this.milestoneData.milestone_id),
       milestone_name:new FormControl(this.milestoneData.milestone_name),
       milestone_progress:new FormControl(this.milestoneData.milestone_progress),
@@ -117,61 +118,28 @@ export class UpdateMilestoneComponent implements OnInit {
       metric_start_value:new FormControl(this.milestoneData.metric_start_value),
       metric_target_value:new FormControl(this.milestoneData.metric_target_value),
       metric_curr_value:new FormControl(this.milestoneData.metric_curr_value),
+      ownerObj:{}
     })
     console.log(this.updateForm.value);
     
-
-  //   this.myForm = this.fb.group({
-  //     org_id: sessionStorage.getItem('orgDetails_id'),
-  //     milestone_name: ['', [Validators.required]],
-  //     milestone_start_date: ['', [Validators.required]],
-  //     milestone_due_date: ['', [Validators.required]],
-  //     is_active: '1',
-  //     created_by: '1',
-  //     ownerObj: {},
-  //     metric_start_value: [0, [Validators.required, Validators.min(0)]],
-  //     metric_target_value: [1, [Validators.required, Validators.min(this.min_target_matrix)]],
-  //   });
-  // }
-
   }
-
-  milestoneObj={
-    milestone_id: "",
-    milestone_name : "",
-    milestone_progress : "",
-    milestone_start_date : "",
-    milestone_due_date : "",
-    milestone_type : "",
-    milestone_weightage : "",
-    milestone_status : "",
-    created_by : "",
-    milestone_owner_id: "",
-    milestone_owner_name: "",
-    milestone_owner_email: "",
-    metric_start_value : "",
-    metric_target_value : "",
-    metric_curr_value : "",
-  }
-
   // updateMilestoneRequest(data:any, milestoneType:string){
-  onUpdateMilestone(){
-    this.milestoneObj.milestone_id = this.updateForm.value.milestone_id;
-    this.milestoneObj.milestone_name = this.updateForm.value.milestone_name;
-    this.milestoneObj.milestone_progress = this.updateForm.value.milestone_progress;
-    this.milestoneObj.milestone_start_date = this.updateForm.value.milestone_start_date;
-    this.milestoneObj.milestone_due_date = this.updateForm.value.milestone_due_date;
-    this.milestoneObj.milestone_type = this.updateForm.value.milestone_type;
-    this.milestoneObj.milestone_weightage = this.updateForm.value.milestone_weightage;
-    this.milestoneObj.milestone_status = this.updateForm.value.milestone_status;
-    this.milestoneObj.created_by = this.updateForm.value.created_by;
-    this.milestoneObj.milestone_owner_id= this.model.user_id;
-    this.milestoneObj.milestone_owner_name= this.model.full_name;
-    this.milestoneObj.milestone_owner_email= this.model.email;
-    this.milestoneObj.metric_start_value = this.updateForm.value.metric_start_value;
-    this.milestoneObj.metric_target_value = this.updateForm.value.metric_target_value;
-    this.milestoneObj.metric_curr_value = this.updateForm.value.metric_curr_value;
-    this.apiService.post(`/api/v1/employee/update-milestone`, this.updateForm.value).subscribe((result)=>{
+  onUpdateMilestone(myForm:any){
+    var postReq:any = {
+    milestone_id: myForm.value.milestone_id,
+    milestone_name : myForm.value.milestone_name,
+    milestone_start_date : myForm.value.milestone_start_date,
+    milestone_due_date : myForm.value.milestone_due_date,
+    milestone_type : myForm.value.milestone_type,
+    milestone_owner_id: myForm.value.ownerObj.user_id,
+    milestone_owner_name: myForm.value.ownerObj.full_name,
+    milestone_owner_email: myForm.value.ownerObj.email,
+    metric_start_value : myForm.value.metric_start_value,
+    metric_target_value : myForm.value.metric_target_value,
+ 
+    };
+    
+    this.apiService.post(`/api/v1/employee/update-milestone`, postReq).subscribe((result)=>{
       console.log(result);
       // console.log("aaaaaa", this.model);
       this.toastr.success("Milestone Updated Successfully...", 'Success');

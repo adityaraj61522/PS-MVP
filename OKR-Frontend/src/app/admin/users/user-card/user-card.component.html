@@ -17,40 +17,6 @@
         </div>
     </div>
 </div>
-<!-- Make Admin -->
-<!-- <div class="modal fade show" *ngIf="show" id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered" style=" width: 400px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" style="font-size: 20px;"><strong>Do you want to delete this user?</strong> </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="confirmationPopupHide()" aria-label="Close"></button>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" (click)="[adminUserOperation(this.userDetails.user_id,admin_user_id ,'MAKE_ADMIN')]" *ngIf="!isLoad" style="background-color: #0D8EBB; margin:5px; text-align: center;" data-bs-toggle="modal">Yes</button>
-                <button class="btn btn-primary" type="submit" *ngIf="isLoad" data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 130px;" data-bs-toggle="modal">
-                <mat-spinner [diameter]="23" style="margin-left: 40px;"></mat-spinner></button>
-                <button class="btn btn-secondary" (click)="confirmationPopupHide()" style="margin:5px;" data-bs-toggle="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
-<Remove Admin 
-<div class="modal fade show" *ngIf="show" id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered" style=" width: 400px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" style="font-size: 20px;"><strong>Do you want to delete this user?</strong> </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="confirmationPopupHide()" aria-label="Close"></button>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" (click)="[adminUserOperation(this.userDetails.user_id,admin_user_id ,'REMOVE_ADMIN')]" *ngIf="!isLoad" style="background-color: #0D8EBB; margin:5px; text-align: center;" data-bs-toggle="modal">Yes</button>
-                <button class="btn btn-primary" type="submit" *ngIf="isLoad" data-bs-target="#exampleModalToggle2" style="background-color: #0D8EBB; width: 130px;" data-bs-toggle="modal">
-                <mat-spinner [diameter]="23" style="margin-left: 40px;"></mat-spinner></button>
-                <button class="btn btn-secondary" (click)="confirmationPopupHide()" style="margin:5px;" data-bs-toggle="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div> -->
 
 <div class="list-card row shadow-lg" style="margin-bottom: 10px;">
     <div class="col-sm-1 progress-percent">
@@ -83,9 +49,9 @@
             <img src="https://img.icons8.com/ios-filled/20/000000/menu-2.png" />
           </button>
             <ul class="dropdown-menu" *ngIf="dp" style="display: block" aria-labelledby="dropdownMenuButton1">
-                <!-- <li>
+                <li>
                     <a (click)="editUser()" class="dropdown-item">Edit</a>
-                </li> -->
+                </li>
                 <li>
                     <a (click)="confirmationPopupShow('DELETE')" class="dropdown-item">Delete</a>
                 </li>
@@ -107,6 +73,11 @@
     </div>
 
 </div>
-<div *ngIf="showform">
+<div class="modal fade show" *ngIf="showform" id="exampleModalToggle" aria-hidden="false" style="display: block !important;" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            
     <app-update-user [userDetails]="userDetails"></app-update-user>
+        </div>
+    </div>
 </div>
