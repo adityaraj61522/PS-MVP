@@ -66,8 +66,13 @@ export class SettingsComponent implements OnInit {
     this.orgDetails.org_id=JSON.parse(JSON.stringify(sessionStorage.getItem('orgDetails_id')));
     await this.http.post(`/api/v1/admin/getGoalSettings`, this.orgDetails , this.requestOptions
   ).subscribe((result:any)=>{
-      console.log(result);
+      console.log(result,"settings");
       this.settingsDetails=result[0];
+      if(this.settingsDetails.align_company_objective==0){
+        this.align=false
+      }else{
+        this.align=true
+      }
       this.settingsForm = new FormGroup ({
         org_id:new FormControl(this.orgDetails.org_id),
         goal_setting_id:new FormControl(this.settingsDetails['goal_setting_id']),
