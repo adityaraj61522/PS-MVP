@@ -46,7 +46,7 @@
                         <strong>Due Date: </strong> {{ goal_data[0].goal_due_date | date:'dd-MMM-YY'}}
                     </li>
                     <li class="nav-item details" style="margin-left: 400px;">
-                        <div *ngIf="goalStatus!=='REJECTED'">
+                        <div *ngIf="goalStatus!=='REJECTED' || goalStatus!=='WAITING_FOR_CLOSURE'||goalStatus!=='CLOSED'">
                             <app-milestone-reuse [goalId]="goal_data[0].goal_id" [refFrom]="'detailsPage'"></app-milestone-reuse>
         
                         </div>

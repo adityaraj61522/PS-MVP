@@ -9,6 +9,7 @@ export class CheckinHistoryCardComponent implements OnInit {
 
   constructor() { }
   @Input() checkin_history:any;
+  @Input() milestoneDetails:any;
   created_date:any;
 
   ngOnInit(): void {

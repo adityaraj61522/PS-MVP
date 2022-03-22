@@ -2,48 +2,38 @@
     <div *ngIf="!checkin_history.length" class="nav-link">
         No Active Checkin History
     </div>
-    <div class="col-sm-9 task-details">
+    <div class="col-sm-12 task-details">
         <!-- <strong> goalDetails.goal_name</strong> -->
-        <ul class="nav">
+        <ul class="nav row">
             <li class="nav-item col-sm-2">
                 <div class="nav-link">
                     Checkin Date
-                    <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
                 </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item col-sm-2">
                 <div class="nav-link">
                     Checkin Time
-                    <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
                 </div>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item col-sm-2">
                 <div class="nav-link">
                      Old Progress
-                    <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
                 </div>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item col-sm-2">
                 <div class="nav-link">
                      New Progress
-                    <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
                 </div>
             </li>
-            <!-- <li class="nav-item">
-                <div class="nav-link">
-                    Matric old Value
-                    <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
-                <!-- </div>
-            </li> --> 
-            <li class="nav-item">
+            <li class="nav-item col-sm-2" *ngIf="milestoneDetails.milestone_type=='metric'">
                 <div class="nav-link">
                     Metric Checkin Value
                     <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
                 </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item col-sm-2">
                 <div class="nav-link">
                     Checkin Comment
                     <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
@@ -53,5 +43,5 @@
     </div>
 </div>
 <div class="list" *ngFor="let history of checkin_history">
-    <app-checkin-history-card [checkin_history]="history"></app-checkin-history-card>
+    <app-checkin-history-card [checkin_history]="history" [milestoneDetails]="milestoneDetails"></app-checkin-history-card>
 </div>

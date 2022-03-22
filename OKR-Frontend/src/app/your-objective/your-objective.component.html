@@ -1,6 +1,5 @@
 <app-nav></app-nav>
 <section class="active-list">
-    <app-objective-upload></app-objective-upload>
     <div>
         <strong *ngIf="(goalCountData[0].IN_PROGRESS + goalCountData[0].WAITING_FOR_CLOSURE  + goalCountData[0].WAITING_FOR_APPROVAL)">Active({{goalCountData[0].IN_PROGRESS  + goalCountData[0].WAITING_FOR_CLOSURE + goalCountData[0].WAITING_FOR_APPROVAL}})</strong>
         <app-milestone></app-milestone>
@@ -189,7 +188,7 @@
             </div>
         </div>
     </div>
-    <div class="list" *ngIf="!(goalCountData[0].IN_PROGRESS +goalCountData[0].WAITING_FOR_APPROVAL)" style="display: flex; justify-content: center; font-size: 25px;; text-align: center; color: grey;">
+    <div class="list" *ngIf="!(goalCountData[0].IN_PROGRESS +goalCountData[0].WAITING_FOR_APPROVAL+goalCountData[0].WAITING_FOR_CLOSURE )" style="display: flex; justify-content: center; font-size: 25px;; text-align: center; color: grey;">
         You do not have any goal assigned. Please go ahead and create one.
     </div>
 

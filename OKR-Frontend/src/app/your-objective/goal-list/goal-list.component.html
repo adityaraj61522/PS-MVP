@@ -40,6 +40,9 @@
             <li class="nav-item">
                 <a class="nav-link">{{ goalDetails.linked_org_goal_name }}</a>
             </li>
+            <li class="nav-item" *ngIf="goalDetails.goal_status=='REJECTED'">
+                <a class="nav-link"><strong>Rejection Comment: </strong>{{ goalDetails.rejection_comment }}</a>
+            </li>
         </ul>
     </div>
     <div class="col-sm-2 options">

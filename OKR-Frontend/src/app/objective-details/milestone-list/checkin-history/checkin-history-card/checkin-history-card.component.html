@@ -1,7 +1,7 @@
 <div class="list-card row shadow-lg" style="margin-top: 10px; width: 1270px; margin-left: 20px;margin-bottom: 10px;">
-    <div class="col-sm-9 task-details">
+    <div class="col-sm-12 task-details">
         <!-- <strong> goalDetails.goal_name</strong> -->
-        <ul class="nav">
+        <ul class="nav row">
             <li class="nav-item col-sm-2">
                 <div class="nav-link">
                     {{checkin_history.creation_date| date: "dd-MMM-YYYY" }}
@@ -16,21 +16,31 @@
             </li>
 
             <li class="nav-item col-sm-2">
-                <div class="nav-link">
+                <div class="nav-link" *ngIf="milestoneDetails.milestone_type=='boolean'">
+                    {{checkin_history.milestone_progress_old==0?"No":"Yes"}}
+                </div>
+                <div class="nav-link" *ngIf="milestoneDetails.milestone_type!=='boolean'">
                     {{checkin_history.milestone_progress_old}}
-                    <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
                 </div>
             </li>
 
             <li class="nav-item col-sm-2">
-                <div class="nav-link">
+                <div class="nav-link" *ngIf="milestoneDetails.milestone_type=='boolean'">
+                    {{checkin_history.milestone_progress_new==0?"No":"Yes"}}
+                </div>
+                <div class="nav-link" *ngIf="milestoneDetails.milestone_type!=='boolean'">
                     {{checkin_history.milestone_progress_new}}
-                    <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
                 </div>
             </li>
             <li class="nav-item col-sm-2">
                 <div class="nav-link">
                     {{checkin_history.metric_value_new}}
+                    <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
+                </div>
+            </li>
+            <li class="nav-item col-sm-2">
+                <div class="nav-link">
+                    {{checkin_history.checkin_comment}}
                     <!-- {{ goalDetails.goal_due_date | date: "dd-MMM" }} -->
                 </div>
             </li>

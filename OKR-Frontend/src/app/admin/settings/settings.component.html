@@ -21,11 +21,14 @@
         </div>
             <div class="form-group opt">
                 <label>Company Objective?</label><br>
-                <input type="checkbox" formControlName="align_company_objective">
-                Align with KRAs with Company Annual Priorities/Objective
-                <br>
-                <input type="checkbox" formControlName="mandatory_company_objective">
-                Make It Mandatory
+                <div>
+                    <input type="checkbox" formControlName="align_company_objective" [(ngModel)]="align">
+                    Align with KRAs with Company Annual Priorities/Objective
+                </div>
+                <div *ngIf="align">
+                    <input type="checkbox" formControlName="mandatory_company_objective">
+                    Make It Mandatory
+                </div>
             </div>
             <div class="form-group opt">
                 <label>Who Can Create OKR</label><br>

@@ -4,7 +4,7 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/objectives" routerLinkActive="active">OKR</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="sessionData.role_id==2">
         <a class="nav-link" routerLink="/admin/users"  routerLinkActive="active">DASHBOARD</a>
       </li>
         <ul class="nav side">
@@ -50,6 +50,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/admin/settings" routerLinkActive="active">SETTINGS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/bulkUpload" routerLinkActive="active">BULK UPLOAD</a>
       </li>
     </ul>
     </nav>

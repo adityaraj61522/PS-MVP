@@ -50,10 +50,7 @@ export class NavComponent implements OnInit {
   sessionData:any;
   ngOnInit(): void {
   
-    if(window.location.pathname=='/admin/users'){
-      this.admin=true;
-      this.employee=false;
-    }else if(window.location.pathname=='/admin/settings'){
+    if(window.location.pathname=='/admin/users'||window.location.pathname=='/admin/settings'||window.location.pathname=='/admin/bulkUpload'){
       this.admin=true;
       this.employee=false;
     }else{
@@ -70,6 +67,7 @@ export class NavComponent implements OnInit {
     this.manager.line_manager_id=this.sessionData.line_manager_id;
     this.manager.org_id=this.sessionData.org_id;
     this.manager.user_id=this.sessionData.user_id;
+    console.log(this.sessionData,"-----session")
 
     this.http.post(`/api/v1/employee/getMyTeam`, this.manager, this.requestOptions).subscribe((response)=>{
       this.teamMembers=response;

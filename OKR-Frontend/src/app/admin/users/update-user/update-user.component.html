@@ -6,24 +6,29 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
+                        <label>Firstname</label><br> 
                         <input type="text" formControlName="first_name" class="r-in form-control" placeholder="Enter First Name" firs_tname required>
                     </div>
 
                     <div class="form-group">
+                        <label>Lastname</label><br> 
                         <input type="text" formControlName="last_name" class="r-in form-control" placeholder="Enter Last Name" last_name required>
                     </div>
 
                     <div class="form-group">
+                        <label>Username</label><br> 
                         <input type="text" formControlName="username" class="r-in form-control" placeholder="Enter User Name" username required>
                     </div>
                     
                     <div class="form-group">
+                        <label>Email</label><br> 
                         <input type="email" formControlName="email" class="r-in form-control" placeholder="Enter Email" email required>
                     </div>
                     
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
+                        <label>Department</label><br> 
                         <select formControlName="department" class="r-in form-control" department required>
                             <option value="">Select Department</option>
                             <option value="Human Resource">Human Resource</option>
@@ -34,6 +39,7 @@
                     </div>
                     
                     <div class="form-group">
+                        <label>Employee Code</label><br> 
                         <input type="text" formControlName="emp_code" class="r-in form-control" placeholder="Enter Emp Code" emp_code required>
                     </div>
 
@@ -43,6 +49,7 @@
                         [resultFormatter]="inFormatter"
                         [inputFormatter]="outFormatter"
                         value="{{userDetails.line_manager_id}}"/> -->
+                        <label>Manager</label><br> 
                         <select class="form-select r-in" formControlName="line_manager_id">
                             <option value="">select Line Manager</option>
                             <option *ngFor="let item of allUsers" value="{{item.user_id}}">{{item.full_name}}</option>
@@ -50,6 +57,7 @@
                     </div>
 
                     <div class="form-group">
+                        <label>City</label><br> 
                         <input type="text" formControlName="city" class="r-in form-control" placeholder="Enter City Name" city required>
                     </div>
                 </div>

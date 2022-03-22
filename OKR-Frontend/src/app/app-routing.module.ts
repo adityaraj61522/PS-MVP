@@ -8,6 +8,7 @@ import { ObjectiveDetailsComponent } from './objective-details/objective-details
 import { RegisterComponent } from './register/register.component';
 import { YourObjectiveComponent } from './your-objective/your-objective.component';
 import { UpdateUserComponent } from './admin/users/update-user/update-user.component';
+import { BulkUploadComponent } from './admin/bulk-upload/bulk-upload.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'my-team', component: MyTeamComponent},
   { path: 'admin/settings', component: SettingsComponent},
   { path: 'admin/users', component: UsersComponent},
-  { path:  'admin/users/update-user', component: UpdateUserComponent}
+  { path:  'admin/users/update-user', component: UpdateUserComponent},
+  { path:  'admin/bulkUpload', component: BulkUploadComponent}
 ];
 
 @NgModule({

@@ -111,8 +111,8 @@ export class ObjectiveDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.Id.goal_id = params['ID'];
-      this.onManagerDecisionReq.goal_id =  params['ID'];
+      this.Id.goal_id = atob(params['ID']);
+      this.onManagerDecisionReq.goal_id =  atob(params['ID']);
     });
     this.getGoalDetails();
     this.getGoalMilestones();
@@ -161,9 +161,14 @@ export class ObjectiveDetailsComponent implements OnInit {
   onManagerDecision(decision: any, reqType:any){
     this.onManagerDecisionReq.decision = decision;
     this.onManagerDecisionReq.reqType= reqType;
-    this.onManagerDecisionReq.comment=JSON.parse(JSON.stringify(prompt('Are you sure you want to '+ decision + ' this request? \nComment:',"")));
+    if(decision=="REJECT"){
+
+      this.onManagerDecisionReq.comment=JSON.parse(JSON.stringify(prompt('Are you sure you want to '+ decision + ' this request? \nComment:',"")));
+    }else{
+      confirm('Are you sure you want to '+ decision + ' this request? \nComment:');
+    }
     console.log(reqType);
-      if(this.onManagerDecisionReq.comment){
+      if(this.onManagerDecisionReq.comment||decision=="APPROVE"){
         console.log(this.onManagerDecisionReq.comment)
         this.http.post(`/api/v1/employee/managerdecision`, this.onManagerDecisionReq, this.requestOptions).subscribe((response)=>{
           console.log(response);

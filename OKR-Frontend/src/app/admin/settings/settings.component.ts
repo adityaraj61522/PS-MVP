@@ -28,6 +28,7 @@ export class SettingsComponent implements OnInit {
   }
   user_id:any;
   e=false;
+  align=true;
   settingsDetails:any;
   constructor( private http : HttpClient,  private router : Router ,private toastr: ToastrService) { }
 

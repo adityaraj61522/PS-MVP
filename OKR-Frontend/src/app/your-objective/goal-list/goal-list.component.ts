@@ -35,8 +35,10 @@ export class GoalListComponent implements OnInit {
     this.show3=false;
   }
   getGoalDetails() {
+var id=this.goalDetails.goal_id;
+id=btoa(id)
     this.router.navigate(['/objective-deatils'], {
-      queryParams: { ID: `${this.goalDetails.goal_id}` },
+      queryParams: { ID: `${id}` },
     });
   }
 

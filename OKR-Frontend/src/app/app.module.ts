@@ -42,6 +42,7 @@ import { ObjectiveUploadComponent } from './bulkupload/objective-upload/objectiv
 import { CheckinHistoryComponent } from './objective-details/milestone-list/checkin-history/checkin-history.component';
 import { CheckinHistoryCardComponent } from './objective-details/milestone-list/checkin-history/checkin-history-card/checkin-history-card.component';
 import { UpdateUserComponent } from './admin/users/update-user/update-user.component';
+import { BulkUploadComponent } from './admin/bulk-upload/bulk-upload.component';
 // import { NgbdToastGlobalModule } from './milestone/toast/toast-global.module';
 
 @NgModule({
@@ -70,7 +71,8 @@ import { UpdateUserComponent } from './admin/users/update-user/update-user.compo
     ObjectiveUploadComponent,
     CheckinHistoryComponent,
     CheckinHistoryCardComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    BulkUploadComponent
   ],
   imports: [
     BrowserModule,
