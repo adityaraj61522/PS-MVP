@@ -92,7 +92,7 @@ export class ObjectiveDetailsComponent implements OnInit {
       this.http
         .put(
           `/api/v1/employee/deletemilestone`,
-          { milestone_id, org_id },
+          this.deleteMilestoneReq,
           this.requestOptions
         )
         .subscribe(

@@ -14,16 +14,12 @@
                         <div class="nav-link">Date: {{ goal_data[0].creation_date |date:'dd-MMM-YY'}}</div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Learning Path: {{ goal_data[0].goal_type }}</a>
+                        <a class="nav-link" href="javascript:void(0)"> Company Objective: {{ goal_data[0].linked_org_goal_name }}</a>
                     </li>
                 </ul>
             </div>
 
             <div class="col-sm-2 options">
-                <div *ngIf="goalStatus!=='REJECTED'">
-                    <app-milestone-reuse [goalId]="goal_data[0].goal_id" [refFrom]="'detailsPage'"></app-milestone-reuse>
-
-                </div>
                 <div *ngIf="goal_data[0].line_manager_id==user_id">
                     <p class="status-waiting" *ngIf="goalStatus=='WAITING_FOR_APPROVAL'">Waiting for approval</p>
                     <p class="status-closed" *ngIf="goalStatus=='WAITING_FOR_CLOSURE' "><strong>Waiting for Closure</strong></p>
@@ -49,6 +45,13 @@
                     <li class="nav-item details">
                         <strong>Due Date: </strong> {{ goal_data[0].goal_due_date | date:'dd-MMM-YY'}}
                     </li>
+                    <li class="nav-item details" style="margin-left: 400px;">
+                        <div *ngIf="goalStatus!=='REJECTED'">
+                            <app-milestone-reuse [goalId]="goal_data[0].goal_id" [refFrom]="'detailsPage'"></app-milestone-reuse>
+        
+                        </div>
+                    </li>
+
                 </ul>
                 <div>
                     <p class="btn btn-danger side ml-20" *ngIf="goalStatus=='REJECTED'">Goal Rejected</p>
@@ -59,7 +62,7 @@
 </section>
 <section class="active-list">
     <div>
-        <strong>Milestones</strong>
+        <strong>Key Results</strong>
     </div>
     <div *ngIf="milestone_data.length!==0">
         <div class="list" *ngFor="let milestone of milestone_data">
@@ -67,7 +70,7 @@
         </div>
     </div>
     <div *ngIf="milestone_data.length==0">
-        <p style="text-align: center;"><strong>No Milestones Yet!!!</strong></p>
+        <p style="text-align: center;"><strong>No Key Result Yet!!!</strong></p>
     </div>
 
 </section>

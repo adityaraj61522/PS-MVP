@@ -56,8 +56,8 @@
 
             <div class="form-group opt">
                 <label>Who Can edit OKR?</label><br>
-                <input type="radio" formControlName="goal_updator" value="OWNER" >Goal owner<br>
-                <input type="radio" formControlName="goal_updator" value="MANAGER" >Manager <br>
+                <input type="radio" formControlName="goal_updator" value="OWNER" >Goal owner & Manager<br>
+                <input type="radio" formControlName="goal_updator" value="MANAGER" >Only Manager <br>
             </div>
             <span *ngIf="e">Something Went Wrong!!!!!</span>
             <button type="submit" class="btn btn-primary opt" style="margin-left: 600px;"> SAVE</button>

@@ -8,16 +8,16 @@
         <a class="nav-link" routerLink="/admin/users"  routerLinkActive="active">DASHBOARD</a>
       </li>
         <ul class="nav side">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link active" aria-current="page"><img src="https://img.icons8.com/external-others-iconmarket/25/000000/external-bell-winter-others-iconmarket-2.png"/></a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <div class="nav-link active" aria-current="page">
               <div class="dropdown">
                 {{ sessionData.first_name }}
                 {{ sessionData.last_name }}
               <button class="btn btn-default dropdown-toggle" (click)="dpsh()" style="color: #0D8EBB; padding-top: 0px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://img.icons8.com/ios-filled/25/000000/circled.png"/>
+                <img style="width: 20px; height: 20px;" src="{{ sessionData.profile_img_url }}"/>
               </button>
               <ul class="dropdown-menu" style="display: block;" *ngIf="dpshow" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
